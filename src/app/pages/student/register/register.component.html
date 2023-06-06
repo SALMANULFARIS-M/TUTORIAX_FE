@@ -1,1 +1,327 @@
-<p>register works!</p>
+<section class="p-1 from-indigo-500">
+  <ng-particles
+    [id]="id"
+    [options]="particlesOptions"
+    [particlesInit]="particlesInit"
+    (particlesLoaded)="particlesLoaded($event)"
+  ></ng-particles>
+  <!-- Container -->
+  <div class="container relative">
+    <div class="flex justify-center px-6 my-10 relative">
+      <!-- Row -->
+      <div class="w-full xl:w-3/4 lg:w-11/12 flex shadow-inner ...">
+        <!-- Col -->
+        <div
+          class="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
+          style="
+            background-image: url('https://img.freepik.com/premium-vector/modern-mobile-app-education-e-learning-illustration-woman-sitting-desk-with-laptop_188928-115.jpg?w=2000');
+          "
+        ></div>
+        <!-- Col -->
+        <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
+          <h3 class="text-2xl text-center font-mono">Create an Account!</h3>
+          <form
+            class="px-8 bg-white rounded"
+            [formGroup]="registrationForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <div class="mb-3 md:flex md:justify-between">
+              <div class="md:mr-2 md:mb-0">
+                <label
+                  class="block mb-2 text-sm font-bold text-gray-700"
+                  for="firstName"
+                >
+                  First Name
+                </label>
+                <input
+                  class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border-2 rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:border-blue-600"
+                  id="firstName"
+                  type="text"
+                  placeholder="First Name"
+                  formControlName="firstName"
+                  [ngClass]="{
+                    'form-control is-invalid': submit && f.firstName.errors
+                  }"
+                />
+
+                <div
+                  *ngIf="submit && f.firstName.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.firstName.errors['required']">
+                    First Name is required
+                  </div>
+                  <div *ngIf="f.firstName.errors['pattern']">
+                    Required some word
+                  </div>
+                </div>
+              </div>
+              <div class="md:ml-2">
+                <label
+                  class="block mb-2 text-sm font-bold text-gray-700"
+                  for="lastName"
+                >
+                  Last Name
+                </label>
+                <input
+                  class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border-2 rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:border-blue-600"
+                  id="lastName"
+                  type="text"
+                  placeholder="Last Name"
+                  formControlName="lastName"
+                  [ngClass]="{
+                    'form-control is-invalid': submit && f.lastName.errors
+                  }"
+                />
+                <div
+                  *ngIf="submit && f.lastName.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.lastName.errors['required']">
+                    First Name is required
+                  </div>
+                  <div *ngIf="f.lastName.errors['pattern']">
+                    Required some word
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label
+                class="block mb-2 text-sm font-bold text-gray-700"
+                for="email"
+              >
+                Email
+              </label>
+              <input
+                class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border-2 rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:border-blue-600"
+                id="email"
+                type="email"
+                placeholder="Email"
+                formControlName="email"
+                [ngClass]="{
+                  'form-control is-invalid': submit && f.email.errors
+                }"
+              />
+              <div *ngIf="submit && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors['required']">E-mail is required</div>
+                <div *ngIf="f.email.errors['email']">
+                  invalid E-mail, Please enter correctly
+                </div>
+              </div>
+            </div>
+            <div class="mb-4">
+              <label
+                class="block mb-2 text-sm font-bold text-gray-700"
+                for="mobile"
+              >
+                Mobile Number
+              </label>
+              <input
+                class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border-2 rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:border-blue-600"
+                id="mobile"
+                type="number"
+                placeholder="Mobile Number"
+                formControlName="mobile"
+                [ngClass]="{
+                  'form-control is-invalid': submit && f.mobile.errors
+                }"
+              />
+              <div id="recaptcha-container" class="mt-2"></div>
+              <div
+                *ngIf="otpFlag"
+                id="otp"
+                #inputs
+                class="flex flex-row justify-center text-center px-2 mt-2"
+              >
+                <input
+                  class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                  type="number"
+                  id="first"
+                  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                  (input)="onInput($event, 0)"
+                  (keydown)="onKeyDown($event, 0)"
+                />
+                <input
+                  class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                  type="number"
+                  id="second"
+                  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                  (input)="onInput($event, 1)"
+                  (keydown)="onKeyDown($event, 1)"
+                />
+                <input
+                  class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                  type="number"
+                  id="third"
+                  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                  (input)="onInput($event, 2)"
+                  (keydown)="onKeyDown($event, 2)"
+                />
+                <input
+                  class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                  type="number"
+                  id="fourth"
+                  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                  (input)="onInput($event, 3)"
+                  (keydown)="onKeyDown($event, 3)"
+                />
+                <input
+                  class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                  type="number"
+                  id="fifth"
+                  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                  (input)="onInput($event, 4)"
+                  (keydown)="onKeyDown($event, 4)"
+                />
+                <input
+                  class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                  type="number"
+                  id="sixth"
+                  oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                  (input)="onInput($event, 5)"
+                  (keydown)="onKeyDown($event, 5)"
+                />
+                <button
+                  type="button"
+                  (click)="otpVerify()"
+                  [class.loader]="isLoading"
+                  class="group h-7 my-3 px-3 text-center text-blue-500 border-2 border-blue-800 rounded-full transition duration-300 hover:border-gray-600 hover:bg-blue-500 hover:text-black focus:bg-blue-500 active:bg-blue-100"
+                >
+                  <span *ngIf="!isLoading">verify</span>
+                  <!-- Display "verify" text when not loading -->
+                  <span
+                    *ngIf="isLoading"
+                    class="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-black motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                    role="status"
+                  ></span>
+                  <!-- Display the spinner when loading -->
+                </button>
+              </div>
+              <div *ngIf="submit && f.mobile.errors" class="invalid-feedback">
+                <div *ngIf="f.mobile.errors['required']">
+                  E-mail is required
+                </div>
+                <div *ngIf="f.mobile.errors['pattern']">
+                  Please Enter 10 digit mobile number
+                </div>
+              </div>
+            </div>
+            <div class="mb-4 md:flex md:justify-between">
+              <div class="mb-4 md:mr-2 md:mb-0">
+                <label
+                  class="block mb-2 text-sm font-bold text-gray-700"
+                  for="password"
+                >
+                  Password
+                </label>
+                <input
+                  class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border-2 rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:border-blue-600"
+                  id="password"
+                  type="password"
+                  placeholder="**********"
+                  formControlName="password"
+                  [ngClass]="{
+                    'form-control is-invalid': submit && f.password.errors
+                  }"
+                />
+                <div
+                  *ngIf="submit && f.password.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.password.errors['required']">
+                    password is required
+                  </div>
+                  <div *ngIf="f.password.errors['pattern']">
+                    Password contain minimum 6 letters and combination of
+                    Alphabets and numbers and a special character
+                  </div>
+                </div>
+              </div>
+              <div class="md:ml-2">
+                <label
+                  class="block mb-2 text-sm font-bold text-gray-700"
+                  for="c_password"
+                >
+                  Confirm Password
+                </label>
+                <input
+                  class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border-2 rounded shadow appearance-none focus:outline-none focus:shadow-outline focus:border-blue-600"
+                  id="c_password"
+                  type="password"
+                  placeholder="**********"
+                  formControlName="cpassword"
+                  [ngClass]="{
+                    'form-control is-invalid': submit && f.password.errors
+                  }"
+                />
+                <div
+                  *ngIf="submit && f.cpassword.errors"
+                  class="invalid-feedback"
+                >
+                  <div *ngIf="f.cpassword.errors['required']">
+                    password is required
+                  </div>
+                  <div
+                    *ngIf="
+                      f.cpassword.errors &&
+                      f.cpassword.errors['confirmPasswordMismatch']
+                    "
+                  >
+                    Confirm password is not match
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-2 text-center">
+              <button
+                class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                type="submit"
+              >
+                Register Account
+              </button>
+            </div>
+            <!-- Separator between social media sign in and email/password sign in -->
+            <div
+              class="my-2 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300"
+            >
+              <p class="mx-4 mb-0 text-center font-semibold dark:text-dark">
+                Or
+              </p>
+            </div>
+
+            <div class="text-center">
+              <a
+                class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+                routerLink="../login"
+              >
+                Already have an account?
+              </a>
+            </div>
+          </form>
+          <div class="mb-2 text-center">
+            <!-- <asl-google-signin-button></asl-google-signin-button> -->
+            <button
+              type="button"
+              class="group h-12 text-center px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
+            >
+              <div
+                class="relative flex items-center space-x-8 justify-center justify-between"
+              >
+                <img
+                  src="https://tailus.io/sources/blocks/social/preview/images/google.svg"
+                  class="absolute left-0 w-5"
+                  alt="google logo"
+                />
+                <span
+                  class="ml-6 block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base"
+                  >Continue with Google</span
+                >
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
