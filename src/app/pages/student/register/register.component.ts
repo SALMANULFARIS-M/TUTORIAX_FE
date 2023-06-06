@@ -26,7 +26,17 @@ declare const window: CustomWindow;
 declare const  google:any;
 
 //firebase config
-const app = initializeApp(environment.firebase);
+
+
+const app = initializeApp({
+  apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
+  authDomain: "e-mail-otp-verification.firebaseapp.com",
+  projectId: "e-mail-otp-verification",
+  storageBucket: "e-mail-otp-verification.appspot.com",
+  messagingSenderId: "481187461752",
+  appId: "1:481187461752:web:f8255469cf48b74e5d0b8d",
+  measurementId: "G-DGKX0B9QDQ"
+});
 const auth = getAuth(app);
 auth.languageCode = 'it';
 
@@ -53,6 +63,7 @@ export class RegisterComponent {
   constructor(private fb: FormBuilder, private studentService: StudentServicesService, private router: Router, private toastr: ToastrService, private cookieService: CookieService) { }
 
   //declare a variable
+  options!: string;
   submit: boolean = false;
   otpFlag: boolean = false;
   phoneNumber: string = "";

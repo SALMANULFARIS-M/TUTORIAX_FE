@@ -16,6 +16,7 @@ export class TokenInterceptor implements HttpInterceptor {
   token!: string;
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler) {
+    const commonUrl = "http://localhost:3001/"
     const isAdminRequest = request.url.includes("admin");
     const isTeacherRequest = request.url.includes("teacher");
 
@@ -33,13 +34,13 @@ export class TokenInterceptor implements HttpInterceptor {
         Authorization: 'Bearer' + authService
       };
       let newRequest = request.clone({
-        url: environment.backendUrl + request.url,
+        url: commonUrl + request.url,
         setHeaders: headers
       })
       return next.handle(newRequest);
     } else {
       let newRequest = request.clone({
-        url: environment.backendUrl + request.url
+        url: commonUrl + request.url
       })
       return next.handle(newRequest);
     }

@@ -1,6 +1,8 @@
+
+
+
 export const environment = {
   production: false,
-  backendUrl:"http://localhost:3001/",
   firebase: {
     apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
     authDomain: "e-mail-otp-verification.firebaseapp.com",
