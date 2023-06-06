@@ -1,1 +1,118 @@
-<p>login works!</p>
+<!-- login -->
+<ng-particles
+  [id]="id"
+  [options]="particlesOptions"
+  [particlesInit]="particlesInit"
+  (particlesLoaded)="particlesLoaded($event)"
+></ng-particles>
+<div
+  class="min-h-screen bg-gray-100  flex flex-col justify-center sm:py-12"
+>
+  <div class="w-4/12 h-full relative py-3 sm:max-w-xl sm:mx-auto">
+    <div
+      class="absolute h-full inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"
+    ></div>
+    <div class="relative px-4 py-5 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+      <div class="max-w-md mx-auto">
+        <div class="mb-4">
+          <h1 class="text-2xl text-center font-semibold font-mono ...">
+            LOGIN TO YOUR LESSONS!
+          </h1>
+        </div>
+        <div class="divide-y divide-gray-200">
+          <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <div
+              class="py-4 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+            >
+              <div class="relative mb-3">
+                <input
+                  autocomplete="off"
+                  id="mobile"
+                  name="mobile"
+                  type="number"
+                  class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                  placeholder="Mobile Number"
+                  formControlName="mobile"
+                  [ngClass]="{ 'form-control is-invalid': submit && f.mobile.errors }"
+                />
+                <label
+                  for="mobile"
+                  class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >Mobile Number</label
+                >
+                <div *ngIf="submit && f.mobile.errors" class="invalid-feedback">
+                  <div *ngIf="f.mobile.errors['required']">E-mail is required</div>
+                  <div *ngIf="f.mobile.errors['pattern']">
+                    invalid E-mail, Please enter correctly
+                  </div>
+                </div>
+              </div>
+              <div class="relative ">
+                <input
+                  autocomplete="off"
+                  id="password"
+                  name="password"
+                  type="password"
+                  class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
+                  placeholder="Password"
+                  formControlName="password"
+                  [ngClass]="{ 'form-control is-invalid': submit && f.password.errors }"
+                />
+                <label
+                  for="password"
+                  class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                  >Password</label
+                >
+                <div *ngIf="submit && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors['required']">
+                    password is required
+                  </div>
+                  <div *ngIf="f.password.errors['pattern']">
+                    Password contain minimum 6 letters and combination of
+                    Alphabets and numbers and a special character
+                  </div>
+                </div>
+              </div>
+              <div
+                class="relative pt-2 justify-center justify-between flex align-center"
+              >
+                <button
+                  type="submit"
+                  class="ml-2 inline-block rounded bg-blue-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                >
+                  Login
+                </button>
+                <p
+                  class="text-sm ... underline ... text-blue-600 hover:text-blue-800"
+                >
+                  Forgot Password
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- Separator between social media sign in and email/password sign in -->
+      <div
+        class="my-2 mb-3 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300"
+      >
+        <p class="mx-4 mb-0 text-center font-semibold dark:text-dark">Or</p>
+      </div>
+      <div class="text-center mb-4">
+        <a
+          class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
+          routerLink="../register"
+        >
+          Create an account?
+        </a>
+      </div>
+      <div class="mb-0 text-center">
+        <div id="g_id_onload"
+        data-client_id="360144361205-jcp24rraul11rocvispiq9u23sgg7n1e.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
+      </div>
+    </div>
+  </div>
+</div>
