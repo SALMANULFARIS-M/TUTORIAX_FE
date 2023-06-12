@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit {
   submit: boolean = false;
   fpsubmit: boolean = false;
   fpData!: Credentials;
-
   otpFlag: boolean = false;
   phoneNumber: string = "";
   isLoading: boolean = false;
