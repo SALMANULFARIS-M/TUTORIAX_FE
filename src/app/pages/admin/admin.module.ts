@@ -8,6 +8,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
 import { AdminTeachersComponent } from './admin-teachers/admin-teachers.component';
 import { AdminStudentsComponent } from './admin-students/admin-students.component';
+import { CoursepageComponent } from './coursepage/coursepage.component';
 
 
 
@@ -31,6 +32,7 @@ const adminRoute: Routes = [
     AdminCoursesComponent,
     AdminTeachersComponent,
     AdminStudentsComponent,
+    CoursepageComponent,
   ],
   imports: [
     RouterModule.forChild(adminRoute),
