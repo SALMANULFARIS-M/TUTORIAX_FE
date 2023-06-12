@@ -21,6 +21,11 @@ export class StudentServicesService {
     return this.http.post('checkstudent', userData, httpOptions)
   }
 
+  //check user
+  savePassword(userData: any): Observable<any> {
+    return this.http.post('savepassword', userData, httpOptions)
+  }
+
   //insert user
   insertUser(userData: any): Observable<any> {
     return this.http.post('register', userData, httpOptions)

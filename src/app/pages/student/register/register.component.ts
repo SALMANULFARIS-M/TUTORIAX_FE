@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidatorFn, Validators } from "@angular/forms";//forms
 //ts particles
 import { MoveDirection, ClickMode, HoverMode, OutMode, Container, Engine } from "tsparticles-engine";
@@ -10,10 +10,14 @@ import { Input, initTE } from "tw-elements";//tw-elements
 import { Router } from '@angular/router';
 import { StudentServicesService } from '../../../services/student-services.service';
 import { CookieService } from 'ngx-cookie-service';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.development';
 //firebase
+
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
+import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
+import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+
 
 //typescript cant obtain window directly
 interface CustomWindow extends Window {
@@ -23,7 +27,7 @@ interface CustomWindow extends Window {
 
 // Define the window object of type CustomWindow
 declare const window: CustomWindow;
-declare const  google:any;
+declare const google: any;
 
 //firebase config
 
@@ -59,17 +63,36 @@ const Toast = Swal.mixin({
   styleUrls: ['./register.component.scss']
 })
 
-export class RegisterComponent {
-  constructor(private fb: FormBuilder, private studentService: StudentServicesService, private router: Router, private toastr: ToastrService, private cookieService: CookieService) { }
+export class RegisterComponent implements OnInit {
+  constructor(private fb: FormBuilder, private studentService: StudentServicesService, private router: Router, private toastr: ToastrService,
+    private cookieService: CookieService, private _ngZone: NgZone, private socialAuthService: SocialAuthService) { }
 
   //declare a variable
-  options!: string;
   submit: boolean = false;
   otpFlag: boolean = false;
   phoneNumber: string = "";
   isLoading: boolean = false;
   otp: string[] = ['', '', '', '', '', ''];
   formData: any;
+
+  ngOnInit(): void {
+    // @ts-ignore
+    window.onGoogleLibraryLoad = () => {
+      google.accounts.id.initialize({
+        client_id: environment.clientId,
+        auto_select: false,
+        cancel_on_tap_outside: true
+      });
+
+      const buttonDiv = document.getElementById("buttonDiv");
+      google.accounts.id.renderButton(
+        buttonDiv,
+        { theme: "filled_blue", size: "large", width: "100%", text: "continue_with" }
+      );
+      google.accounts.id.prompt((notification: CredentialResponse) => { });
+    };
+  }
+
 
   //registration form  interface
   registrationForm = this.fb.group({
@@ -99,9 +122,7 @@ export class RegisterComponent {
       return null;
     };
   }
-
-
-//otp input
+  //otp input
   onInput(event: Event, index: number) {
     const inputElement = event.target as HTMLInputElement;
     const value = inputElement.value.trim();
@@ -113,6 +134,7 @@ export class RegisterComponent {
       }
     }
   }
+
   onKeyDown(event: KeyboardEvent, index: number) {
     if (event.key === 'Backspace' && !this.otp[index + 1] && index > 0) {
       event.preventDefault(); // Prevent the default Backspace behavior
@@ -124,7 +146,7 @@ export class RegisterComponent {
     }
   }
 
-//captchaverify
+  //captchaverify
   onCaptchaVerify(number: string) {
     if (!window.recaptchaVerifier) {
       window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
@@ -138,7 +160,7 @@ export class RegisterComponent {
     }
   }
 
-//after validate from backend send otp
+  //after validate from backend send otp
   otpSend(phoneNumber: string) {
     this.onCaptchaVerify(phoneNumber)
     const appVerifier = window.recaptchaVerifier
@@ -175,7 +197,7 @@ export class RegisterComponent {
   }
 
 
-//otpverification
+  //otpverification
   otpVerify() {
     const otpString: string = this.otp.join('')
     if (otpString.length < 6) {
@@ -189,7 +211,7 @@ export class RegisterComponent {
         this.studentService.insertUser(this.formData).subscribe((result: any) => {
           if (result.status) {
             this.formData = "";
-            this.toastr.success('Successfully registered', 'Toastr fun!');
+            this.toastr.success('Successfully registered', '');
             this.cookieService.set('studentjwt', result.token, 1);
             this.router.navigate(['/']);
           } else {
@@ -214,7 +236,7 @@ export class RegisterComponent {
     }
   }
 
-//submit button
+  //submit button
   onSubmit() {
     this.submit = true;
     if (this.registrationForm.valid) {
@@ -242,94 +264,94 @@ export class RegisterComponent {
   }
 
 
- //ts particles animation
- id = "tsparticles";
- /* Starting from 1.19.0 you can use a remote url (AJAX request) to a JSON with the configuration */
- particlesUrl = "http://foo.bar/particles.json";
+  //ts particles animation
+  id = "tsparticles";
+  /* Starting from 1.19.0 you can use a remote url (AJAX request) to a JSON with the configuration */
+  particlesUrl = "http://foo.bar/particles.json";
 
- /* or the classic JavaScript object */
- particlesOptions = {
-   background: {
-     color: {
-       value: "#0d47a1",
-     },
-   },
-   fpsLimit: 120,
-   interactivity: {
-     events: {
-       onClick: {
-         enable: true,
-         mode: ClickMode.push,
-       },
-       onHover: {
-         enable: true,
-         mode: HoverMode.repulse,
-       },
-       resize: true,
-     },
-     modes: {
-       push: {
-         quantity: 4,
-       },
-       repulse: {
-         distance: 200,
-         duration: 0.4,
-       },
-     },
-   },
-   particles: {
-     color: {
-       value: "#ffffff",
-     },
-     links: {
-       color: "#ffffff",
-       distance: 150,
-       enable: true,
-       opacity: 0.5,
-       width: 1,
-     },
-     collisions: {
-       enable: true,
-     },
-     move: {
-       direction: MoveDirection.none,
-       enable: true,
-       outModes: {
-         default: OutMode.bounce,
-       },
-       random: false,
-       speed: 6,
-       straight: false,
-     },
-     number: {
-       density: {
-         enable: true,
-         area: 800,
-       },
-       value: 80,
-     },
-     opacity: {
-       value: 0.5,
-     },
-     shape: {
-       type: "circle",
-     },
-     size: {
-       value: { min: 1, max: 5 },
-     },
-   },
-   detectRetina: true,
- };
+  /* or the classic JavaScript object */
+  particlesOptions = {
+    background: {
+      color: {
+        value: "#0d47a1",
+      },
+    },
+    fpsLimit: 120,
+    interactivity: {
+      events: {
+        onClick: {
+          enable: true,
+          mode: ClickMode.push,
+        },
+        onHover: {
+          enable: true,
+          mode: HoverMode.repulse,
+        },
+        resize: true,
+      },
+      modes: {
+        push: {
+          quantity: 4,
+        },
+        repulse: {
+          distance: 200,
+          duration: 0.4,
+        },
+      },
+    },
+    particles: {
+      color: {
+        value: "#ffffff",
+      },
+      links: {
+        color: "#ffffff",
+        distance: 150,
+        enable: true,
+        opacity: 0.5,
+        width: 1,
+      },
+      collisions: {
+        enable: true,
+      },
+      move: {
+        direction: MoveDirection.none,
+        enable: true,
+        outModes: {
+          default: OutMode.bounce,
+        },
+        random: false,
+        speed: 6,
+        straight: false,
+      },
+      number: {
+        density: {
+          enable: true,
+          area: 800,
+        },
+        value: 80,
+      },
+      opacity: {
+        value: 0.5,
+      },
+      shape: {
+        type: "circle",
+      },
+      size: {
+        value: { min: 1, max: 5 },
+      },
+    },
+    detectRetina: true,
+  };
 
- particlesLoaded(container: Container): void {
-   console.log(container);
- }
+  particlesLoaded(container: Container): void {
+    console.log(container);
+  }
 
- async particlesInit(engine: Engine): Promise<void> {
-   // Starting from 1.19.0 you can add custom presets or shape here, using the current tsParticles instance (main)
-   // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-   // starting from v2 you can add only the features you need reducing the bundle size
-   await loadFull(engine);
- }
+  async particlesInit(engine: Engine): Promise<void> {
+    // Starting from 1.19.0 you can add custom presets or shape here, using the current tsParticles instance (main)
+    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+    // starting from v2 you can add only the features you need reducing the bundle size
+    await loadFull(engine);
+  }
 
 }

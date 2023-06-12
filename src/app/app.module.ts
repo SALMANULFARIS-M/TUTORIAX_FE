@@ -8,12 +8,19 @@ import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './token.interceptor';
 
+
 //import firebase and environment
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
-import { environment } from "../environments/environment";
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+} from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+
+import { environment } from "../environments/environment.development";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StudentComponent } from './pages/student/student.component';
@@ -35,6 +42,7 @@ import { LoginComponent } from './pages/student/login/login.component';
     CommonModule,
     HttpClientModule,
     NgParticlesModule,
+    SocialLoginModule,
     AngularFireAuthModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -44,19 +52,22 @@ import { LoginComponent } from './pages/student/login/login.component';
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
-    provideFirebaseApp(() => initializeApp({
-      apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
-      authDomain: "e-mail-otp-verification.firebaseapp.com",
-      projectId: "e-mail-otp-verification",
-      storageBucket: "e-mail-otp-verification.appspot.com",
-      messagingSenderId: "481187461752",
-      appId: "1:481187461752:web:f8255469cf48b74e5d0b8d",
-      measurementId: "G-DGKX0B9QDQ"
-    })),//intialize our firebase config from environment
+    provideFirebaseApp(() => initializeApp(environment.firebase)),//intialize our firebase config from environment
     provideFirestore(() => getFirestore()),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-
+{
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider('360144361205-jcp24rraul11rocvispiq9u23sgg7n1e.apps.googleusercontent.com'),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
   ],
   schemas: [NO_ERRORS_SCHEMA],
   bootstrap: [AppComponent]

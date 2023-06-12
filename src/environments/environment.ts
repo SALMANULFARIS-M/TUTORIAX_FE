@@ -2,7 +2,7 @@
 
 
 export const environment = {
-  production: false,
+  production: true,
   firebase: {
     apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
     authDomain: "e-mail-otp-verification.firebaseapp.com",

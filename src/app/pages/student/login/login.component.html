@@ -1,3 +1,178 @@
+<!-- Main modal -->
+<div
+  *ngIf="modal"
+  id="authentication-modal"
+  tabindex="-1"
+  class="fixed top-0 flex justify-end z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+>
+  <div class="relative w-full max-w-md max-h-full">
+    <!-- Modal content -->
+    <div class="relative rounded-lg shadow bg-gray-300">
+      <button
+        type="button"
+        (click)="modalShow('hide')"
+        class="absolute top-3 right-2.5 text-red-600 bg-transparent hover:bg-red-500 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-black"
+      >
+        <svg
+          aria-hidden="true"
+          class="w-5 h-5"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+      <div class="px-6 py-6 lg:px-8">
+        <h3 class="mb-4 text-xl font-medium text-black dark:text-white">
+          Forgot paswword
+        </h3>
+        <form
+          [formGroup]="forgotPassword"
+          class="space-y-6"
+          (ngSubmit)="submitForm()"
+        >
+          <div *ngIf="password">
+            <label
+              for="mobile"
+              class="block mb-2 text-sm font-medium text-black dark:text-white"
+              >Enter your new password</label
+            >
+            <input
+              type="text"
+              name="password"
+              id="password"
+              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Enter your password"
+              formControlName="password"
+              required
+            />
+          </div>
+          <div *ngIf="password == false">
+            <label
+              for="mobile"
+              class="block mb-2 text-sm font-medium text-black dark:text-white"
+              >Your Mobile Number</label
+            >
+            <input
+              type="number"
+              name="mobile"
+              id="mobile"
+              class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Enter your mobile number"
+              required
+              formControlName="mobile"
+              [ngClass]="{
+                'form-control is-invalid': fpsubmit && p.mobile.errors
+              }"
+            />
+            <div *ngIf="fpsubmit && p.mobile.errors" class="invalid-feedback">
+              <div *ngIf="fpsubmit && p.mobile.errors['required']">
+                Mobile Number is required
+              </div>
+              <div *ngIf="fpsubmit && p.mobile.errors['pattern']">
+                Mobile Number should 10 numbers
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div id="recaptcha-container" class="mt-2"></div>
+            <div
+              *ngIf="otpFlag"
+              id="otp"
+              #inputs
+              class="flex flex-row justify-center text-center px-2 mt-2"
+            >
+              <input
+                class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                type="number"
+                id="first"
+                oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                (input)="onInput($event, 0)"
+                (keydown)="onKeyDown($event, 0)"
+              />
+              <input
+                class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                type="number"
+                id="second"
+                oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                (input)="onInput($event, 1)"
+                (keydown)="onKeyDown($event, 1)"
+              />
+              <input
+                class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                type="number"
+                id="third"
+                oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                (input)="onInput($event, 2)"
+                (keydown)="onKeyDown($event, 2)"
+              />
+              <input
+                class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                type="number"
+                id="fourth"
+                oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                (input)="onInput($event, 3)"
+                (keydown)="onKeyDown($event, 3)"
+              />
+              <input
+                class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                type="number"
+                id="fifth"
+                oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                (input)="onInput($event, 4)"
+                (keydown)="onKeyDown($event, 4)"
+              />
+              <input
+                class="m-2 border-3 h-10 w-10 text-center form-control rounded"
+                type="number"
+                id="sixth"
+                oninput="javascript: if (this.value.length > 1) this.value = this.value.slice(0, 1);"
+                (input)="onInput($event, 5)"
+                (keydown)="onKeyDown($event, 5)"
+              />
+              <button
+                type="button"
+                (click)="otpVerify()"
+                [class.loader]="isLoading"
+                class="group h-7 my-3 px-3 text-center bg-blue-500 text-black border-2 border-blue-800 rounded-full transition duration-300 hover:border-gray-600 hover:bg-blue-600 hover:text-black focus:bg-blue-500 active:bg-blue-100"
+              >
+                <span *ngIf="!isLoading">verify</span>
+                <!-- Display "verify" text when not loading -->
+                <span
+                  *ngIf="isLoading"
+                  class="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-black motion-reduce:animate-[spin_1.5s_linear_infinite]"
+                  role="status"
+                ></span>
+                <!-- Display the spinner when loading -->
+              </button>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            <span *ngIf="!isLoading">submit</span>
+            <!-- Display "verify" text when not loading -->
+            <span
+              *ngIf="isLoading"
+              class="inline-block h-4 w-4 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-black motion-reduce:animate-[spin_1.5s_linear_infinite]"
+              role="status"
+            ></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- login -->
 <ng-particles
   [id]="id"
@@ -5,9 +180,7 @@
   [particlesInit]="particlesInit"
   (particlesLoaded)="particlesLoaded($event)"
 ></ng-particles>
-<div
-  class="min-h-screen bg-gray-100  flex flex-col justify-center sm:py-12"
->
+<div class="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">
   <div class="w-4/12 h-full relative py-3 sm:max-w-xl sm:mx-auto">
     <div
       class="absolute h-full inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"
@@ -33,7 +206,9 @@
                   class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                   placeholder="Mobile Number"
                   formControlName="mobile"
-                  [ngClass]="{ 'form-control is-invalid': submit && f.mobile.errors }"
+                  [ngClass]="{
+                    'form-control is-invalid': submit && f.mobile.errors
+                  }"
                 />
                 <label
                   for="mobile"
@@ -41,13 +216,15 @@
                   >Mobile Number</label
                 >
                 <div *ngIf="submit && f.mobile.errors" class="invalid-feedback">
-                  <div *ngIf="f.mobile.errors['required']">E-mail is required</div>
+                  <div *ngIf="f.mobile.errors['required']">
+                    Mobile Number is required
+                  </div>
                   <div *ngIf="f.mobile.errors['pattern']">
-                    invalid E-mail, Please enter correctly
+                    Mobile Number should 10 numbers
                   </div>
                 </div>
               </div>
-              <div class="relative ">
+              <div class="relative">
                 <input
                   autocomplete="off"
                   id="password"
@@ -56,14 +233,19 @@
                   class="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
                   placeholder="Password"
                   formControlName="password"
-                  [ngClass]="{ 'form-control is-invalid': submit && f.password.errors }"
+                  [ngClass]="{
+                    'form-control is-invalid': submit && f.password.errors
+                  }"
                 />
                 <label
                   for="password"
                   class="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >Password</label
                 >
-                <div *ngIf="submit && f.password.errors" class="invalid-feedback">
+                <div
+                  *ngIf="submit && f.password.errors"
+                  class="invalid-feedback"
+                >
                   <div *ngIf="f.password.errors['required']">
                     password is required
                   </div>
@@ -82,11 +264,13 @@
                 >
                   Login
                 </button>
-                <p
+                <a
+                  type="button"
+                  (click)="modalShow('show')"
                   class="text-sm ... underline ... text-blue-600 hover:text-blue-800"
                 >
                   Forgot Password
-                </p>
+                </a>
               </div>
             </div>
           </form>
@@ -107,24 +291,9 @@
         </a>
       </div>
       <div class="mb-0 text-center">
-        <button
-              type="button"
-              class="group h-12 text-center px-6 border-2 border-gray-300 rounded-full transition duration-300 hover:border-blue-400 focus:bg-blue-50 active:bg-blue-100"
-            >
-              <div
-                class="relative flex items-center space-x-8 justify-center justify-between"
-              >
-                <img
-                  src="https://tailus.io/sources/blocks/social/preview/images/google.svg"
-                  class="absolute left-0 w-5"
-                  alt="google logo"
-                />
-                <span
-                  class="ml-6 block w-max font-semibold tracking-wide text-gray-700 text-sm transition duration-300 group-hover:text-blue-600 sm:text-base"
-                  >Continue with Google</span
-                >
-              </div>
-            </button>
+        <div class="flex justify-center items-center">
+          <div id="buttonDiv"></div>
+        </div>
       </div>
     </div>
   </div>
