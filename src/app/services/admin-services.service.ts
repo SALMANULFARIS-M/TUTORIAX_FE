@@ -19,4 +19,7 @@ export class AdminServicesService {
   login(userData: any): Observable<any> {
     return this.http.post('admin/login', userData, httpOptions)
   }
+  addCourse(courseData: any): Observable<any> {
+    return this.http.post('admin/addcourse', courseData, httpOptions)
+  }
 }

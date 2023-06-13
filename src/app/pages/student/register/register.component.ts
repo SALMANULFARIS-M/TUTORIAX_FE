@@ -30,8 +30,6 @@ declare const window: CustomWindow;
 declare const google: any;
 
 //firebase config
-
-
 const app = initializeApp({
   apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
   authDomain: "e-mail-otp-verification.firebaseapp.com",

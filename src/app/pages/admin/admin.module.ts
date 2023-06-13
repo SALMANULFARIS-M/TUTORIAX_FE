@@ -9,22 +9,24 @@ import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
 import { AdminTeachersComponent } from './admin-teachers/admin-teachers.component';
 import { AdminStudentsComponent } from './admin-students/admin-students.component';
 import { CoursepageComponent } from './coursepage/coursepage.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 const adminRoute: Routes = [
-  {path: 'login', component: AdminLoginComponent},
+  { path: 'login', component: AdminLoginComponent },
   {
-    path: '', component: AdminComponent,
+    path: '',
+    component: AdminComponent,
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
-      { path: 'courses', component: AdminCoursesComponent },
+      { path: 'courses', component: AdminCoursesComponent},
+      { path: 'courses/addcourse', component: CoursepageComponent},
       { path: 'teachers', component: AdminTeachersComponent },
       { path: 'students', component: AdminStudentsComponent },
     ]
   },
+];
 
-]
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ const adminRoute: Routes = [
   imports: [
     RouterModule.forChild(adminRoute),
     CommonModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   exports: [
