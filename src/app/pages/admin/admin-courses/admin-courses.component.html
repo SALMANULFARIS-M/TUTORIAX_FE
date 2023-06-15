@@ -14,15 +14,13 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <div
         class="max-w-sm w-full bg-slate-100 rounded overflow-hidden shadow-lg m-4"
+        *ngFor="let c of courses"
       >
-        <img
-          class="w-full"
-          src="https://www.angularjswiki.com/angular/use-ngoptimizedimage-to-improve-image-loading-performance-in-angular/featured.png"
-          alt="Sunset in the mountains"
-        />
+        <img class="w-full h-48" [src]="c.image_id" alt="Thumbnail" />
         <div class="px-6 py-4">
-          <div class="font-bold text-xl text- mb-2">Angular course</div>
-          <p class="text-gray-700 text-base">Angular course for beginners</p>
+          <div class="font-bold text-xl text- mb-2">{{ c.title }}</div>
+          <p class="text-red-700 text-base">{{ c.price }}.00 RS</p>
+          <p class="text-gray-700 text-base">{{ c.description }}</p>
         </div>
         <div class="px-6 pt-4 pb-2 justify-between flex">
           <button
@@ -39,103 +37,7 @@
           </button>
           <button
             type="button"
-            class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-4 py-2.5 text-center mr-2 mb-2"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-      <div
-        class="max-w-sm w-full bg-slate-100 min-w-min rounded overflow-hidden shadow-lg m-4"
-      >
-        <img
-          class="w-full"
-          src="https://www.angularjswiki.com/angular/use-ngoptimizedimage-to-improve-image-loading-performance-in-angular/featured.png"
-          alt="Sunset in the mountains"
-        />
-        <div class="px-6 py-4">
-          <div class="font-bold text-xl mb-2">Angular course</div>
-          <p class="text-gray-700 text-base">Angular course for beginners</p>
-        </div>
-        <div class="px-6 pt-4 pb-2 justify-between flex">
-          <button
-            type="button"
-            class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-4 py-2.5 text-center mr-2 mb-2"
-          >
-            View
-          </button>
-          <button
-            type="button"
-            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-4 py-2.5 text-center mr-2 mb-2"
-          >
-            Edit
-          </button>
-          <button
-            type="button"
-            class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-4 py-2.5 text-center mr-2 mb-2"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-      <div class="max-w-sm bg-slate-100 rounded overflow-hidden shadow-lg m-4">
-        <img
-          class="w-full"
-          src="https://www.angularjswiki.com/angular/use-ngoptimizedimage-to-improve-image-loading-performance-in-angular/featured.png"
-          alt="Sunset in the mountains"
-        />
-        <div class="px-6 py-4">
-          <div class="font-bold text-xl mb-2">Angular course</div>
-          <p class="text-gray-700 text-base">Angular course for beginners</p>
-        </div>
-        <div class="px-6 pt-4 pb-2 justify-between flex">
-          <button
-            type="button"
-            class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-4 py-2.5 text-center mr-2 mb-2"
-          >
-            View
-          </button>
-          <button
-            type="button"
-            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-4 py-2.5 text-center mr-2 mb-2"
-          >
-            Edit
-          </button>
-          <button
-            type="button"
-            class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-4 py-2.5 text-center mr-2 mb-2"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-      <div
-        class="max-w-sm min-w-80 bg-slate-100 rounded overflow-hidden shadow-lg m-4"
-      >
-        <img
-          class="w-full"
-          src="https://www.angularjswiki.com/angular/use-ngoptimizedimage-to-improve-image-loading-performance-in-angular/featured.png"
-          alt="Sunset in the mountains"
-        />
-        <div class="px-6 py-4">
-          <div class="font-bold text-xl text- mb-2">Angular course</div>
-          <p class="text-gray-700 text-base">Angular course for beginners</p>
-        </div>
-        <div class="px-6 pt-4 pb-2 justify-between flex">
-          <button
-            type="button"
-            class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-4 py-2.5 text-center mr-2 mb-2"
-          >
-            View
-          </button>
-          <button
-            type="button"
-            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-4 py-2.5 text-center mr-2 mb-2"
-          >
-            Edit
-          </button>
-          <button
-            type="button"
+            (click)="deleteCourse(c._id)"
             class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-4 py-2.5 text-center mr-2 mb-2"
           >
             Delete

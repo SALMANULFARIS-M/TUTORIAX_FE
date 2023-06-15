@@ -22,4 +22,14 @@ export class AdminServicesService {
   addCourse(courseData: any): Observable<any> {
     return this.http.post('admin/addcourse', courseData, httpOptions)
   }
+  getAllCourses(): Observable<any> {
+    return this.http.get('admin/getallcourses')
+  }
+  getCourse(): Observable<any> {
+    return this.http.get('admin/getcourse')
+  }
+  deleteCourses(id:string): Observable<any> {
+    return this.http.delete('admin/deletecours/${}')
+  }
+
 }

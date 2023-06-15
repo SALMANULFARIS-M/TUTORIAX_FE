@@ -37,13 +37,13 @@ const storage = getStorage(app)
 })
 export class CoursepageComponent {
 
-  constructor( private fb: FormBuilder,private adminService: AdminServicesService, private toastr: ToastrService, private router: Router) {
+  constructor(private fb: FormBuilder, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router) {
   }
 
   //declaration
   selectedThumbnail: string | null = null;
-  submit = false;
-
+  submit: boolean = false;
+  isLoading: boolean = false
   //interface of formdata
   courseForm = this.fb.group({
     title: ['', Validators.required],
@@ -54,71 +54,76 @@ export class CoursepageComponent {
     thumbnail: ['', Validators.required],
     description: ['', Validators.required]
   });
+
   get f() {
     return this.courseForm.controls;
   }
 
   onSubmit(): void {
     // Access form values using Angular's Reactive Forms
-    const title = this.courseForm.get('title')?.value;
-    const author = this.courseForm.get('author')?.value;
-    const date = this.courseForm.get('date')?.value;
-    const price = this.courseForm.get('price')?.value;
-    const videoFile = this.courseForm.get('video')?.value as unknown as File;
-    const thumbnailFile = this.courseForm.get('thumbnail')?.value as unknown as File;
-    const description = this.courseForm.get('description')?.value;
 
-    if (thumbnailFile && videoFile) {
-      // Upload thumbnail file
-      const thumbnailRef = ref(storage, "Tutoriax/thumbnails/" + thumbnailFile.name);
-      uploadBytes(thumbnailRef, thumbnailFile).then(() => {
-        // Get the download URL of the thumbnail file
-        getDownloadURL(thumbnailRef).then((thumbnailURL) => {
-          // Upload video file
-          const videoRef = ref(storage, "Tutoriax/videos/" + videoFile.name);
-          uploadBytes(videoRef, videoFile).then(() => {
-            // Get the download URL of the video file
-            getDownloadURL(videoRef).then((videoURL) => {
-              // Prepare the form data to send to the backend
-              const data = {
-                title: title,
-                author: author,
-                date: date,
-                price: price,
-                video: videoURL,
-                thumbnail: thumbnailURL,
-                description: description
-              };
-              // Send the data to the backend or perform further operations
-              this.adminService.addCourse(data).subscribe((result: any) => {
-                if (result.status) {
-                  this.toastr.success(result.message, '');
-                  this.router.navigate(['/admin/courses']);
-                }
-              }, (error: any) => {
-                if (error.status === 400) {
-                  Toast.fire({
-                    icon: 'warning',
-                    title: error.error.message
-                  })
-                }
+    if (this.courseForm.valid) {
+      this.isLoading = true
+      const thumbnailInput = document.getElementById('thumbnail-input') as HTMLInputElement;
+      const videoInput = document.getElementById('video-input') as HTMLInputElement;
+
+      if (thumbnailInput.files && videoInput.files) {
+
+        const thumbnailFile: File = thumbnailInput.files?.[0];
+        const videoFile: File = videoInput.files?.[0];
+
+        // Upload thumbnail file
+        const thumbnailRef = ref(storage, "Tutoriax/thumbnails/" + thumbnailFile.name);
+        uploadBytes(thumbnailRef, thumbnailFile).then(() => {
+          // Get the download URL of the thumbnail file
+          getDownloadURL(thumbnailRef).then((thumbnailURL) => {
+            // Upload video file
+            const videoRef = ref(storage, "Tutoriax/videos/" + videoFile.name);
+            uploadBytes(videoRef, videoFile).then(() => {
+              // Get the download URL of the video file
+              getDownloadURL(videoRef).then((videoURL) => {
+                // Prepare the form data to send to the backend
+                const data = {
+                  title: this.courseForm.get('title')?.value,
+                  author: this.courseForm.get('author')?.value,
+                  date: this.courseForm.get('date')?.value,
+                  price: this.courseForm.get('price')?.value,
+                  video: videoURL,
+                  thumbnail: thumbnailURL,
+                  description: this.courseForm.get('description')?.value
+                };
+                // Send the data to the backend or perform further operations
+                this.adminService.addCourse(data).subscribe((result: any) => {
+                  if (result.status) {
+                    this.toastr.success(result.message, '');
+                    this.isLoading = false
+                    this.router.navigate(['/admin/courses']);
+                  }
+                }, (error: any) => {
+                  if (error.status === 400) {
+                    Toast.fire({
+                      icon: 'warning',
+                      title: error.error.message
+                    })
+                  }
+                });
+              }).catch((error) => {
+                // Handle error while getting video download URL
+                console.error('Error getting video download URL:', error);
               });
             }).catch((error) => {
-              // Handle error while getting video download URL
-              console.error('Error getting video download URL:', error);
+              // Handle error while uploading video file
+              console.error('Error uploading video file:', error);
             });
           }).catch((error) => {
-            // Handle error while uploading video file
-            console.error('Error uploading video file:', error);
+            // Handle error while getting thumbnail download URL
+            console.error('Error getting thumbnail download URL:', error);
           });
         }).catch((error) => {
-          // Handle error while getting thumbnail download URL
-          console.error('Error getting thumbnail download URL:', error);
+          // Handle error while uploading thumbnail file
+          console.error('Error uploading thumbnail file:', error);
         });
-      }).catch((error) => {
-        // Handle error while uploading thumbnail file
-        console.error('Error uploading thumbnail file:', error);
-      });
+      }
     }
   }
 }

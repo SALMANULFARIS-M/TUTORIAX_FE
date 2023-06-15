@@ -6,7 +6,6 @@ import { loadFull } from 'tsparticles';
 //toast  and sweet  alert
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
-import { Input, initTE } from "tw-elements";//tw-elements
 import { Router } from '@angular/router';
 import { StudentServicesService } from '../../../services/student-services.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -193,7 +192,6 @@ export class RegisterComponent implements OnInit {
         });
       })
   }
-
 
   //otpverification
   otpVerify() {
