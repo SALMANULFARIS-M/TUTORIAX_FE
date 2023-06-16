@@ -31,8 +31,8 @@
             ],
             "styles": [
               "src/styles.scss",
+              "node_modules/ngx-spinner/animations/ball-clip-rotate.css",
               "node_modules/ngx-toastr/toastr.css"
-
             ],
             "scripts": []
           },

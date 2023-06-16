@@ -25,11 +25,11 @@ export class AdminServicesService {
   getAllCourses(): Observable<any> {
     return this.http.get('admin/getallcourses')
   }
-  getCourse(): Observable<any> {
-    return this.http.get('admin/getcourse')
+  getCourse(id:string): Observable<any> {
+    return this.http.get(`admin/getcourse/${id}`)
   }
   deleteCourses(id:string): Observable<any> {
-    return this.http.delete('admin/deletecours/${}')
+    return this.http.delete(`admin/deletecourse/${id}`)
   }
 
 }

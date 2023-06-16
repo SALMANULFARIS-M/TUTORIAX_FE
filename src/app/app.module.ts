@@ -1,4 +1,4 @@
-import { NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgParticlesModule } from "ng-particles";
@@ -29,6 +29,8 @@ import { RegisterComponent } from './pages/student/register/register.component';
 import { LoginComponent } from './pages/student/login/login.component';
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { AdminComponent } from './pages/admin/admin.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { AdminComponent } from './pages/admin/admin.component';
     AngularFireAuthModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
     FormsModule,
     ToastrModule.forRoot({
       timeOut: 4000,
@@ -73,7 +76,7 @@ import { AdminComponent } from './pages/admin/admin.component';
       } as SocialAuthServiceConfig,
     },
   ],
-  schemas: [NO_ERRORS_SCHEMA],
+  schemas: [NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

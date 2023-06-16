@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
@@ -10,6 +10,7 @@ import { AdminTeachersComponent } from './admin-teachers/admin-teachers.componen
 import { AdminStudentsComponent } from './admin-students/admin-students.component';
 import { CoursepageComponent } from './coursepage/coursepage.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 const adminRoute: Routes = [
@@ -40,10 +41,12 @@ const adminRoute: Routes = [
     RouterModule.forChild(adminRoute),
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ],
   exports: [
     RouterModule
-  ]
+  ],
+  schemas: [NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdminModule { }
