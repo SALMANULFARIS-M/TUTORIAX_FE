@@ -115,7 +115,6 @@ export class LoginComponent implements OnInit {
     return this.forgotPassword.controls;
   }
 
-
   //captchaverify
   onCaptchaVerify(number: string) {
     if (!window.recaptchaVerifier) {
@@ -267,6 +266,8 @@ export class LoginComponent implements OnInit {
           this.cookieService.set('studentjwt', result.token, 1); // 1 days expiration
           this.toastr.success('successfully logged', '');
           this.router.navigate(['/']);
+        }else{
+          this.toastr.error(result.message, '');
         }
       }, (error: any) => {
         if (error.status === 400) {

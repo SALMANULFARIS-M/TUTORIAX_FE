@@ -4,6 +4,7 @@ import { deleteObject, getStorage, ref } from 'firebase/storage';
 import { AdminServicesService } from 'src/app/services/admin-services.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Router } from '@angular/router';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -34,7 +35,8 @@ const storage = getStorage(app)
 })
 export class AdminCoursesComponent implements OnInit {
   courses: any;
-  constructor(private adminService: AdminServicesService, private spinner: NgxSpinnerService) { }
+  constructor(private adminService: AdminServicesService, private spinner: NgxSpinnerService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.adminService.getAllCourses().subscribe((result: any) => {
@@ -51,7 +53,15 @@ export class AdminCoursesComponent implements OnInit {
     });
   }
 
-
+  toAdd() {
+    this.router.navigate(['/admin/addcourse'])
+  }
+  toEdit(id: string) {
+    this.router.navigate([`/admin/editcourse/${id}`])
+  }
+  toView(id: string) {
+    this.router.navigate([`/admin/viewcourse/${id}`])
+  }
 
   deleteCourse(id: string) {
     Swal.fire({

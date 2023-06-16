@@ -21,7 +21,8 @@ const adminRoute: Routes = [
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'courses', component: AdminCoursesComponent},
-      { path: 'courses/addcourse', component: CoursepageComponent},
+      { path: 'addcourse', component: CoursepageComponent},
+      { path: 'editcourse/:id', component: CoursepageComponent},
       { path: 'teachers', component: AdminTeachersComponent },
       { path: 'students', component: AdminStudentsComponent },
     ]

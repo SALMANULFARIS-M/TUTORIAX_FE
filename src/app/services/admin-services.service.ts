@@ -28,6 +28,9 @@ export class AdminServicesService {
   getCourse(id:string): Observable<any> {
     return this.http.get(`admin/getcourse/${id}`)
   }
+  editCourses(id:string,data:any): Observable<any> {
+    return this.http.patch(`admin/editcourse/${id}`,data,httpOptions)
+  }
   deleteCourses(id:string): Observable<any> {
     return this.http.delete(`admin/deletecourse/${id}`)
   }

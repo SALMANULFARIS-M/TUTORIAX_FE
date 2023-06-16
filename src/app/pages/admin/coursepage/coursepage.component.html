@@ -1,6 +1,8 @@
-<h3 class="text-3xl font-medium text-gray-700 mt-4 ms-10">Add Course</h3>
-
-<section class="py-1 bg-blueGray-50">
+<h3 class="text-3xl font-medium text-gray-700 mt-4 ms-10">
+  <span *ngIf="this.action[0] == 'addcourse'">Add Course</span
+  ><span *ngIf="this.action[0] == 'editcourse'">Edit course</span>
+</h3>
+<section class="py-1 bg-blueGray-50" *ngIf="view == false">
   <div class="w-full lg:w-11/12 px-4 mx-auto mt-6">
     <div
       class="relative flex flex-col min-w-full break-words bg-slate-500 w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0"
@@ -101,6 +103,9 @@
           <div class="flex flex-wrap">
             <div class="w-full lg:w-6/12 px-4">
               <div class="relative w-full mb-3">
+                <video *ngIf="this.action[0] == 'editcourse'" class="w-auto h-72 mb-4" controls >
+                  <source [src]="course.video_id" type="video/mp4">
+                </video>
                 <label
                   class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlfor="grid-password"
@@ -123,6 +128,7 @@
             </div>
             <div class="w-full lg:w-4/12 px-4">
               <div class="relative w-full mb-3">
+                <img *ngIf="this.action[0] == 'editcourse'" [src]="course.image_id" class="w-full h-72 mb-4" />
                 <label
                   class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlfor="grid-password"
@@ -177,7 +183,7 @@
               type="submit"
               class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
             >
-              <span *ngIf="isLoading===false"> Submit </span>
+              <span *ngIf="isLoading === false"> Submit </span>
 
               <span *ngIf="isLoading">
                 <svg
