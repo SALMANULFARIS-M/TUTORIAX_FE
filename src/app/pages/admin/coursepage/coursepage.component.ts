@@ -49,7 +49,7 @@ export class CoursepageComponent implements OnInit {
   id: any;
   action: any[] = [];
   courseId: string | null = null;
-  view: Boolean = false;
+  view: boolean = false;
 
   ngOnInit(): void {
     this.route.url.subscribe(segments => {
@@ -59,18 +59,19 @@ export class CoursepageComponent implements OnInit {
         this.id = this.route.snapshot.paramMap.get('id')
         this.adminService.getCourse(this.id).subscribe((res) => {
           this.course = res.course
+
           // Update the form controls with the received data
-          if (this.action[0] == 'editcourse') {
-            this.courseForm.patchValue({
-              title: this.course.title,
-              author: this.course.author,
-              date: this.course.date.split("T")[0],
-              thumbnail: this.course.image_id,
-              video: this.course.video_id,
-              price: this.course.price,
-              description: this.course.description
-            });
-          } else {
+          this.courseForm.patchValue({
+            title: this.course.title,
+            author: this.course.author,
+            date: this.course.date.split("T")[0],
+            thumbnail: this.course.image_id,
+            video: this.course.video_id,
+            price: this.course.price,
+            description: this.course.description
+          });
+          if (this.action[0] == 'viewcourse') {
+            this.courseForm.disable();
             this.view = true
           }
         })
@@ -78,15 +79,14 @@ export class CoursepageComponent implements OnInit {
     });
   }
 
-
   //interface of formdata
   courseForm = this.fb.group({
     title: ['', Validators.required],
     author: ['', Validators.required],
     date: ['', Validators.required],
     price: ['', Validators.required],
-    video: ['', Validators.required],
-    thumbnail: ['', Validators.required],
+    video: [''],
+    thumbnail: [''],
     description: ['', Validators.required]
   });
 
@@ -222,6 +222,11 @@ export class CoursepageComponent implements OnInit {
             // Handle error while uploading thumbnail file
             console.error('Error uploading thumbnail file:', error);
           });
+        }else{
+          Toast.fire({
+            icon: 'warning',
+            title:"Add the media files"
+          })
         }
       }
     }

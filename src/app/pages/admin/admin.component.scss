@@ -7,4 +7,12 @@ input[type="number"]::-webkit-outer-spin-button {
 input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
 }
+ /* CSS to hide the sidebar labels */
+ .sidebar-label {
+  display: none;
+}
 
+/* CSS to show the sidebar labels on toggle */
+.sidebar-collapsed .sidebar-label {
+  display: inline;
+}

@@ -1,12 +1,18 @@
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-clip-rotate" [fullScreen] = "true"><p style="color: white" > Deleting... </p></ngx-spinner>
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-clip-rotate"
+  [fullScreen]="true"
+  ><p style="color: white">Deleting...</p></ngx-spinner
+>
 <div class="container-fluid pt-4">
   <h3 class="text-3xl font-medium text-gray-700 mt-2">Courses</h3>
-
 
   <div class="my-3 flex justify-end items-end me-3">
     <a
       type="button"
-(click)="toAdd()"
+      (click)="toAdd()"
       class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
     >
       Add Course
@@ -16,7 +22,7 @@
   <div class="my-4 flex">
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <div
-        class="max-w-sm w-full bg-slate-100 rounded overflow-hidden shadow-lg m-4"
+        class="max-w-sm w-full bg-white rounded overflow-hidden shadow-lg m-4"
         *ngFor="let c of courses"
       >
         <img class="w-full h-48" [src]="c.image_id" alt="Thumbnail" />

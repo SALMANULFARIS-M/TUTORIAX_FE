@@ -3,10 +3,10 @@
   ><span *ngIf="this.action[0] == 'editcourse'">Edit course</span>
   <span *ngIf="this.action[0] == 'viewcourse'">view course</span>
 </h3>
-<section class="py-1 bg-blueGray-50" *ngIf="view == false">
+<section class="py-1 bg-blueGray-50">
   <div class="w-full lg:w-11/12 px-4 mx-auto mt-6">
     <div
-      class="relative flex flex-col min-w-full break-words bg-slate-500 w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0"
+      class="relative flex flex-col min-w-full break-words bg-slate-400 w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0"
     >
       <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
         <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
@@ -25,7 +25,8 @@
                 <input
                   type="text"
                   name="title"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  [ngClass]="{ 'bg-slate-100 font-bold': view }"
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   formControlName="title"
                   [ngClass]="{
                     'form-control is-invalid': submit && f.title.errors
@@ -45,7 +46,8 @@
                 <input
                   type="text"
                   name="author"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  [ngClass]="{ 'bg-slate-100 font-bold': view }"
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   required
                   formControlName="author"
                   [ngClass]="{
@@ -65,7 +67,8 @@
                 <input
                   type="date"
                   name="date"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  [ngClass]="{ 'bg-slate-100 font-bold': view }"
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   required
                   formControlName="date"
                   [ngClass]="{
@@ -85,7 +88,8 @@
                 <input
                   type="number"
                   name="price"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  [ngClass]="{ 'bg-slate-100 font-bold text-red-600': view }"
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   required
                   formControlName="price"
                   [ngClass]="{
@@ -104,8 +108,15 @@
           <div class="flex flex-wrap">
             <div class="w-full lg:w-6/12 px-4">
               <div class="relative w-full mb-3">
-                <video *ngIf="this.action[0] == 'editcourse'" class="w-auto h-72 mb-4" controls >
-                  <source [src]="course.video_id" type="video/mp4">
+                <video
+                  *ngIf="
+                    this.action[0] == 'editcourse' ||
+                    (this.action[0] == 'viewcourse' && course.video_id)
+                  "
+                  class="w-auto h-72 mb-4"
+                  controls
+                >
+                  <source [src]="course.video_id" type="video/mp4" />
                 </video>
                 <label
                   class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -114,22 +125,29 @@
                   Video
                 </label>
                 <input
+                  *ngIf="
+                    this.action[0] == 'editcourse' ||
+                    this.action[0] == 'addcourse'
+                  "
                   name="video"
                   id="video-input"
                   type="file"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  class="border-0 px-3 bg-white py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                  formControlName="video"
-                  [ngClass]="{
-                    'form-control is-invalid': submit && f.video.errors
-                  }"
                   required
                 />
               </div>
             </div>
             <div class="w-full lg:w-4/12 px-4">
               <div class="relative w-full mb-3">
-                <img *ngIf="this.action[0] == 'editcourse'" [src]="course.image_id" class="w-full h-72 mb-4" />
+                <img
+                  *ngIf="
+                    this.action[0] == 'editcourse' ||
+                    this.action[0] == 'viewcourse'
+                  "
+                  [src]="course.image_id"
+                  class="w-full h-72 mb-4"
+                />
                 <label
                   class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                   htmlfor="grid-password"
@@ -137,22 +155,20 @@
                   Thumbnail
                 </label>
                 <input
+                  *ngIf="
+                    this.action[0] == 'editcourse' ||
+                    this.action[0] == 'addcourse'
+                  "
                   name="thumbnail"
                   type="file"
                   id="thumbnail-input"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  class="border-0 px-3 py-3 bg-white placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   required
-                  formControlName="thumbnail"
-                  [ngClass]="{
-                    'form-control is-invalid': submit && f.thumbnail.errors
-                  }"
                 />
               </div>
             </div>
           </div>
-
           <hr class="mt-6 border-b-1 border-blueGray-300" />
-
           <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
             Discription
           </h6>
@@ -167,8 +183,9 @@
                 </label>
                 <textarea
                   type="text"
+                  [ngClass]="{ 'bg-slate-100 font-bold': view }"
                   name="description"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  class="border-0 px-3 py-3 bg-slate-100 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                   rows="4"
                   formControlName="description"
                   [ngClass]="{
@@ -180,11 +197,16 @@
             </div>
           </div>
           <div class="flex justify-between mt-4 px-4">
-            <a routerLink="../courses" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-              <i class='bx bx-left-arrow-alt'></i> Go back
+            <a
+              routerLink="/admin/courses"
+              type="button"
+              class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+            >
+              <i class="bx bx-left-arrow-alt"></i> Go back
             </a>
             <button
-            type="submit"
+              *ngIf="view == false"
+              type="submit"
               class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
             >
               <span *ngIf="isLoading === false"> Submit </span>
@@ -216,4 +238,3 @@
     </div>
   </div>
 </section>
-
