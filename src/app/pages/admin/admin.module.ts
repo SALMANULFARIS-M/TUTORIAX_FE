@@ -23,6 +23,7 @@ const adminRoute: Routes = [
       { path: 'courses', component: AdminCoursesComponent},
       { path: 'addcourse', component: CoursepageComponent},
       { path: 'editcourse/:id', component: CoursepageComponent},
+      { path: 'viewcourse/:id', component: CoursepageComponent},
       { path: 'teachers', component: AdminTeachersComponent },
       { path: 'students', component: AdminStudentsComponent },
     ]

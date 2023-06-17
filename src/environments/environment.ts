@@ -1,6 +1,5 @@
 
 
-
 export const environment = {
   production: true,
   firebase: {
@@ -11,5 +10,7 @@ export const environment = {
     messagingSenderId: "481187461752",
     appId: "1:481187461752:web:f8255469cf48b74e5d0b8d",
     measurementId: "G-DGKX0B9QDQ"
-  }
+  },
+
+
 };

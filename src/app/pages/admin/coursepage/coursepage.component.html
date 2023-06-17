@@ -1,6 +1,7 @@
 <h3 class="text-3xl font-medium text-gray-700 mt-4 ms-10">
   <span *ngIf="this.action[0] == 'addcourse'">Add Course</span
   ><span *ngIf="this.action[0] == 'editcourse'">Edit course</span>
+  <span *ngIf="this.action[0] == 'viewcourse'">view course</span>
 </h3>
 <section class="py-1 bg-blueGray-50" *ngIf="view == false">
   <div class="w-full lg:w-11/12 px-4 mx-auto mt-6">
@@ -178,9 +179,12 @@
               </div>
             </div>
           </div>
-          <div class="flex justify-end mt-4">
+          <div class="flex justify-between mt-4 px-4">
+            <a routerLink="../courses" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+              <i class='bx bx-left-arrow-alt'></i> Go back
+            </a>
             <button
-              type="submit"
+            type="submit"
               class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
             >
               <span *ngIf="isLoading === false"> Submit </span>
@@ -212,3 +216,4 @@
     </div>
   </div>
 </section>
+

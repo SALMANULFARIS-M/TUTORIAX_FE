@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { ToastrService } from 'ngx-toastr';
 import { AdminServicesService } from 'src/app/services/admin-services.service';
 import Swal from 'sweetalert2';
@@ -55,26 +55,28 @@ export class CoursepageComponent implements OnInit {
     this.route.url.subscribe(segments => {
       // Extract the first two path segments
       this.action = segments.slice(0, 2).map(segment => segment.path);
-      if (this.action[0] == 'editcourse') {
+      if (this.action[0] == 'editcourse' || this.action[0] == 'viewcourse') {
         this.id = this.route.snapshot.paramMap.get('id')
         this.adminService.getCourse(this.id).subscribe((res) => {
-
           this.course = res.course
           // Update the form controls with the received data
-          this.courseForm.patchValue({
-            title: this.course.title,
-            author: this.course.author,
-            date: this.course.date.split("T")[0],
-            price: this.course.price,
-            description: this.course.description
-          });
+          if (this.action[0] == 'editcourse') {
+            this.courseForm.patchValue({
+              title: this.course.title,
+              author: this.course.author,
+              date: this.course.date.split("T")[0],
+              thumbnail: this.course.image_id,
+              video: this.course.video_id,
+              price: this.course.price,
+              description: this.course.description
+            });
+          } else {
+            this.view = true
+          }
         })
-      } else if (this.action[0] == 'viewcourse') {
-        this.view = true
       }
     });
   }
-
 
 
   //interface of formdata
@@ -97,8 +99,65 @@ export class CoursepageComponent implements OnInit {
 
     if (this.action[0] == 'editcourse') {
 
+      if (this.courseForm.valid) {
+        this.isLoading = true
+        const thumbnailInput = document.getElementById('thumbnail-input') as HTMLInputElement;
+        const videoInput = document.getElementById('video-input') as HTMLInputElement;
 
+        if (thumbnailInput.files) {
+          const thumbnailFile: File = thumbnailInput.files?.[0];
 
+          const thumbnailStorageRef = ref(storage, this.course.image_id);
+          deleteObject(thumbnailStorageRef)
+            .then(() => {
+              // Upload thumbnail file
+              const thumbnailRef = ref(storage, "Tutoriax/thumbnails/" + thumbnailFile.name);
+              uploadBytes(thumbnailRef, thumbnailFile).then(() => {
+                // Get the download URL of the thumbnail file
+                getDownloadURL(thumbnailRef).then((thumbnailURL) => {
+                  this.courseForm.patchValue({
+                    thumbnail: thumbnailURL,
+                  })
+                })
+              })
+            })
+        }
+        if (videoInput.files) {
+          const videoFile: File = videoInput.files?.[0];
+          const videoStorageRef = ref(storage, this.course.video_id);
+          deleteObject(videoStorageRef)
+            .then(() => {
+              // Upload thumbnail file
+              const videoRef = ref(storage, "Tutoriax/thumbnails/" + videoFile.name);
+              uploadBytes(videoRef, videoFile).then(() => {
+                // Get the download URL of the video file
+                getDownloadURL(videoRef).then((videoURL) => {
+                  // Prepare the form data to send to the backend
+                  this.courseForm.patchValue({
+                    video: videoURL,
+                  })
+                })
+              })
+            })
+        }
+
+        const data = this.courseForm.value
+        // Send the data to the backend or perform further operations
+        this.adminService.editCourse(this.course._id, data).subscribe((result: any) => {
+          if (result.status) {
+            this.toastr.success(result.message, '');
+            this.isLoading = false
+            this.ngOnInit()
+          }
+        }, (error: any) => {
+          if (error.status === 400) {
+            Toast.fire({
+              icon: 'warning',
+              title: error.error.message
+            })
+          }
+        });
+      }
 
 
     } else {
