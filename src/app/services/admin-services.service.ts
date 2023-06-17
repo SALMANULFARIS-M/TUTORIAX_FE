@@ -34,5 +34,8 @@ export class AdminServicesService {
   deleteCourses(id:string): Observable<any> {
     return this.http.delete(`admin/deletecourse/${id}`)
   }
+  getAllstudents(): Observable<any> {
+    return this.http.get('admin/getallstudents')
+  }
 
 }
