@@ -4,7 +4,7 @@
     <div class="mt-8"></div>
 
     <div class="flex flex-col mt-8">
-      <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <div class="py-2 -my-2 overflow-x-auto sm:px-6 lg:px-8">
         <div
           class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
         >
@@ -14,7 +14,12 @@
                 <th
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
                 >
-                  Name
+                  Image
+                </th>
+                <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                >
+                  Full Name
                 </th>
                 <th
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
@@ -24,16 +29,96 @@
                 <th
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
                 >
-                  Purchased course
+                  Phone Number
                 </th>
                 <th
                   class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
                 >
-                  Amount
+                  status
                 </th>
-                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                >
+                  Action
+                </th>
               </tr>
             </thead>
+            <tbody class="bg-white">
+              <tr *ngFor="let s of students">
+                <td
+                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 w-10 h-10">
+                      <img
+                        class="w-10 h-10 rounded-full"
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <div class="flex items-center">
+                    <div class="text-sm font-medium leading-5 text-gray-900">
+                      {{ s.firstName }}  {{ s.lastName }}
+                    </div>
+                  </div>
+                </td>
+
+                <td
+                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <div class="text-sm leading-5 text-gray-900">
+                    {{ s.email }}
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <div class="text-sm leading-5 text-gray-900">
+                    {{ s.mobile }}
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <span
+                    *ngIf="s.access == false"
+                    class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full"
+                    >inactive</span
+                  >
+                  <span
+                    *ngIf="s.access"
+                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
+                    >active</span
+                  >
+                </td>
+
+                <td
+                  class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <button
+                    (click)="block(s._id,s.access)"
+                    type="button"
+                    *ngIf="s.access == false"
+                    class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
+                  >
+                    Un Block
+                  </button>
+                  <button
+                    (click)="block(s._id,s.access)"
+                    type="button"
+                    *ngIf="s.access"
+                    class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                  >
+                    Block
+                  </button>
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>

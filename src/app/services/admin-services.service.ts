@@ -37,5 +37,7 @@ export class AdminServicesService {
   getAllstudents(): Observable<any> {
     return this.http.get('admin/getallstudents')
   }
-
+  block(id:string,data:any): Observable<any> {
+    return this.http.patch(`admin/blockstudent/${id}`,data,httpOptions)
+  }
 }
