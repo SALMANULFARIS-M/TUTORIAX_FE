@@ -6,6 +6,7 @@ import { StudentComponent } from './student.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { StudentCoursesComponent } from './student-courses/student-courses.component';
 
 
 const studentRoute: Routes = [
@@ -14,12 +15,15 @@ const studentRoute: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent }
+      { path: 'register', component: RegisterComponent },
+      { path: 'courses', component: StudentCoursesComponent }
     ]
   }]
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    StudentCoursesComponent
+  ],
   imports: [
     RouterModule.forChild(studentRoute),
     CommonModule,
