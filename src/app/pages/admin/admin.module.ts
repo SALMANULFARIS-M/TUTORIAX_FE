@@ -11,13 +11,14 @@ import { AdminStudentsComponent } from './admin-students/admin-students.componen
 import { CoursepageComponent } from './coursepage/coursepage.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AdminGuardGuard } from 'src/app/guard/admin-guard.guard';
 
 
 const adminRoute: Routes = [
-  { path: 'login', component: AdminLoginComponent },
+  { path: '', component: AdminLoginComponent },
   {
     path: '',
-    component: AdminComponent,
+    component: AdminComponent,canActivate:[AdminGuardGuard],
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'courses', component: AdminCoursesComponent},

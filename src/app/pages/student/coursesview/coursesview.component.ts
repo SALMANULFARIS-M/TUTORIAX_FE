@@ -6,6 +6,7 @@ import { AdminServicesService } from 'src/app/services/admin-services.service';
 import Swal from 'sweetalert2';
 import { StudentServicesService } from 'src/app/services/student-services.service';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthserviceService } from 'src/app/services/authservice.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -28,15 +29,14 @@ export class CoursesviewComponent implements OnInit {
   course: any;
   courseView: boolean = false;
   paymentHandler: any = null;
-  constructor(private studentService: StudentServicesService, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router,
+  constructor(private studentService: StudentServicesService,private authService:AuthserviceService, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router,
     private route: ActivatedRoute, private cookieService: CookieService) { }
   ngOnInit(): void {
     this.invokeStripe();
     this.courseId = this.route.snapshot.paramMap.get('id');
-
     this.adminService.getCourse(this.courseId).subscribe((res) => {
       this.course = res.course
-      if (this.studentService.studentLog()) {
+      if (this.authService.isStudentLoggedIn()) {
         const token = this.cookieService.get('studentjwt')
         const data = {
           courseId: this.courseId,
@@ -56,11 +56,10 @@ export class CoursesviewComponent implements OnInit {
         })
       }
     })
-
   }
 
   payNow(data: any) {
-    if (this.studentService.studentLog()) {
+    if (this.authService.isStudentLoggedIn()) {
       const paymentHandler = (<any>window).StripeCheckout.configure({
         key: 'pk_test_51NKga2SFmoy1LlbxajC9b0FRvfviLHZhlj37RFaR2tjqkUCfIo5jfbqAK2LDWRbojoXiE7zAXrUJKBud8kYGrk7e00zj1nvIBB',
         locale: 'auto',

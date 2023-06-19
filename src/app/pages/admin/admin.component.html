@@ -1,14 +1,14 @@
 <div class="w-full h-full">
-  <div class="flex flex-no-wrap  bg-gray-950">
+  <div class="flex flex-no-wrap bg-gray-950">
     <!-- Sidebar starts -->
     <!-- Remove class [ hidden ] and replace [ sm:flex ] with [ flex ] -->
     <div
       style="min-height: 716px"
-      class="w-64 absolute sm:relative  shadow md:h-full flex-col justify-between hidden sm:flex"
+      class="w-64 absolute sm:relative shadow md:h-full flex-col justify-between hidden sm:flex"
     >
       <div class="px-8">
         <div class="h-20 w-full flex items-center pt-10">
-          <img src="../../../assets/images/full-icon.png" alt="">
+          <img src="../../../assets/images/full-icon.png" alt="" />
         </div>
         <ul class="mt-8">
           <li
@@ -116,7 +116,7 @@
           >
             <button
               class="flex items-center px-6 py-1 mt-4 duration-200 border-l-4 border-gray-900 text-gray-400 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
-              to="/cards"
+              (click)="logout()"
             >
               <i
                 class="bx bxs-log-in-circle bx-flip-horizontal text-2xl mt-1"
@@ -126,7 +126,6 @@
           </li>
         </ul>
       </div>
-
     </div>
     <div
       class="w-64 z-40 absolute bg-gray-800 shadow md:h-full flex-col justify-between sm:hidden transition duration-150 ease-in-out"
@@ -306,8 +305,9 @@
             class="flex w-full justify-between text-gray-400 hover:text-gray-300 cursor-pointer items-center mb-6"
           >
             <button
+              type="button"
+              (click)="logout()"
               class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4 border-gray-900 text-gray-400 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100"
-              to="/cards"
             >
               <i
                 class="bx bxs-log-in-circle bx-flip-horizontal text-2xl mt-1"
@@ -319,25 +319,23 @@
       </div>
     </div>
     <!-- Sidebar ends -->
-  <header class="bg-gray-100 w-full container">
-    <div
-      class="bg-gray-900 flex flex-row justify-between pe-5 mt-2 border-3 rounded-md border-cyan-500"
-    >
-      <div>
-        <img class="h-20" src="/assets//images/full-icon.png" alt="" />
+    <header class="bg-gray-100 w-full container">
+      <div
+        class="bg-gray-900 flex flex-row justify-between pe-5 mt-2 border-3 rounded-md border-cyan-500"
+      >
+        <div>
+          <img class="h-20" src="/assets//images/full-icon.png" alt="" />
+        </div>
+        <div class="flex flex-row my-3">
+          <i class="bx bx-bell text-2xl me-5 mt-1 text-white"></i>
+          <img
+            class="h-10 w-10 rounded-full"
+            src="/assets/images/me.jpg"
+            alt=""
+          />
+        </div>
       </div>
-      <div class="flex flex-row my-3">
-        <i class="bx bx-bell text-2xl me-5 mt-1 text-white"></i>
-        <img
-          class="h-10 w-10 rounded-full"
-          src="/assets/images/me.jpg"
-          alt=""
-        />
-      </div>
-    </div>
-    <router-outlet></router-outlet>
-  </header>
+      <router-outlet></router-outlet>
+    </header>
   </div>
 </div>
-
-

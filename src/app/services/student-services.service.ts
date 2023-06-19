@@ -43,16 +43,6 @@ export class StudentServicesService {
     return this.http.post('checkcourse',data,httpOptions)
   }
 
-  //JWT Token taken from browser cokkiestorage
-  getToken(token: string) {
-    if (token == "admin") {
-      return this.cookieService.get('adminjwt')
-    } else if ("intructor") {
-      return this.cookieService.get('instructorjwt')
-    } else {
-      return this.cookieService.get('studentjwt')
-    }
-  }
 
   studentLog():boolean {
     return !!this.cookieService.get('studentjwt')

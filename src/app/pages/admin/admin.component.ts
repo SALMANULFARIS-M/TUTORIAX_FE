@@ -1,6 +1,7 @@
 import { HtmlParser } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-admin',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-  constructor(private router: Router) {
+  constructor(private router: Router, private cookieService: CookieService) {
   }
 
   activeClass: string = "bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100";
@@ -45,6 +46,13 @@ export class AdminComponent implements OnInit {
   }
   currentRoute(): string {
     return this.router.url;
+  }
+
+  logout() {
+    console.log("logour");
+    this.cookieService.delete('adminjwt');
+console.log("logour");
+    this.router.navigate(['/admin']);
   }
 
 }

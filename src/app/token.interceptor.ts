@@ -2,17 +2,16 @@ import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
-  HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { StudentServicesService } from "./services/student-services.service";
+
 import { environment } from 'src/environments/environment';
+import { AuthserviceService } from './services/authservice.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private studentService: StudentServicesService) { }
+  constructor(private authService: AuthserviceService) { }
   token!: string;
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler) {
@@ -28,7 +27,7 @@ export class TokenInterceptor implements HttpInterceptor {
       this.token = "student";
     }
 
-    let authService = this.studentService.getToken(this.token);
+    let authService = this.authService.getToken(this.token);
     if (authService) {
       const headers = {
         Authorization: 'Bearer' + authService
