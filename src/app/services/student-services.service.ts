@@ -35,6 +35,14 @@ export class StudentServicesService {
     return this.http.post('login', userData, httpOptions)
   }
 
+  pay(id:string,userData: any): Observable<any> {
+    return this.http.post(`payment/${id}`, userData, httpOptions)
+  }
+
+  checkPurchasedCourse(data:any): Observable<any> {
+    return this.http.post('checkcourse',data,httpOptions)
+  }
+
   //JWT Token taken from browser cokkiestorage
   getToken(token: string) {
     if (token == "admin") {
@@ -46,7 +54,7 @@ export class StudentServicesService {
     }
   }
 
-  studentLog() {
+  studentLog():boolean {
     return !!this.cookieService.get('studentjwt')
   }
 

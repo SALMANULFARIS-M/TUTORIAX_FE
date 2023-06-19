@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { StudentCoursesComponent } from './student-courses/student-courses.component';
+import { CoursesviewComponent } from './coursesview/coursesview.component';
 
 
 const studentRoute: Routes = [
@@ -16,13 +17,15 @@ const studentRoute: Routes = [
       { path: '', component: HomeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
-      { path: 'courses', component: StudentCoursesComponent }
+      { path: 'courses', component: StudentCoursesComponent },
+      { path: 'courses/:id', component: CoursesviewComponent }
     ]
   }]
 
 @NgModule({
   declarations: [
-    StudentCoursesComponent
+    StudentCoursesComponent,
+    CoursesviewComponent
   ],
   imports: [
     RouterModule.forChild(studentRoute),

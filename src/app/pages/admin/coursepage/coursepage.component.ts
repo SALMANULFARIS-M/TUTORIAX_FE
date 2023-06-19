@@ -48,7 +48,6 @@ export class CoursepageComponent implements OnInit {
   isLoading: boolean = false
   id: any;
   action: any[] = [];
-  courseId: string | null = null;
   view: boolean = false;
 
   ngOnInit(): void {
@@ -158,7 +157,6 @@ export class CoursepageComponent implements OnInit {
           }
         });
       }
-
 
     } else {
       if (this.courseForm.valid) {

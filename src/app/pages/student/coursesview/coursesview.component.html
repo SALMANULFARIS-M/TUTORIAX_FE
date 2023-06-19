@@ -1,0 +1,163 @@
+<div class="max-w-screen-2xl max-h-screen-sm relative">
+  <div class="relative">
+    <img
+      src="https://e0.pxfuel.com/wallpapers/169/925/desktop-wallpaper-homepage-real-estate-empower-online-learning.jpg"
+      class="w-full h-96"
+      alt=""
+      srcset=""
+    />
+  </div>
+  <div
+    class="container flex items-center justify-center w-auto min-h-screen text-gray-800"
+  >
+    <!-- Component Start -->
+    <div
+      class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 w-full max-w-screen-lg"
+    >
+      <div class="lg:col-span-2">
+        <div class="rounded my-4 py-3 shadow-lg">
+          <div class="flex items-center justify-center">
+            <h2
+              class="text-base w-36 text-center font-bold border-1 border-gray-400 shadow-xl rounded-md"
+            >
+              Course Details
+            </h2>
+          </div>
+          <div class="p-10">
+            <div class="flex justify-center">
+              <video
+                *ngIf="courseView && course.video_id"
+                class="w-auto h-72 mb-4"
+                controls
+              >
+                <source [src]="course.video_id" type="video/mp4" />
+              </video>
+              <img
+                *ngIf="courseView == false"
+                [src]="course.image_id"
+                class="rounded-md"
+                alt=""
+              />
+            </div>
+          </div>
+          <div class="text-center">
+            <h4 class="font-bold text-2xl">{{ course.title }}</h4>
+            <div
+              class="text-center p-5 bg-gray-200 m-4 rounded-md place-items-center"
+            >
+              <div
+                class="grid grid-cols-2 gap-4 border-2 border-gray-200 rounded-md place-items-center items-center shadow-md"
+              >
+                <!--First name input-->
+                <div
+                  class="relative my-3 text-start text-gray-700"
+                  data-te-input-wrapper-init
+                >
+                  <p class="font-semibold text-base">Creator</p>
+                </div>
+                <!--Last name input-->
+                <div class="relative my-3" data-te-input-wrapper-init>
+                  <p class="text-gray-900 font-bold text-lg">
+                    {{ course.author }}
+                  </p>
+                </div>
+              </div>
+              <div
+                class="grid grid-cols-2 gap-4 mt-4 border-2 border-gray-200 rounded-md place-items-center items-center shadow-md"
+              >
+                <!--First name input-->
+                <div
+                  class="relative my-3 text-start text-gray-700"
+                  data-te-input-wrapper-init
+                >
+                  <p class="font-semibold text-base">Price</p>
+                </div>
+                <!--Last name input-->
+                <div class="relative my-3" data-te-input-wrapper-init>
+                  <p class="text-red-500 font-bold text-base">
+                    {{ course.price }}.00 RS
+                  </p>
+                </div>
+              </div>
+              <div
+                class="grid grid-cols-2 gap-4 mt-4 border-2 border-gray-200 rounded-md place-items-center items-center shadow-md"
+              >
+                <!--First name input-->
+                <div
+                  class="relative my-3 text-start text-gray-700"
+                  data-te-input-wrapper-init
+                >
+                  <p class="font-semibold text-base">Created At</p>
+                </div>
+                <!--Last name input-->
+                <div class="relative my-3" data-te-input-wrapper-init>
+                  <p class="text-gray-900 font-bold text-lg">
+                    {{ course.date | date : "yyyy-MM-dd" }}
+                  </p>
+                </div>
+              </div>
+              <div
+                class="mt-4 p-2 border-2 border-gray-200 rounded-md place-items-center items-center shadow-md"
+              >
+                <h5 class="text-gray-500 text-base font-bold">About</h5>
+                <p class="text-black font-medium">{{ course.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="courseView==false" class="my-10">
+        <div class="bg-white rounded mt-4 shadow-lg py-6">
+          <div class="px-8">
+            <h5
+              class="text-center font-semibold text-base my-6 border-1 p-2 rounded-md"
+            >
+              {{ course.title }} Course
+            </h5>
+            <div class="flex items-end">
+              <div
+                class="text-sm font-medium focus:outline-none -ml-1"
+                name=""
+                id=""
+              >
+                Amount
+              </div>
+              <span class="text-sm ml-auto font-semibold text-red-600"
+                >{{ course.price }}.00</span
+              >
+            </div>
+          </div>
+          <div class="px-8 mt-4">
+            <div class="flex items-end justify-between">
+              <span class="text-sm font-semibold">Tax</span>
+              <span class="text-sm text-gray-500 mb-px">0.00</span>
+            </div>
+          </div>
+          <div class="px-8 mt-4 border-t pt-4">
+            <div class="flex items-end justify-between">
+              <span class="text-sm font-semibold">Total</span>
+              <span class="text-sm text-red-700 mb-px font-bold"
+                >{{ course.price }}.00 Rs</span
+              >
+            </div>
+          </div>
+          <div class="flex items-center px-8 mt-8">
+            <input id="termsConditions" type="checkbox" />
+            <label class="text-xs text-gray-500 ml-2" for="termsConditions"
+              >I agree to the terms and conditions.</label
+            >
+          </div>
+          <div class="flex flex-col px-8 pt-4">
+            <button
+              (click)="payNow(course)"
+              class="flex items-center justify-center bg-violet-600 text-sm font-medium w-full h-10 rounded text-blue-50 hover:bg-violet-700"
+            >
+              Buy now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Component End  -->
+  </div>
+</div>

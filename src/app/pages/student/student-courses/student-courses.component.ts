@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {  Router } from '@angular/router';
 import { AdminServicesService } from 'src/app/services/admin-services.service';
 import Swal from 'sweetalert2';
 
@@ -21,7 +22,7 @@ const Toast = Swal.mixin({
 })
 export class StudentCoursesComponent implements OnInit {
   courses: any
-  constructor(private adminService: AdminServicesService) { }
+  constructor(private adminService: AdminServicesService,private router:Router) { }
   ngOnInit(): void {
     this.adminService.getAllCourses().subscribe((result: any) => {
       if (result.status) {
@@ -36,4 +37,10 @@ export class StudentCoursesComponent implements OnInit {
       }
     });
   }
+
+  goToDetails(courseId: string): void {
+    this.router.navigate(['courses', courseId]);
+  }
+
+
 }

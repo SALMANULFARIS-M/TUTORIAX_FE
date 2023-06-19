@@ -7,8 +7,10 @@
       srcset=""
     />
   </div>
-  <div class="p-10">
-    <div class="grid md:grid-cols-2 sm:grid-cols-1  max-sm:h-36    mb-10  border rounded-md shadow-xl py-2">
+  <div class="p-10 container">
+    <div
+      class="grid md:grid-cols-2 sm:grid-cols-1 max-sm:h-36 mb-10 border rounded-md shadow-xl py-2"
+    >
       <div class="flex justify-end max-sm:justify-center">
         <ul
           class="flex items-end min-md:justify-end flex-wrap max-sm:justify-center text-sm font-medium text-center text-gray-500 dark:text-gray-400"
@@ -23,7 +25,7 @@
           </li>
         </ul>
       </div>
-      <div class="flex justify-end pe-2 h-6 pt-2  max-sm:mb-6">
+      <div class="flex justify-end pe-2 h-6 pt-2 max-sm:mb-6">
         <div class="relative flex w-60 justify-end flex-wrap items-stretch">
           <input
             type="search"
@@ -69,7 +71,7 @@
         </div>
         <div class="py-3 justify-center flex">
           <a
-            routerLink=""
+            (click)="goToDetails(c._id)"
             class="inline-flex items-center px-3 py-2 text-base font-medium text-center text-white bg-violet-950 rounded-lg hover:bg-violet-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-800"
           >
             Enroll now
