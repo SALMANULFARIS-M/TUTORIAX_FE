@@ -22,39 +22,42 @@
       >
         <li class="mb-4 lg:mb-0 lg:pr-2 text-cyan-800" data-te-nav-item-ref>
           <!-- Dashboard link -->
-          <a
-            class="underline-offset-4 hover:text-cyan-700 focus:text-cyan-700 lg:px-2"
+          <router-link
+            class="lg:px-2 hover:text-cyan-700"
+            [class]="currentRoute() === '/' ? activeClass : inactiveClass"
             routerLink="/"
-            routerLinkActive="text-cyan-400"
-            data-te-nav-link-ref
-            >HOME</a
           >
+            HOME
+          </router-link>
         </li>
         <!-- Team link -->
         <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-          <a
-          class=" underline-offset-4 hover:text-cyan-700 focus:text-cyan-700 lg:px-2"            routerLink="/courses"
-            data-te-nav-link-ref
-            routerLinkActive="text-cyan-400"
-            >COURSES</a
+          <router-link
+            class="lg:px-2 hover:text-cyan-700"
+            [class]="currentRoute() === '/courses' ? activeClass : inactiveClass"
+            routerLink="/courses"
           >
+            COURSES
+          </router-link>
         </li>
         <!-- Projects link -->
-        <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-          <a
-          class=" underline-offset-4 hover:text-cyan-700 focus:text-cyan-700 lg:px-2"
-          routerLinkActive="text-cyan-400"
-          data-te-nav-link-ref
-            >INSTRUCTORS</a
+        <li class="mb-4 lg:mb-0 lg:pr-2 hover:text-cyan-700" data-te-nav-item-ref>
+          <router-link
+            class="lg:px-2"
+            [class]="currentRoute() === '/tutor' ? activeClass : inactiveClass"
+            routerLink="/tutor"
+          >
+            INSTRUCTORS</router-link
           >
         </li>
         <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-          <a
-          class=" underline-offset-4 hover:text-cyan-700 focus:text-cyan-700 lg:px-2"
-          routerLinkActive="text-cyan-400"
-          data-te-nav-link-ref
-            >ABOUT</a
+          <router-link
+            class="lg:px-2 hover:text-cyan-700"
+            [class]="currentRoute() === '/about' ? activeClass : inactiveClass"
+            routerLink="/about"
           >
+            ABOUT
+          </router-link>
         </li>
         <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
           <a

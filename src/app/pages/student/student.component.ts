@@ -2,11 +2,7 @@ import { Component,HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { StudentServicesService } from 'src/app/services/student-services.service';
-import {
-  Dropdown,
-  Ripple,
-  initTE,
-} from "tw-elements";
+
 
 @Component({
   selector: 'app-student',
@@ -15,6 +11,8 @@ import {
 })
 export class StudentComponent implements OnInit {
 
+  activeClass: string = "text-cyan-500";
+  inactiveClass: string = "text-white  ";
 constructor(private router: Router,private studentService:StudentServicesService, private cookieService: CookieService){}
 
 //declarations
@@ -22,6 +20,10 @@ navbg!: boolean;
 
 ngOnInit(): void {
 
+}
+
+currentRoute(): string {
+  return this.router.url;
 }
 
 //navbar showing
