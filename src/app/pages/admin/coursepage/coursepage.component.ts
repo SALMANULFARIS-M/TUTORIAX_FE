@@ -5,6 +5,7 @@ import { initializeApp } from 'firebase/app';
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { ToastrService } from 'ngx-toastr';
 import { AdminServicesService } from 'src/app/services/admin-services.service';
+import { AuthserviceService } from 'src/app/services/authservice.service';
 import Swal from 'sweetalert2';
 
 const Toast = Swal.mixin({
@@ -38,7 +39,7 @@ const storage = getStorage(app)
 export class CoursepageComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, private authService: AuthserviceService) {
   }
 
   //declaration
@@ -73,6 +74,8 @@ export class CoursepageComponent implements OnInit {
             this.courseForm.disable();
             this.view = true
           }
+        }, (error: any) => {
+          this.authService.handleError(error.status)
         })
       }
     });
@@ -149,12 +152,7 @@ export class CoursepageComponent implements OnInit {
             this.ngOnInit()
           }
         }, (error: any) => {
-          if (error.status === 400) {
-            Toast.fire({
-              icon: 'warning',
-              title: error.error.message
-            })
-          }
+          this.authService.handleError(error.status)
         });
       }
 
@@ -197,12 +195,7 @@ export class CoursepageComponent implements OnInit {
                       this.router.navigate(['/admin/courses']);
                     }
                   }, (error: any) => {
-                    if (error.status === 400) {
-                      Toast.fire({
-                        icon: 'warning',
-                        title: error.error.message
-                      })
-                    }
+                    this.authService.handleError(error.status)
                   });
                 }).catch((error) => {
                   // Handle error while getting video download URL
@@ -220,15 +213,14 @@ export class CoursepageComponent implements OnInit {
             // Handle error while uploading thumbnail file
             console.error('Error uploading thumbnail file:', error);
           });
-        }else{
+        } else {
           Toast.fire({
             icon: 'warning',
-            title:"Add the media files"
+            title: "Add the media files"
           })
         }
       }
     }
   }
-
 }
 

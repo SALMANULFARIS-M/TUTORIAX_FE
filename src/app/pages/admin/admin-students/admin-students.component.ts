@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminServicesService } from 'src/app/services/admin-services.service';
+import { AuthserviceService } from 'src/app/services/authservice.service';
 import Swal from 'sweetalert2';
 
 const Toast = Swal.mixin({
@@ -21,18 +22,13 @@ const Toast = Swal.mixin({
 export class AdminStudentsComponent implements OnInit {
 
   students: any
-  constructor(private adminService: AdminServicesService) { }
+  constructor(private adminService: AdminServicesService,private authService:AuthserviceService) { }
   ngOnInit(): void {
     this.adminService.getAllstudents().subscribe((res) => {
       this.students = res.data
 
     }, (error: any) => {
-      if (error.status === 400) {
-        Toast.fire({
-          icon: 'warning',
-          title: error.error.message
-        })
-      }
+      this.authService.handleError(error.status)
     })
   }
 
@@ -64,13 +60,7 @@ export class AdminStudentsComponent implements OnInit {
             'success'
           )
         }, (error: any) => {
-          if (error.status === 400) {
-            Toast.fire({
-              icon: 'warning',
-              title: error.error.message
-            })
-          }
-
+          this.authService.handleError(error.status)
         })
       }
     })

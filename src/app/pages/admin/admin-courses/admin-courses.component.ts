@@ -5,6 +5,7 @@ import { AdminServicesService } from 'src/app/services/admin-services.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
+import { AuthserviceService } from 'src/app/services/authservice.service';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -36,7 +37,7 @@ const storage = getStorage(app)
 export class AdminCoursesComponent implements OnInit {
   courses: any;
   constructor(private adminService: AdminServicesService, private spinner: NgxSpinnerService,
-    private router: Router) { }
+    private router: Router,private authService:AuthserviceService) { }
 
   ngOnInit(): void {
     this.adminService.getAllCourses().subscribe((result: any) => {
@@ -44,12 +45,7 @@ export class AdminCoursesComponent implements OnInit {
         this.courses = result.data
       }
     }, (error: any) => {
-      if (error.status === 400) {
-        Toast.fire({
-          icon: 'warning',
-          title: error.error.message
-        })
-      }
+      this.authService.handleError(error.status)
     });
   }
 
@@ -105,12 +101,7 @@ export class AdminCoursesComponent implements OnInit {
               });
           }
         }, (error: any) => {
-          if (error.status === 400) {
-            Toast.fire({
-              icon: 'warning',
-              title: error.error.message
-            })
-          }
+          this.authService.handleError(error.status)
         })
       }
     })

@@ -10,7 +10,7 @@ export class StudentLoadGuard implements CanLoad {
 
   constructor(private authService: AuthserviceService,private router:Router) { }
   canLoad() {
-    const isLoggedIn = this.authService.isAdminLoggedIn();
+    const isLoggedIn = this.authService.isStudentLoggedIn();
     if (isLoggedIn) {
       return false;
     } else {

@@ -16,6 +16,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { AuthserviceService } from 'src/app/services/authservice.service';
 
 
 //typescript cant obtain window directly
@@ -62,7 +63,7 @@ const Toast = Swal.mixin({
 
 export class RegisterComponent implements OnInit {
   constructor(private fb: FormBuilder, private studentService: StudentServicesService, private router: Router, private toastr: ToastrService,
-    private cookieService: CookieService, private _ngZone: NgZone, private socialAuthService: SocialAuthService) { }
+    private cookieService: CookieService, private authService:AuthserviceService) { }
 
   //declare a variable
   submit: boolean = false;
@@ -217,10 +218,7 @@ export class RegisterComponent implements OnInit {
             })
           }
         }, (error) => {
-          Toast.fire({
-            icon: 'warning',
-            title: error.error.message
-          })
+          this.authService.handleError(error.status)
         })
         this.isLoading = false;
       }).catch((error: any) => {
@@ -248,13 +246,7 @@ export class RegisterComponent implements OnInit {
           })
         }
       }, (error: any) => {
-        if (error.status === 400) {
-
-          Toast.fire({
-            icon: 'warning',
-            title: error.error.message
-          })
-        }
+        this.authService.handleError(error.status)
       })
     }
   }

@@ -47,8 +47,6 @@ export class AdminLoginComponent implements OnInit {
     return this.registrationForm.controls;
   }
 
-
-
   onSubmit() {
     this.submit = true;
     if (this.registrationForm.valid) {
@@ -62,12 +60,7 @@ export class AdminLoginComponent implements OnInit {
           this.router.navigate(['/admin/dashboard']);
         }
       }, (error: any) => {
-        if (error.status === 400) {
-          Toast.fire({
-            icon: 'warning',
-            title: error.error.message
-          })
-        }
+        this.authService.handleError(error.status)
       });
     }
   }

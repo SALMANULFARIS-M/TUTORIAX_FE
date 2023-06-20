@@ -11,6 +11,7 @@ import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { takeUntil } from 'rxjs';
 import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
+import { AuthserviceService } from 'src/app/services/authservice.service';
 
 //typescript cant obtain window directly
 interface CustomWindow extends Window {
@@ -59,7 +60,7 @@ const Toast = Swal.mixin({
 export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private router: Router, private studentService: StudentServicesService, private cookieService: CookieService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,private authService:AuthserviceService) { }
 
   //declare variable
   modal: boolean = false;
@@ -217,12 +218,7 @@ export class LoginComponent implements OnInit {
           })
         }
       }, (error: any) => {
-        if (error.status === 400) {
-          Toast.fire({
-            icon: 'warning',
-            title: error.error.message
-          })
-        }
+        this.authService.handleError(error.status)
       })
     }
   }
@@ -244,13 +240,7 @@ export class LoginComponent implements OnInit {
           })
         }
       }, (error: any) => {
-        if (error.status === 400) {
-
-          Toast.fire({
-            icon: 'warning',
-            title: error.error.message
-          })
-        }
+        this.authService.handleError(error.status)
       })
     }
   }
@@ -270,12 +260,7 @@ export class LoginComponent implements OnInit {
           this.toastr.error(result.message, '');
         }
       }, (error: any) => {
-        if (error.status === 400) {
-          Toast.fire({
-            icon: 'warning',
-            title: error.error.message
-          })
-        }
+        this.authService.handleError(error.status)
       });
     }
   }

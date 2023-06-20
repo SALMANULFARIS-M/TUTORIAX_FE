@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { StudentCoursesComponent } from './student-courses/student-courses.component';
 import { CoursesviewComponent } from './coursesview/coursesview.component';
+import { NotfoundComponent } from '../errors/notfound/notfound.component';
 
 
 const studentRoute: Routes = [
@@ -18,10 +19,10 @@ const studentRoute: Routes = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'courses', component: StudentCoursesComponent },
-      { path: 'courses/:id', component: CoursesviewComponent }
+      { path: 'courses/:id', component: CoursesviewComponent },
     ]
-  }]
-
+  },
+  { path: '**', component: NotfoundComponent }]
 @NgModule({
   declarations: [
     StudentCoursesComponent,

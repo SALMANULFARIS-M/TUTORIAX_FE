@@ -49,12 +49,7 @@ export class CoursesviewComponent implements OnInit {
         })
       }
     }, (error: any) => {
-      if (error.status === 400) {
-        Toast.fire({
-          icon: 'warning',
-          title: error.error.message
-        })
-      }
+      this.authService.handleError(error.status)
     })
   }
 
@@ -97,7 +92,6 @@ export class CoursesviewComponent implements OnInit {
         title: "Please login to continue"
       })
     }
-
 
   }
 

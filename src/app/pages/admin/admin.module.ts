@@ -12,6 +12,7 @@ import { CoursepageComponent } from './coursepage/coursepage.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AdminGuardGuard } from 'src/app/guard/admin-guard.guard';
+import { NotfoundComponent } from '../errors/notfound/notfound.component';
 
 
 const adminRoute: Routes = [
@@ -29,6 +30,7 @@ const adminRoute: Routes = [
       { path: 'students', component: AdminStudentsComponent },
     ]
   },
+  { path: '**', component: NotfoundComponent },
 ];
 
 

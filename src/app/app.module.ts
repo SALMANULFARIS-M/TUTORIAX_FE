@@ -30,6 +30,9 @@ import { LoginComponent } from './pages/student/login/login.component';
 import { AdminLoginComponent } from './pages/admin/admin-login/admin-login.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { NotfoundComponent } from './pages/errors/notfound/notfound.component';
+import { InternalserverComponent } from './pages/errors/internalserver/internalserver.component';
+import { BadgatewayComponent } from './pages/errors/badgateway/badgateway.component';
 
 
 @NgModule({
@@ -40,7 +43,10 @@ import { NgxSpinnerModule } from "ngx-spinner";
     RegisterComponent,
     LoginComponent,
     AdminLoginComponent,
-    AdminComponent
+    AdminComponent,
+    NotfoundComponent,
+    InternalserverComponent,
+    BadgatewayComponent
   ],
   imports: [
     BrowserModule,
