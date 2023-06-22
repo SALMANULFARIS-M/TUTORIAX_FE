@@ -12,26 +12,23 @@ import { CoursepageComponent } from './coursepage/coursepage.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AdminGuardGuard } from 'src/app/guard/admin-guard.guard';
-import { NotfoundComponent } from '../errors/notfound/notfound.component';
 
 
 const adminRoute: Routes = [
-  { path: '', component: AdminLoginComponent },
+  { path: 'login', component: AdminLoginComponent },
   {
     path: '',
     component: AdminComponent,canActivate:[AdminGuardGuard],
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
-      { path: 'courses', component: AdminCoursesComponent},
-      { path: 'addcourse', component: CoursepageComponent},
-      { path: 'editcourse/:id', component: CoursepageComponent},
-      { path: 'viewcourse/:id', component: CoursepageComponent},
+      { path: 'courses', component: AdminCoursesComponent },
+      { path: 'addcourse', component: CoursepageComponent },
+      { path: 'editcourse/:id', component: CoursepageComponent },
+      { path: 'viewcourse/:id', component: CoursepageComponent },
       { path: 'teachers', component: AdminTeachersComponent },
       { path: 'students', component: AdminStudentsComponent },
     ]
-  },
-  { path: '**', component: NotfoundComponent },
-];
+  }]
 
 
 @NgModule({
@@ -52,6 +49,6 @@ const adminRoute: Routes = [
   exports: [
     RouterModule
   ],
-  schemas: [NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdminModule { }

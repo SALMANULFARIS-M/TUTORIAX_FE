@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AuthserviceService {
 
-  constructor(private cookieService: CookieService,private router:Router ) { }
+  constructor(private cookieService: CookieService, private router: Router) { }
 
   isAdminLoggedIn() {
     return !!this.cookieService.get('adminjwt')
@@ -32,21 +32,20 @@ export class AuthserviceService {
     }
   }
 
-// Inside your response handling logic
-handleError(status: number) {
-  switch (status) {
-    case 404:
-      this.router.navigate(['/404']);
-      break;
-    case 500:
-      this.router.navigate(['/500']);
-      break;
-    case 502:
-      this.router.navigate(['/502']);
-      break;
-    default:
+  // Inside your response handling logic
+  handleError(status: number) {
+    switch (status) {
+      case 404:
+        this.router.navigate(['/404']);
+        break;
+      case 500:
+        this.router.navigate(['/500']);
+        break;
+      case 502:
+        this.router.navigate(['/502']);
+        break;
+      default:
       // Handle other error statuses or display a generic error message
+    }
   }
-}
-
 }

@@ -33,6 +33,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NotfoundComponent } from './pages/errors/notfound/notfound.component';
 import { InternalserverComponent } from './pages/errors/internalserver/internalserver.component';
 import { BadgatewayComponent } from './pages/errors/badgateway/badgateway.component';
+import { TutorComponent } from './pages/tutor/tutor.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { BadgatewayComponent } from './pages/errors/badgateway/badgateway.compon
     AdminComponent,
     NotfoundComponent,
     InternalserverComponent,
-    BadgatewayComponent
+    BadgatewayComponent,
+    TutorComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,7 @@ import { BadgatewayComponent } from './pages/errors/badgateway/badgateway.compon
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('360144361205-jcp24rraul11rocvispiq9u23sgg7n1e.apps.googleusercontent.com'),
+            provider: new GoogleLoginProvider(environment.clientId),
           },
         ],
       } as SocialAuthServiceConfig,

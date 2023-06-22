@@ -5,7 +5,7 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/environment.development';
 import { AuthserviceService } from './services/authservice.service';
 
 @Injectable()
@@ -15,7 +15,6 @@ export class TokenInterceptor implements HttpInterceptor {
   token!: string;
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler) {
-    const commonUrl = "http://localhost:3001/"
     const isAdminRequest = request.url.includes("admin");
     const isTeacherRequest = request.url.includes("teacher");
 
@@ -33,13 +32,13 @@ export class TokenInterceptor implements HttpInterceptor {
         Authorization: 'Bearer' + authService
       };
       let newRequest = request.clone({
-        url: commonUrl + request.url,
+        url: environment.backendApiUrl + request.url,
         setHeaders: headers
       })
       return next.handle(newRequest);
     } else {
       let newRequest = request.clone({
-        url: commonUrl + request.url
+        url: environment.backendApiUrl + request.url
       })
       return next.handle(newRequest);
     }

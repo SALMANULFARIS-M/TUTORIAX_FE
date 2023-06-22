@@ -7,16 +7,13 @@ import { BadgatewayComponent } from './pages/errors/badgateway/badgateway.compon
 
 
 const routes: Routes = [
-  {path:'',loadChildren:()=>import('./pages/student/student.module').then(m=>m.StudentModule),},
-  {path:'admin',loadChildren:()=>import('./pages/admin/admin.module').then(m=>m.AdminModule),canLoad: [StudentLoadGuard]},
-  { path: '**', component: NotfoundComponent },
-  { path: '404', component: NotfoundComponent },
-  { path: '500', component: InternalserverComponent },
-  { path: '502', component: BadgatewayComponent },
+  {path:'',loadChildren:()=>import('./pages/student/student.module').then(m=>m.StudentModule)},
+  {path:'admin',loadChildren:()=>import('./pages/admin/admin.module').then(m=>m.AdminModule)},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

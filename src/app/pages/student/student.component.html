@@ -1,86 +1,156 @@
-<!-- Navbar Start-->
 <nav
-  *ngIf="shouldShowNavbar()"
+  class="fixed-top"
+  id="top-nav"
   [ngClass]="navbg ? 'bg-black' : 'bg-transparent'"
-  class="position: fixed fixed-top flex w-full flex-wrap items-center justify-between py-2 text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 lg:py-4"
 >
-  <div class="flex w-full flex-wrap items-center justify-between px-3">
-    <div>
-      <img
-        class="mr-2"
-        src="../../../assets/images/full-icon.png"
-        class="w-80 h-28"
-        alt="logo"
-        loading="lazy"
-      />
+  <div class="max-w-screen-xl flex flex-wrap justify-between mx-auto">
+    <div class="flex justify-start my-4">
+      <a href="/" class="flex items-center">
+        <img
+          src="../../../assets/images/logo-no-background.png"
+          class="w-56 mr-3"
+          alt="Tutoriax Logo"
+        />
+      </a>
     </div>
-    <div class="me-5">
-      <!-- Left links -->
-      <!-- Left navigation links -->
-      <ul
-        class="list-style-none space-x-5 justify-between mr-auto flex flex-col pl-0 lg:flex-row font-mono font-semibold text-xl"
+    <button
+      id="toggleButton"
+      data-collapse-toggle="navbar-dropdown"
+      type="button"
+      class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+      aria-controls="navbar-dropdown"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg
+        class="w-6 h-6"
+        aria-hidden="true"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <li class="mb-4 lg:mb-0 lg:pr-2 text-cyan-800" data-te-nav-item-ref>
-          <!-- Dashboard link -->
-          <router-link
-            class="lg:px-2 hover:text-cyan-700"
+        <path
+          fill-rule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
+    <div
+      class="hidden justify-end w-full md:block md:w-auto pt-2"
+      id="toggleNav"
+    >
+      <ul
+        class="font-mono text-xl flex flex-col font-semibold md:p-0 mt-4 md:bg-transparent max-sm:border border-gray-100 rounded-lg max-sm:bg-gray-900 md:flex-row md:space-x-8 md:mt-0 md:border-0"
+      >
+        <li class="">
+          <a
+            class="lg:px-2 block max-sm:pl-3 max-sm:pr-4 rounded-md hover:text-cyan-500 dark:hover:text-cyan-500 "
             [class]="currentRoute() === '/' ? activeClass : inactiveClass"
             routerLink="/"
           >
             HOME
-          </router-link>
+          </a>
         </li>
-        <!-- Team link -->
-        <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-          <router-link
-            class="lg:px-2 hover:text-cyan-700"
-            [class]="currentRoute() === '/courses' ? activeClass : inactiveClass"
+        <li class="hover:text-cyan-700">
+          <a
+            class="block lg:px-2 max-sm:pl-3 max-sm:pr-4 rounded-md hover:text-cyan-500 dark:hover:text-cyan-500"
+            [class]="
+              currentRoute() === '/courses' ? activeClass : inactiveClass
+            "
             routerLink="/courses"
           >
             COURSES
-          </router-link>
+          </a>
         </li>
-        <!-- Projects link -->
-        <li class="mb-4 lg:mb-0 lg:pr-2 hover:text-cyan-700" data-te-nav-item-ref>
-          <router-link
-            class="lg:px-2"
+        <li>
+          <a
+            class="block lg:px-2 max-sm:pl-3 max-sm:pr-4 rounded-md "
             [class]="currentRoute() === '/tutor' ? activeClass : inactiveClass"
             routerLink="/tutor"
           >
-            INSTRUCTORS</router-link
+            INSTRUCTORS</a
           >
         </li>
-        <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-          <router-link
-            class="lg:px-2 hover:text-cyan-700"
+
+        <li>
+          <a
+            class="block lg:px-2 max-sm:pl-3 max-sm:pr-4 rounded-md hover:text-cyan-500  dark:hover:text-cyan-500"
             [class]="currentRoute() === '/about' ? activeClass : inactiveClass"
             routerLink="/about"
           >
             ABOUT
-          </router-link>
+          </a>
         </li>
-        <li class="mb-4 lg:mb-0 lg:pr-2" data-te-nav-item-ref>
-          <a
-            *ngIf="isLoggedIn() == false"
-            class="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-cyan-500 dark:focus:text-cyan-500 lg:px-2"
-            routerLink="./register"
-            >REGISTER</a
+        <li>
+          <button
+            id="dropdownNavbarLink"
+            [class]="
+              currentRoute() === '/account' ? activeClass : inactiveClass
+            "
+            data-dropdown-toggle="dropdownRight"
+            data-dropdown-placement="right"
+            class="flex items-center max-sm:pl-3 max-sm:pr-4 rounded-md justify-between w-full text-white hover:bg-cyan-500 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto"
           >
-
-          <a
-            *ngIf="isLoggedIn() == true"
-            class="text-neutral-500 hover:text-neutral-700 focus:text-neutral-700 disabled:text-black/30 dark:text-neutral-200 dark:hover:text-cyan-500 dark:focus:text-cyan-500 lg:px-2"
-            (click)="logout()"
-            type="button"
-            data-te-nav-link-ref
-            >LOGOUT</a
+            ACCOUNT
+          </button>
+          <!-- Dropdown menu -->
+          <div
+            id="dropdownNavbar"
+            class="z-10 absolute hidden border border-gray-500 font-normal bg-black divide-y divide-gray-100 rounded-lg shadow w-32"
           >
+            <ul
+              class="py-2 text-sm text-gray-400"
+              aria-labelledby="dropdownLargeButton"
+            >
+              <li class="border-b border-gray-500">
+                <a
+                  routerLink="/login"
+                  class="block px-4 py-2 hover:bg-gray-800 hover:text-white"
+                  >Log in</a
+                >
+              </li>
+              <li>
+                <a
+                  routerLink="/register"
+                  class="block px-4 py-2 hover:bg-gray-800 hover:text-white"
+                  >Register</a
+                >
+              </li>
+            </ul>
+            <ul
+              *ngIf="isLoggedIn()"
+              class="py-2 text-sm text-gray-400"
+              aria-labelledby="dropdownLargeButton"
+            >
+              <li class="border-b border-gray-500">
+                <a
+                  href="#"
+                  class="block px-4 py-2 hover:bg-gray-800 hover:text-white"
+                  >Profile</a
+                >
+              </li>
+              <li class="border-b border-gray-500">
+                <a
+                  routerLink="/my-course"
+                  class="block px-4 py-2 hover:bg-gray-800 hover:text-white"
+                  >My Courses</a
+                >
+              </li>
+              <li>
+                <a
+                  (click)="logout()"
+                  class="block px-4 py-2 hover:bg-gray-800 hover:text-white"
+                  >Log Out</a
+                >
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-<!-- Navbar End -->
 
 <router-outlet></router-outlet>
 
