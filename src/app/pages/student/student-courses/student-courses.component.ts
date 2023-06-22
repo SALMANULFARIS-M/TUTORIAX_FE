@@ -2,20 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminServicesService } from 'src/app/services/admin-services.service';
 import { AuthserviceService } from 'src/app/services/authservice.service';
-import Swal from 'sweetalert2';
 
 
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top',
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
+
 @Component({
   selector: 'app-student-courses',
   templateUrl: './student-courses.component.html',

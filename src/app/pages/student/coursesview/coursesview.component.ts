@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AdminServicesService } from 'src/app/services/admin-services.service';
@@ -8,29 +7,21 @@ import { StudentServicesService } from 'src/app/services/student-services.servic
 import { CookieService } from 'ngx-cookie-service';
 import { AuthserviceService } from 'src/app/services/authservice.service';
 
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top',
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
 @Component({
   selector: 'app-coursesview',
   templateUrl: './coursesview.component.html',
   styleUrls: ['./coursesview.component.scss']
 })
 export class CoursesviewComponent implements OnInit {
+  Toast: any;
   courseId: any;
   course: any;
   courseView: boolean = false;
   paymentHandler: any = null;
-  constructor(private studentService: StudentServicesService,private authService:AuthserviceService, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router,
-    private route: ActivatedRoute, private cookieService: CookieService) { }
+  constructor(private studentService: StudentServicesService, private authService: AuthserviceService, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router,
+    private route: ActivatedRoute, private cookieService: CookieService) {
+      this.Toast = this.authService.Toast;
+     }
   ngOnInit(): void {
     this.invokeStripe();
     this.courseId = this.route.snapshot.paramMap.get('id');
@@ -87,7 +78,7 @@ export class CoursesviewComponent implements OnInit {
         panelLabel: `Pay ${amountFormatted}`,
       });
     } else {
-      Toast.fire({
+      this.Toast.fire({
         icon: 'warning',
         title: "Please login to continue"
       })

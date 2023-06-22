@@ -5,20 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AdminServicesService } from 'src/app/services/admin-services.service';
 import { AuthserviceService } from 'src/app/services/authservice.service';
-import Swal from 'sweetalert2';
 
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top',
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
 @Component({
   selector: 'app-admin-login',
   templateUrl: './admin-login.component.html',
@@ -26,8 +13,11 @@ const Toast = Swal.mixin({
 })
 export class AdminLoginComponent implements OnInit {
 
+  Toast: any;
   constructor(private fb: FormBuilder, private authService: AuthserviceService, private router: Router, private adminService: AdminServicesService, private cookieService: CookieService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService) {
+    this.Toast = this.authService.Toast;
+  }
 
   //declaration
   submit: boolean = false
@@ -60,7 +50,14 @@ export class AdminLoginComponent implements OnInit {
           this.router.navigate(['/admin/dashboard']);
         }
       }, (error: any) => {
-        this.authService.handleError(error.status)
+        if (error.status == 401) {
+          this.Toast.fire({
+            icon: 'warning',
+            title: error.message
+          })
+        } else {
+          this.authService.handleError(error.status)
+        }
       });
     }
   }

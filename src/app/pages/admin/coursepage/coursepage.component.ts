@@ -8,28 +8,6 @@ import { AdminServicesService } from 'src/app/services/admin-services.service';
 import { AuthserviceService } from 'src/app/services/authservice.service';
 import Swal from 'sweetalert2';
 
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top',
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
-const app = initializeApp({
-  apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
-  authDomain: "e-mail-otp-verification.firebaseapp.com",
-  projectId: "e-mail-otp-verification",
-  storageBucket: "e-mail-otp-verification.appspot.com",
-  messagingSenderId: "481187461752",
-  appId: "1:481187461752:web:f8255469cf48b74e5d0b8d",
-  measurementId: "G-DGKX0B9QDQ"
-});
-
-const storage = getStorage(app)
 
 @Component({
   selector: 'app-coursepage',
@@ -38,8 +16,12 @@ const storage = getStorage(app)
 })
 export class CoursepageComponent implements OnInit {
 
+  storage: any
+  Toast: any
   constructor(private fb: FormBuilder, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router,
     private route: ActivatedRoute, private authService: AuthserviceService) {
+    this.storage = this.authService.storage;
+    this.Toast = this.authService.Toast;
   }
 
   //declaration
@@ -109,11 +91,11 @@ export class CoursepageComponent implements OnInit {
         if (thumbnailInput.files) {
           const thumbnailFile: File = thumbnailInput.files?.[0];
 
-          const thumbnailStorageRef = ref(storage, this.course.image_id);
+          const thumbnailStorageRef = ref(this.storage, this.course.image_id);
           deleteObject(thumbnailStorageRef)
             .then(() => {
               // Upload thumbnail file
-              const thumbnailRef = ref(storage, "Tutoriax/thumbnails/" + thumbnailFile.name);
+              const thumbnailRef = ref(this.storage, "Tutoriax/thumbnails/" + thumbnailFile.name);
               uploadBytes(thumbnailRef, thumbnailFile).then(() => {
                 // Get the download URL of the thumbnail file
                 getDownloadURL(thumbnailRef).then((thumbnailURL) => {
@@ -126,11 +108,11 @@ export class CoursepageComponent implements OnInit {
         }
         if (videoInput.files) {
           const videoFile: File = videoInput.files?.[0];
-          const videoStorageRef = ref(storage, this.course.video_id);
+          const videoStorageRef = ref(this.storage, this.course.video_id);
           deleteObject(videoStorageRef)
             .then(() => {
               // Upload thumbnail file
-              const videoRef = ref(storage, "Tutoriax/thumbnails/" + videoFile.name);
+              const videoRef = ref(this.storage, "Tutoriax/thumbnails/" + videoFile.name);
               uploadBytes(videoRef, videoFile).then(() => {
                 // Get the download URL of the video file
                 getDownloadURL(videoRef).then((videoURL) => {
@@ -168,12 +150,12 @@ export class CoursepageComponent implements OnInit {
           const videoFile: File = videoInput.files?.[0];
 
           // Upload thumbnail file
-          const thumbnailRef = ref(storage, "Tutoriax/thumbnails/" + thumbnailFile.name);
+          const thumbnailRef = ref(this.storage, "Tutoriax/thumbnails/" + thumbnailFile.name);
           uploadBytes(thumbnailRef, thumbnailFile).then(() => {
             // Get the download URL of the thumbnail file
             getDownloadURL(thumbnailRef).then((thumbnailURL) => {
               // Upload video file
-              const videoRef = ref(storage, "Tutoriax/videos/" + videoFile.name);
+              const videoRef = ref(this.storage, "Tutoriax/videos/" + videoFile.name);
               uploadBytes(videoRef, videoFile).then(() => {
                 // Get the download URL of the video file
                 getDownloadURL(videoRef).then((videoURL) => {
@@ -214,7 +196,7 @@ export class CoursepageComponent implements OnInit {
             console.error('Error uploading thumbnail file:', error);
           });
         } else {
-          Toast.fire({
+          this.Toast.fire({
             icon: 'warning',
             title: "Add the media files"
           })

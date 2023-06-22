@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidatorFn, Validators } from "@angular/forms";//forms
 //ts particles
 import { MoveDirection, ClickMode, HoverMode, OutMode, Container, Engine } from "tsparticles-engine";
@@ -11,11 +11,8 @@ import { StudentServicesService } from '../../../services/student-services.servi
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment.development';
 //firebase
-
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
-import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
-import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
+import { CredentialResponse } from 'google-one-tap';
 import { AuthserviceService } from 'src/app/services/authservice.service';
 
 
@@ -29,31 +26,6 @@ interface CustomWindow extends Window {
 declare const window: CustomWindow;
 declare const google: any;
 
-//firebase config
-const app = initializeApp({
-  apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
-  authDomain: "e-mail-otp-verification.firebaseapp.com",
-  projectId: "e-mail-otp-verification",
-  storageBucket: "e-mail-otp-verification.appspot.com",
-  messagingSenderId: "481187461752",
-  appId: "1:481187461752:web:f8255469cf48b74e5d0b8d",
-  measurementId: "G-DGKX0B9QDQ"
-});
-const auth = getAuth(app);
-auth.languageCode = 'it';
-
-
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top',
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
 
 @Component({
   selector: 'app-register',
@@ -62,8 +34,13 @@ const Toast = Swal.mixin({
 })
 
 export class RegisterComponent implements OnInit {
+  auth: any
+  Toast: any
   constructor(private fb: FormBuilder, private studentService: StudentServicesService, private router: Router, private toastr: ToastrService,
-    private cookieService: CookieService, private authService:AuthserviceService) { }
+    private cookieService: CookieService, private authService: AuthserviceService) {
+    this.auth = this.authService.auth;
+    this.Toast = this.authService.Toast;
+  }
 
   //declare a variable
   submit: boolean = false;
@@ -120,6 +97,7 @@ export class RegisterComponent implements OnInit {
       return null;
     };
   }
+
   //otp input
   onInput(event: Event, index: number) {
     const inputElement = event.target as HTMLInputElement;
@@ -154,7 +132,7 @@ export class RegisterComponent implements OnInit {
         },
         'expired-callback': () => {
         }
-      }, auth);
+      }, this.auth);
     }
   }
 
@@ -164,9 +142,9 @@ export class RegisterComponent implements OnInit {
     const appVerifier = window.recaptchaVerifier
     const phoneFormat: string = '+91' + phoneNumber
 
-    signInWithPhoneNumber(auth, phoneFormat, appVerifier)
+    signInWithPhoneNumber(this.auth, phoneFormat, appVerifier)
       .then((confirmationResult) => {
-        Toast.fire({
+        this.Toast.fire({
           icon: 'success',
           title: 'An OTP send to your mobile number Please Verify'
         })
@@ -187,7 +165,7 @@ export class RegisterComponent implements OnInit {
             errorMessage = 'An error occurred during phone number verification.';
             break;
         }
-        Toast.fire({
+        this.Toast.fire({
           icon: 'error',
           title: errorMessage
         });
@@ -198,7 +176,7 @@ export class RegisterComponent implements OnInit {
   otpVerify() {
     const otpString: string = this.otp.join('')
     if (otpString.length < 6) {
-      Toast.fire({
+      this.Toast.fire({
         icon: 'warning',
         title: 'Please enter full otp'
       })
@@ -212,7 +190,7 @@ export class RegisterComponent implements OnInit {
             this.cookieService.set('studentjwt', result.token, 1);
             this.router.navigate(['/']);
           } else {
-            Toast.fire({
+            this.Toast.fire({
               icon: 'warning',
               title: result.message
             })
@@ -222,7 +200,7 @@ export class RegisterComponent implements OnInit {
         })
         this.isLoading = false;
       }).catch((error: any) => {
-        Toast.fire({
+        this.Toast.fire({
           icon: 'success',
           title: 'Error verifying OTP. Please try again.',
         })
@@ -240,7 +218,7 @@ export class RegisterComponent implements OnInit {
         if (result.status) {
           this.otpSend(result.number)
         } else {
-          Toast.fire({
+          this.Toast.fire({
             icon: 'error',
             title: result.message
           })
@@ -250,7 +228,6 @@ export class RegisterComponent implements OnInit {
       })
     }
   }
-
 
   //ts particles animation
   id = "tsparticles";

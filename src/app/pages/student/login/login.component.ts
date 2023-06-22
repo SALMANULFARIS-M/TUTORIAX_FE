@@ -24,33 +24,10 @@ interface Credentials {
   password: string;
 }
 
-
 // Define the window object of type CustomWindow
 declare const window: CustomWindow;
 declare const google: any;
-const app = initializeApp({
-  apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
-  authDomain: "e-mail-otp-verification.firebaseapp.com",
-  projectId: "e-mail-otp-verification",
-  storageBucket: "e-mail-otp-verification.appspot.com",
-  messagingSenderId: "481187461752",
-  appId: "1:481187461752:web:f8255469cf48b74e5d0b8d",
-  measurementId: "G-DGKX0B9QDQ"
-});
-const auth = getAuth(app);
-auth.languageCode = 'it';
 
-const Toast = Swal.mixin({
-  toast: true,
-  position: 'top',
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener('mouseenter', Swal.stopTimer)
-    toast.addEventListener('mouseleave', Swal.resumeTimer)
-  }
-})
 
 @Component({
   selector: 'app-login',
@@ -59,8 +36,13 @@ const Toast = Swal.mixin({
 })
 export class LoginComponent implements OnInit {
 
+  auth: any;
+  Toast: any;
   constructor(private fb: FormBuilder, private router: Router, private studentService: StudentServicesService, private cookieService: CookieService,
-    private toastr: ToastrService,private authService:AuthserviceService) { }
+    private toastr: ToastrService, private authService: AuthserviceService) {
+    this.auth = this.authService.auth;
+    this.Toast = this.authService.Toast;
+  }
 
   //declare variable
   modal: boolean = false;
@@ -126,7 +108,7 @@ export class LoginComponent implements OnInit {
         },
         'expired-callback': () => {
         }
-      }, auth);
+      }, this.auth);
     }
   }
   //after validate from backend send otp
@@ -135,9 +117,9 @@ export class LoginComponent implements OnInit {
     const appVerifier = window.recaptchaVerifier
     const phoneFormat: string = '+91' + phoneNumber
 
-    signInWithPhoneNumber(auth, phoneFormat, appVerifier)
+    signInWithPhoneNumber(this.auth, phoneFormat, appVerifier)
       .then((confirmationResult) => {
-        Toast.fire({
+        this.Toast.fire({
           icon: 'success',
           title: 'An OTP send to your mobile number Please Verify'
         })
@@ -158,7 +140,7 @@ export class LoginComponent implements OnInit {
             errorMessage = 'An error occurred during phone number verification.';
             break;
         }
-        Toast.fire({
+        this.Toast.fire({
           icon: 'error',
           title: errorMessage
         });
@@ -170,7 +152,7 @@ export class LoginComponent implements OnInit {
   otpVerify() {
     const otpString: string = this.otp.join('')
     if (otpString.length < 6) {
-      Toast.fire({
+      this.Toast.fire({
         icon: 'warning',
         title: 'Please enter full otp'
       })
@@ -180,12 +162,12 @@ export class LoginComponent implements OnInit {
         this.password = true;
         this.otpFlag = false;
         this.isLoading = false;
-        Toast.fire({
+        this.Toast.fire({
           icon: 'success',
           title: 'verified,Enter new password',
         })
       }).catch((error: any) => {
-        Toast.fire({
+        this.Toast.fire({
           icon: 'error',
           title: 'Error verifying OTP. Please try again.',
         })
@@ -212,7 +194,7 @@ export class LoginComponent implements OnInit {
           this.modal = false;
           this.toastr.success('New password save', 'success');
         } else {
-          Toast.fire({
+          this.Toast.fire({
             icon: 'error',
             title: result.message
           })
@@ -234,7 +216,7 @@ export class LoginComponent implements OnInit {
           this.isLoading = false;
           this.otpSend(result.number)
         } else {
-          Toast.fire({
+          this.Toast.fire({
             icon: 'error',
             title: result.message
           })
@@ -256,7 +238,7 @@ export class LoginComponent implements OnInit {
           this.cookieService.set('studentjwt', result.token, 1); // 1 days expiration
           this.toastr.success('successfully logged', '');
           this.router.navigate(['/']);
-        }else{
+        } else {
           this.toastr.error(result.message, '');
         }
       }, (error: any) => {

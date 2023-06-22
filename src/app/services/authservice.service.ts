@@ -1,13 +1,48 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 import { CookieService } from 'ngx-cookie-service';
+import Swal from 'sweetalert2';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthserviceService {
+  [x: string]: any;
+  app: any;
+  auth: any;
+  storage: any;
+  Toast: any;
+  constructor(private cookieService: CookieService, private router: Router) {
+    //firebase config
+    this.app = initializeApp({
+      apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
+      authDomain: "e-mail-otp-verification.firebaseapp.com",
+      projectId: "e-mail-otp-verification",
+      storageBucket: "e-mail-otp-verification.appspot.com",
+      messagingSenderId: "481187461752",
+      appId: "1:481187461752:web:f8255469cf48b74e5d0b8d",
+      measurementId: "G-DGKX0B9QDQ"
+    });
+    this.auth = getAuth(this.app);
+    this.auth.languageCode = 'it';
+    this.storage = getStorage(this.app)
+    this.Toast = Swal.mixin({
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
 
-  constructor(private cookieService: CookieService, private router: Router) { }
+  }
 
   isAdminLoggedIn() {
     return !!this.cookieService.get('adminjwt')
@@ -48,4 +83,7 @@ export class AuthserviceService {
       // Handle other error statuses or display a generic error message
     }
   }
+
+
+
 }
