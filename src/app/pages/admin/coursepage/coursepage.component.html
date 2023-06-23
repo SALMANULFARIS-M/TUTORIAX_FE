@@ -1,240 +1,243 @@
-<h3 class="text-3xl font-medium text-gray-700 mt-4 ms-10">
-  <span *ngIf="this.action[0] == 'addcourse'">Add Course</span
-  ><span *ngIf="this.action[0] == 'editcourse'">Edit course</span>
-  <span *ngIf="this.action[0] == 'viewcourse'">view course</span>
-</h3>
-<section class="py-1 bg-blueGray-50">
-  <div class="w-full lg:w-11/12 px-4 mx-auto mt-6">
-    <div
-      class="relative flex flex-col min-w-full break-words bg-slate-400 w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0"
-    >
-      <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-        <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-          <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-            Course Information
-          </h6>
-          <div class="flex flex-wrap">
-            <div class="w-full lg:w-6/12 px-4">
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlfor="grid-password"
-                >
-                  Title
-                </label>
-                <input
-                  type="text"
-                  name="title"
-                  [ngClass]="{ 'bg-slate-100 font-bold': view }"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  formControlName="title"
-                  [ngClass]="{
-                    'form-control is-invalid': submit && f.title.errors
-                  }"
-                  required
-                />
-              </div>
-            </div>
-            <div class="w-full lg:w-6/12 px-4">
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlfor="grid-password"
-                >
-                  Author Name
-                </label>
-                <input
-                  type="text"
-                  name="author"
-                  [ngClass]="{ 'bg-slate-100 font-bold': view }"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  required
-                  formControlName="author"
-                  [ngClass]="{
-                    'form-control is-invalid': submit && f.author.errors
-                  }"
-                />
-              </div>
-            </div>
-            <div class="w-full lg:w-6/12 px-4">
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlfor="grid-password"
-                >
-                  Date
-                </label>
-                <input
-                  type="date"
-                  name="date"
-                  [ngClass]="{ 'bg-slate-100 font-bold': view }"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  required
-                  formControlName="date"
-                  [ngClass]="{
-                    'form-control is-invalid': submit && f.date.errors
-                  }"
-                />
-              </div>
-            </div>
-            <div class="w-full lg:w-6/12 px-4">
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlfor="grid-password"
-                >
-                  Price
-                </label>
-                <input
-                  type="number"
-                  name="price"
-                  [ngClass]="{ 'bg-slate-100 font-bold text-red-600': view }"
-                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  required
-                  formControlName="price"
-                  [ngClass]="{
-                    'form-control is-invalid': submit && f.price.errors
-                  }"
-                />
-              </div>
-            </div>
-          </div>
-
-          <hr class="mt-6 border-b-1 border-blueGray-300" />
-
-          <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-            Media
-          </h6>
-          <div class="flex flex-wrap">
-            <div class="w-full lg:w-6/12 px-4">
-              <div class="relative w-full mb-3">
-                <video
-                  *ngIf="
-                    this.action[0] == 'editcourse' ||
-                    (this.action[0] == 'viewcourse' && course.video_id)
-                  "
-                  class="w-auto h-72 mb-4"
-                  controls
-                >
-                  <source [src]="course.video_id" type="video/mp4" />
-                </video>
-                <label
-                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlfor="grid-password"
-                >
-                  Video
-                </label>
-                <input
-                  *ngIf="
-                    this.action[0] == 'editcourse' ||
-                    this.action[0] == 'addcourse'
-                  "
-                  name="video"
-                  id="video-input"
-                  type="file"
-                  class="border-0 px-3 bg-white py-3 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                  required
-                />
-              </div>
-            </div>
-            <div class="w-full lg:w-4/12 px-4">
-              <div class="relative w-full mb-3">
-                <img
-                  *ngIf="
-                    this.action[0] == 'editcourse' ||
-                    this.action[0] == 'viewcourse'
-                  "
-                  [src]="course.image_id"
-                  class="w-full h-72 mb-4"
-                />
-                <label
-                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlfor="grid-password"
-                >
-                  Thumbnail
-                </label>
-                <input
-                  *ngIf="
-                    this.action[0] == 'editcourse' ||
-                    this.action[0] == 'addcourse'
-                  "
-                  name="thumbnail"
-                  type="file"
-                  id="thumbnail-input"
-                  class="border-0 px-3 py-3 bg-white placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  required
-                />
-              </div>
-            </div>
-          </div>
-          <hr class="mt-6 border-b-1 border-blueGray-300" />
-          <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-            Discription
-          </h6>
-          <div class="flex flex-wrap">
-            <div class="w-full lg:w-12/12 px-4">
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                  htmlfor="grid-password"
-                >
-                  About the course
-                </label>
-                <textarea
-                  type="text"
-                  [ngClass]="{ 'bg-slate-100 font-bold': view }"
-                  name="description"
-                  class="border-0 px-3 py-3 bg-slate-100 placeholder-blueGray-300 text-blueGray-600 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                  rows="4"
-                  formControlName="description"
-                  [ngClass]="{
-                    'form-control is-invalid': submit && f.description.errors
-                  }"
-                  required
-                ></textarea>
-              </div>
-            </div>
-          </div>
-          <div class="flex justify-between mt-4 px-4">
-            <a
-              routerLink="/admin/courses"
-              type="button"
-              class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-            >
-              <i class="bx bx-left-arrow-alt"></i> Go back
-            </a>
-            <button
-              *ngIf="view == false"
-              type="submit"
-              class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-            >
-              <span *ngIf="isLoading === false"> Submit </span>
-
-              <span *ngIf="isLoading">
-                <svg
-                  aria-hidden="true"
-                  role="status"
-                  class="inline w-4 h-4 mr-3 text-white animate-spin"
-                  viewBox="0 0 100 101"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                    fill="#E5E7EB"
+<div class="container">
+  <div class="bg-white mt-3 p-3 rounded-md">
+    <h3 class="text-3xl font-medium text-gray-700">
+      <span *ngIf="this.action[0] == 'addcourse'">Add Course</span
+      ><span *ngIf="this.action[0] == 'editcourse'">Edit course</span>
+      <span *ngIf="this.action[0] == 'viewcourse'">view course</span>
+    </h3>
+  </div>
+  <section class="py-1 bg-blueGray-50">
+    <div class="w-full lg:w-11/12 px-4 mx-auto mt-6">
+      <div
+        class="relative flex flex-col min-w-full break-words bg-blue-500 bg-opacity-10 w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0"
+      >
+        <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+          <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+            <h6 class="text-white text-sm mt-3 mb-6 font-bold uppercase">
+              Course Information
+            </h6>
+            <div class="flex flex-wrap">
+              <div class="w-full lg:w-6/12 px-4">
+                <div class="relative w-full mb-3">
+                  <label
+                    class="block uppercase text-cyan-500 text-xs font-bold mb-2"
+                    htmlfor="grid-password"
+                  >
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    name="title"
+                    [ngClass]="{ 'bg-slate-100 font-bold': view }"
+                    class="border-0 px-3 py-3 placeholder-blueGray-300 bg-white text-black rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    formControlName="title"
+                    [ngClass]="{
+                      'form-control is-invalid': submit && f.title.errors
+                    }"
+                    required
                   />
-                  <path
-                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                    fill="currentColor"
+                </div>
+              </div>
+              <div class="w-full lg:w-6/12 px-4">
+                <div class="relative w-full mb-3">
+                  <label
+                    class="block uppercase text-cyan-500 text-xs font-bold mb-2"
+                    htmlfor="grid-password"
+                  >
+                    Author Name
+                  </label>
+                  <input
+                    type="text"
+                    name="author"
+                    [ngClass]="{ 'bg-slate-100 font-bold': view }"
+                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    required
+                    formControlName="author"
+                    [ngClass]="{
+                      'form-control is-invalid': submit && f.author.errors
+                    }"
                   />
-                </svg>
-                Please wait...
-              </span>
-            </button>
-          </div>
-        </form>
+                </div>
+              </div>
+              <div class="w-full lg:w-6/12 px-4">
+                <div class="relative w-full mb-3">
+                  <label
+                    class="block uppercase text-cyan-500 text-xs font-bold mb-2"
+                    htmlfor="grid-password"
+                  >
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    name="date"
+                    [ngClass]="{ 'bg-slate-100 font-bold': view }"
+                    class="border-0 px-3 py-3 placeholder-blueGray-300 bg-white text-black rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    required
+                    formControlName="date"
+                    [ngClass]="{
+                      'form-control is-invalid': submit && f.date.errors
+                    }"
+                  />
+                </div>
+              </div>
+              <div class="w-full lg:w-6/12 px-4">
+                <div class="relative w-full mb-3">
+                  <label
+                    class="block uppercase text-cyan-500 text-xs font-bold mb-2"
+                    htmlfor="grid-password"
+                  >
+                    Price
+                  </label>
+                  <input
+                    type="number"
+                    name="price"
+                    [ngClass]="{ 'bg-slate-100 font-bold text-red-600': view }"
+                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    required
+                    formControlName="price"
+                    [ngClass]="{
+                      'form-control is-invalid': submit && f.price.errors
+                    }"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <hr class="mt-6 border-b-1 border-blueGray-300" />
+
+            <h6 class="text-white text-sm mt-3 mb-6 font-bold uppercase">
+              Media
+            </h6>
+            <div class="flex flex-wrap">
+              <div class="w-full lg:w-6/12 px-4">
+                <div class="relative w-full mb-3">
+                  <video
+                    *ngIf="
+                      this.action[0] == 'editcourse' ||
+                      (this.action[0] == 'viewcourse' && course.video_id)
+                    "
+                    class="w-auto h-72 mb-4"
+                    controls
+                  >
+                    <source [src]="course.video_id" type="video/mp4" />
+                  </video>
+                  <label
+                    class="block uppercase text-cyan-500 text-xs font-bold mb-2"
+                    htmlfor="grid-password"
+                  >
+                    Video
+                  </label>
+                  <input
+                    *ngIf="
+                      this.action[0] == 'editcourse' ||
+                      this.action[0] == 'addcourse'
+                    "
+                    name="video"
+                    id="video-input"
+                    type="file"
+                    class="border-0  px-3 bg-white py-3 placeholder-blueGray-300 text-black rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="w-full lg:w-4/12 px-4">
+                <div class="relative w-full mb-3">
+                  <img
+                    *ngIf="
+                      this.action[0] == 'editcourse' ||
+                      this.action[0] == 'viewcourse'
+                    "
+                    [src]="course.image_id"
+                    class="w-full h-72 mb-4"
+                  />
+                  <label
+                    class="block uppercase text-cyan-500 text-xs font-bold mb-2"
+                    htmlfor="grid-password"
+                  >
+                    Thumbnail
+                  </label>
+                  <input
+                    *ngIf="
+                      this.action[0] == 'editcourse' ||
+                      this.action[0] == 'addcourse'
+                    "
+                    name="thumbnail"
+                    type="file"
+                    id="thumbnail-input"
+                    class="border-0 px-3 py-3 bg-white placeholder-blueGray-300 text-black rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <hr class="mt-6 border-b-1 border-blueGray-300" />
+            <h6 class="text-white text-sm mt-3 mb-6 font-bold uppercase">
+              Discription
+            </h6>
+            <div class="flex flex-wrap">
+              <div class="w-full lg:w-12/12 px-4">
+                <div class="relative w-full mb-3">
+                  <label
+                    class="block uppercase text-cyan-500 text-xs font-bold mb-2"
+                    htmlfor="grid-password"
+                  >
+                    About the course
+                  </label>
+                  <textarea
+                    type="text"
+                    [ngClass]="{ 'bg-slate-100 font-bold': view }"
+                    name="description"
+                    class="border-0 px-3 py-3 bg-slate-100 placeholder-blueGray-300 text-black rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    rows="4"
+                    formControlName="description"
+                    [ngClass]="{
+                      'form-control is-invalid': submit && f.description.errors
+                    }"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="flex justify-between mt-4 px-4">
+              <a
+                routerLink="/admin/courses"
+                type="button"
+                class="text-white bg-sky-800 hover:bg-sky-600 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-3 py-2.5 mr-2 mb-2"
+              >
+                <i class="bx bx-left-arrow-alt"></i> Go back
+              </a>
+              <button
+                *ngIf="view == false"
+                type="submit"
+                class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              >
+                <span *ngIf="isLoading === false"> Submit </span>
+
+                <span *ngIf="isLoading">
+                  <svg
+                    aria-hidden="true"
+                    role="status"
+                    class="inline w-4 h-4 mr-3 text-white animate-spin"
+                    viewBox="0 0 100 101"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                      fill="#E5E7EB"
+                    />
+                    <path
+                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                  Please wait...
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
