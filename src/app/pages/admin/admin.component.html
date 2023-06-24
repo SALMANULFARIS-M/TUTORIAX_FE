@@ -1,12 +1,12 @@
-<div class="w-full h-full">
-  <div class="flex flex-no-wrap bg-gray-950">
+<div class="w-full h-full border-box">
+  <div class="flex flex-no-wrap  bg-gray-950">
     <!-- Sidebar starts -->
     <!-- Remove class [ hidden ] and replace [ sm:flex ] with [ flex ] -->
     <div
       style="min-height: 716px"
-      class="flex  w-64 shadow md:min-h-screen flex-col justify-between"
+      class="flex w-80 shadow md:min-h-screen flex-col justify-between "
     >
-      <div class="px-8">
+      <div class="px-8 fixed bg-gray-950">
         <div class="h-20 w-full flex flex-col items-center border-1 mt-5 border-cyan-800 rounded-lg">
           <img src="../../../assets/images/mini icon.png" class="w-24 mt-2" alt="" />
           <h1 class="text-center text-cyan-700 font-bold">Tutoriax Admin</h1>
@@ -18,11 +18,11 @@
             <router-link
               class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4 focus:outline-none focus:ring-2 focus:ring-white"
               [class]="
-                currentRoute() === '/admin/dashboard'
+                currentRoute() === '/admin'
                   ? activeClass
                   : inactiveClass
               "
-              routerLink="./dashboard"
+              routerLink="./"
             >
               <svg
                 class="w-5 h-5"
@@ -202,11 +202,11 @@
             <router-link
               class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
               [class]="
-                currentRoute() === '/admin/dashboard'
+                currentRoute() === '/admin'
                   ? activeClass
                   : inactiveClass
               "
-              routerLink="./dashboard"
+              routerLink="./"
             >
               <svg
                 class="w-5 h-5"
@@ -314,7 +314,7 @@
       </div>
     </div>
     <!-- Sidebar ends -->
-    <header class="bg-gray-900  w-full ">
+    <header class="bg-gray-900 w-full">
       <div
         class="bg-gray-950 min-w-full flex flex-row justify-between pe-3 border-b-2 border-cyan-800 rounded-b-sm"
       >

@@ -24,7 +24,7 @@ export class AdminLoginComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authService.isAdminLoggedIn()) {
-      this.router.navigate(['/admin/dashboard'])
+      this.router.navigate(['/admin'])
     }
   }
 
@@ -47,7 +47,7 @@ export class AdminLoginComponent implements OnInit {
         if (result.status) {
           this.cookieService.set('adminjwt', result.token, 1); // 1 days expiration
           this.toastr.success('successfully logged', '');
-          this.router.navigate(['/admin/dashboard']);
+          this.router.navigate(['/admin']);
         }
       }, (error: any) => {
         if (error.status == 401) {

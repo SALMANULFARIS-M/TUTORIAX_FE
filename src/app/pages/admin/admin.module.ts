@@ -20,7 +20,7 @@ const adminRoute: Routes = [
     path: '',
     component: AdminComponent,canActivate:[AdminGuardGuard],
     children: [
-      { path: 'dashboard', component: AdminDashboardComponent },
+      { path: '', component: AdminDashboardComponent },
       { path: 'courses', component: AdminCoursesComponent },
       { path: 'addcourse', component: CoursepageComponent },
       { path: 'editcourse/:id', component: CoursepageComponent },

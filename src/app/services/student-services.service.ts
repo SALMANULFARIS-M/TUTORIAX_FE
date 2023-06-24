@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { CookieService } from 'ngx-cookie-service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,7 +13,7 @@ const httpOptions = {
 })
 export class StudentServicesService {
 
-  constructor(private http: HttpClient, private cookieService: CookieService) { }
+  constructor(private http: HttpClient) { }
 
   //check user
   checkUserExist(userData: any): Observable<any> {
@@ -41,11 +40,6 @@ export class StudentServicesService {
 
   checkPurchasedCourse(data:any): Observable<any> {
     return this.http.post('checkcourse',data,httpOptions)
-  }
-
-
-  studentLog():boolean {
-    return !!this.cookieService.get('studentjwt')
   }
 
 }

@@ -25,7 +25,7 @@
 
     <div class="ms-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <div
-        class="max-w-sm h-96 w-80 bg-white rounded overflow-hidden shadow-lg m-4"
+        class="max-w-sm h-80 w-80 bg-white rounded overflow-hidden shadow-lg m-4"
         *ngFor="let c of courses"
       >
         <img class="w-80 h-40 border-b-2 border-cyan-700" [src]="c.image_id" alt="Thumbnail" />
@@ -34,7 +34,7 @@
           <p class="text-red-700 text-base text-center">{{ c.price }}.00 RS</p>
 
         </div>
-        <div class="px-6 pt-4 pb-2 justify-between flex">
+        <div class="px-6 pb-2 justify-between flex">
           <button
             type="button"
             (click)="toView(c._id)"
