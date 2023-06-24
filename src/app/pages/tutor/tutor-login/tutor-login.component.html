@@ -42,49 +42,44 @@
         [formGroup]="registrationForm"
         (ngSubmit)="onSubmit()"
       >
-        <div class="flex justify-between py-4">
-          <div>
-            <input
-              type="number"
-              formControlName="mobile"
-              name="mobile"
-              id="mobile"
-              placeholder="Mobile Number"
-              class="block w-full h-14 p-2 text-lg rounded-md bg-black me-3"
-              [ngClass]="{
-                'form-control is-invalid': submit && f.mobile.errors
-              }"
-            />
-            <div id="recaptcha-container" class="mt-2"></div>
-            <div *ngIf="submit && f.mobile.errors" class="invalid-feedback">
-              <div *ngIf="f.mobile.errors['required']">E-mail is required</div>
-              <div *ngIf="f.mobile.errors['pattern']">
-                Please Enter 10 digit mobile number
-              </div>
+        <div class="pb-2 pt-4 py-4">
+          <input
+            type="number"
+            formControlName="mobile"
+            name="mobile"
+            id="mobile"
+            placeholder="Mobile Number"
+            class="block w-full h-14 p-2 text-lg rounded-md bg-black me-3"
+            [ngClass]="{
+              'form-control is-invalid': submit && f.mobile.errors
+            }"
+          />
+          <div *ngIf="submit && f.mobile.errors" class="invalid-feedback">
+            <div *ngIf="f.mobile.errors['required']">E-mail is required</div>
+            <div *ngIf="f.mobile.errors['pattern']">
+              Please Enter 10 digit mobile number
             </div>
           </div>
         </div>
-        <div class="flex justify-between py-4">
-          <div>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password"
-              formControlName="password"
-              class="block w-full h-14 p-2 text-lg rounded-md bg-black"
-              [ngClass]="{
-                'form-control is-invalid': submit && f.password.errors
-              }"
-            />
-            <div *ngIf="submit && f.password.errors" class="invalid-feedback">
-              <div *ngIf="f.password.errors['required']">
-                password is required
-              </div>
-              <div *ngIf="f.password.errors['pattern']">
-                Password contain minimum 6 letters and combination of Alphabets
-                and numbers and a special character
-              </div>
+        <div class="pb-2 pt-4 py-4">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Password"
+            formControlName="password"
+            class="block w-full h-14 p-2 text-lg rounded-md bg-black"
+            [ngClass]="{
+              'form-control is-invalid': submit && f.password.errors
+            }"
+          />
+          <div *ngIf="submit && f.password.errors" class="invalid-feedback">
+            <div *ngIf="f.password.errors['required']">
+              password is required
+            </div>
+            <div *ngIf="f.password.errors['pattern']">
+              Password contain minimum 6 letters and combination of Alphabets
+              and numbers and a special character
             </div>
           </div>
         </div>
@@ -101,6 +96,11 @@
           </button>
         </div>
       </form>
+      <a
+        routerLink="/tutor/register"
+        class="font-semibold text-base underline text-blue-400"
+        >Register an account</a
+      >
     </div>
   </div>
 </section>

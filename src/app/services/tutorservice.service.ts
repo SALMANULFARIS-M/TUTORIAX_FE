@@ -15,8 +15,6 @@ export class TutorserviceService {
   constructor(private http: HttpClient) { }
   //check user
   checkTutorExist(userData: any): Observable<any> {
-    console.log("totor");
-
     return this.http.post('tutor/checktutor', userData, httpOptions)
   }
 

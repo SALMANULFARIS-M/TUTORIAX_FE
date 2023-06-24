@@ -28,7 +28,7 @@
       <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
     </div>
     <div class="w-full z-20">
-      <h1 class="flex items-center justify-center pb-5">
+      <h1 class="flex items-center justify-center pb-3">
         <img
           src="../../../../assets/images/logo.png"
           class="w-52"
@@ -38,7 +38,7 @@
       </h1>
       <form
         action=""
-        class="sm:w-2/3 w-full px-4 mt-2 lg:px-0 mx-auto"
+        class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto"
         [formGroup]="registrationForm"
         (ngSubmit)="onSubmit()"
       >
@@ -262,15 +262,17 @@
         <div
           class="text-right text-gray-400 hover:underline hover:text-gray-100"
         ></div>
-        <div class="px-4 pb-2 pt-4">
+        <div class="flex px-4 pb-2 pt-4 items-center justify-center">
           <button
             type="submit"
-            class="uppercase block w-full p-4 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none"
+            class="uppercase block w-96 p-2 text-lg rounded-full bg-indigo-500 hover:bg-indigo-600 focus:outline-none"
           >
             Register
           </button>
         </div>
       </form>
+      <a routerLink="/tutor/login" class="font-semibold text-base underline text-blue-400">Already have an account</a>
+
     </div>
   </div>
 </section>
