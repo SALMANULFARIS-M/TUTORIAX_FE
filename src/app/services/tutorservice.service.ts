@@ -13,16 +13,20 @@ const httpOptions = {
 export class TutorserviceService {
 
   constructor(private http: HttpClient) { }
- //check user
- checkTutorExist(userData: any): Observable<any> {
-console.log("totor");
+  //check user
+  checkTutorExist(userData: any): Observable<any> {
+    console.log("totor");
 
-  return this.http.post('tutor/checktutor', userData, httpOptions)
-}
+    return this.http.post('tutor/checktutor', userData, httpOptions)
+  }
 
   //insert user
   insertTutor(userData: any): Observable<any> {
     return this.http.post('tutor/register', userData, httpOptions)
+  }
+
+  login(userData: any): Observable<any> {
+    return this.http.post('tutor/login', userData, httpOptions)
   }
 
 }

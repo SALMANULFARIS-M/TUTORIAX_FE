@@ -103,7 +103,6 @@ export class TutorRegisterComponent implements OnInit {
 
   //captchaverify
   onCaptchaVerify(number: string) {
-console.log("captcha");
 
     if (!window.recaptchaVerifier) {
       window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
@@ -120,7 +119,6 @@ console.log("captcha");
 
   //after validate from backend send otp
   otpSend(phoneNumber: string) {
-console.log("otp sended");
 
     this.onCaptchaVerify(phoneNumber)
     const appVerifier = window.recaptchaVerifier
@@ -207,12 +205,9 @@ console.log("otp sended");
     this.submit = true;
 
     if (this.registrationForm.valid) {
-
       this.formData = this.registrationForm.value;
       const mobile = this.registrationForm.get('mobile')?.value;
-
       this.tutorService.checkTutorExist({mobile:mobile}).subscribe((result: any) => {
-
         if (result.status) {
           this.otpSend(result.number)
         } else {
