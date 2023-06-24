@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthserviceService } from 'src/app/services/authservice.service';
 import { StudentServicesService } from 'src/app/services/student-services.service';
 
 
@@ -14,7 +15,7 @@ export class StudentComponent implements OnInit {
 
   activeClass: string = "text-cyan-400  hover:text-cyan-500 dark:hover:text-cyan-500";
   inactiveClass: string = "text-white  hover:text-cyan-500 dark:hover:text-cyan-500";
-  constructor(private router: Router, private studentService: StudentServicesService, private cookieService: CookieService) { }
+  constructor(private router: Router, private authService: AuthserviceService, private cookieService: CookieService) { }
 
   //declarations
   navbg!: boolean;
@@ -52,7 +53,7 @@ export class StudentComponent implements OnInit {
 
   //check the user login or not
   isLoggedIn() {
-    return this.studentService.studentLog()
+    return this.authService.isStudentLoggedIn()
   }
 
   //logout

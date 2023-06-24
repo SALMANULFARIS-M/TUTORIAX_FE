@@ -212,7 +212,6 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submit = true;
     if (this.registrationForm.valid) {
-
       this.formData = this.registrationForm.value;
       this.studentService.checkUserExist(this.formData).subscribe((result: any) => {
         if (result.status) {

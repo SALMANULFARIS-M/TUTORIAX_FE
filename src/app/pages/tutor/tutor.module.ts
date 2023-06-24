@@ -4,10 +4,10 @@ import { TutorRegisterComponent } from './tutor-register/tutor-register.componen
 import { TutorLoginComponent } from './tutor-login/tutor-login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { TutorComponent } from './tutor.component';
-import { NotfoundComponent } from '../errors/notfound/notfound.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { HomeComponent } from './home/home.component';
 
 const tutorRoute: Routes = [
   { path: 'register', component: TutorRegisterComponent },
@@ -16,7 +16,7 @@ const tutorRoute: Routes = [
     path: '',
     component: TutorComponent,
     children: [
-
+      { path: '', component: HomeComponent }
     ]
   }
 ];
@@ -24,7 +24,7 @@ const tutorRoute: Routes = [
 @NgModule({
   declarations: [
     TutorRegisterComponent,
-    TutorLoginComponent
+    TutorLoginComponent,
   ],
   imports: [
     RouterModule.forChild(tutorRoute),
