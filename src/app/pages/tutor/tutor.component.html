@@ -1,1 +1,220 @@
-<p>tutor works!</p>
+<nav
+  class="fixed-top"
+  id="top-nav"
+  [ngClass]="navbg ? 'bg-black' : 'bg-transparent'"
+>
+  <div class="max-w-screen-xl flex flex-wrap justify-between mx-auto">
+    <div class="flex justify-start my-4">
+      <a href="/" class="flex items-center">
+        <img
+          src="../../../assets/images/logo.png"
+          class="w-56 mr-3"
+          alt="Tutoriax Logo"
+        />
+      </a>
+    </div>
+    <button
+      id="toggleButton"
+      data-collapse-toggle="navbar-dropdown"
+      type="button"
+      class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+      aria-controls="navbar-dropdown"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg
+        class="w-6 h-6"
+        aria-hidden="true"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+    </button>
+    <div
+      class="hidden justify-end w-full md:block md:w-auto pt-2"
+      id="toggleNav"
+    >
+      <ul
+        class="font-mono text-xl flex flex-col font-semibold md:p-0 mt-4 md:bg-transparent max-sm:border border-gray-100 rounded-lg max-sm:bg-gray-900 md:flex-row md:space-x-8 md:mt-0 md:border-0"
+      >
+        <li class="">
+          <a
+            class="lg:px-2 block max-sm:pl-3 max-sm:pr-4 rounded-md hover:text-cyan-500 dark:hover:text-cyan-500"
+            [class]="currentRoute() === '/tutor' ? activeClass : inactiveClass"
+            routerLink="/tutor"
+          >
+            HOME
+          </a>
+        </li>
+        <li class="hover:text-cyan-700">
+          <a
+            class="block lg:px-2 max-sm:pl-3 max-sm:pr-4 rounded-md hover:text-cyan-500 dark:hover:text-cyan-500"
+            [class]="
+              currentRoute() === '/tutor/profile' ? activeClass : inactiveClass
+            "
+            routerLink="/tutor/profile"
+          >
+            PROFILE
+          </a>
+        </li>
+        <li>
+          <a
+            class="block lg:px-2 max-sm:pl-3 max-sm:pr-4 rounded-md"
+            [class]="
+              currentRoute() === '/tutor/chat' ? activeClass : inactiveClass
+            "
+            routerLink="/tutor/chat"
+          >
+            CHAT</a
+          >
+        </li>
+
+        <li>
+          <a
+            class="block lg:px-2 text-white max-sm:pl-3 max-sm:pr-4 rounded-md hover:text-cyan-500 dark:hover:text-cyan-500"
+            (click)="logout()"
+            routerLink="/about"
+          >
+            LOGOUT
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
+
+<!-- Footer Start -->
+<div class="container-fluid bg-black text-light footer pt-5">
+  <div class="container py-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="col-span-1">
+        <div class="">
+          <h6
+            class="mb-4 text-cyan-300 flex items-center justify-center font-semibold uppercase md:justify-start"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="mr-3 h-4 w-4"
+            >
+              <path
+                d="M12.378 1.602a.75.75 0 00-.756 0L3 6.632l9 5.25 9-5.25-8.622-5.03zM21.75 7.93l-9 5.25v9l8.628-5.032a.75.75 0 00.372-.648V7.93zM11.25 22.18v-9l-9-5.25v8.57a.75.75 0 00.372.648l8.628 5.033z"
+              />
+            </svg>
+            Tutoriax
+          </h6>
+          <p>
+            Welcome to our e-learning platform! We strive to provide
+            high-quality online courses and resources to help you expand your
+            knowledge and skills. Our dedicated team of instructors is committed
+            to delivering engaging and interactive learning experiences.
+          </p>
+        </div>
+      </div>
+      <!-- Useful links section -->
+      <div class="col-span-1">
+        <h6
+          class="mb-4 text-cyan-300 flex justify-center font-semibold uppercase md:justify-start"
+        >
+          Useful links
+        </h6>
+        <p class="mb-4">
+          <a routerLink="/tutuor" class="text-neutral-600 dark:text-neutral-200">
+            <i class="bi bi-arrow-right-short"></i>HOME</a
+          >
+        </p>
+        <p class="mb-4">
+          <a routerLink="/tutor/profile" class="text-neutral-600 dark:text-neutral-200"
+            ><i class="bi bi-arrow-right-short"></i>PROFILE</a
+          >
+        </p>
+        <p class="mb-4">
+          <a routerLink="/tutor/chat" class="text-neutral-600 dark:text-neutral-200"
+            ><i class="bi bi-arrow-right-short"></i>CHAT</a
+          >
+        </p>
+        <p>
+          <a href="" class="text-neutral-600 dark:text-neutral-200"
+            ><i class="bi bi-arrow-right-short"></i>ABOUT</a
+          >
+        </p>
+      </div>
+      <div class="col-span-1">
+        <h4 class="mb-3 text-cyan-300 me-5">Contact</h4>
+        <p class="mb-2">
+          <i class="bi bi-geo-alt-fill text-yellow-300 me-2"></i>Palakkad,
+          Kerala,India
+        </p>
+        <p class="mb-2">
+          <i class="bi bi-telephone-fill text-yellow-400 me-2"></i>+91
+          8139851011
+        </p>
+        <p class="mb-2">
+          <i class="bi bi-envelope text-yellow-300 me-2"></i>fsalmanul@gmail.com
+        </p>
+        <div class="flex pt-2 space-x-2">
+          <a
+            href="https://www.linkedin.com/in/salmanul-faris-m-570856263/"
+            class="btn btn-outline-light btn-social"
+            target="_blank"
+            ><i class="bi bi-linkedin class text-primary"></i
+          ></a>
+          <a
+            href="https://www.facebook.com/profile.php?id=100062541261678"
+            class="btn btn-outline-light btn-social"
+            target="_blank"
+            ><i class="bi bi-facebook text-primary"></i
+          ></a>
+          <a
+            href="https://www.instagram.com/salmanul_faris_011/"
+            class="btn btn-outline-light btn-social"
+            target="_blank"
+            ><i class="bi bi-instagram text-danger"></i
+          ></a>
+          <a
+            href="https://twitter.com/SALMAN___1011"
+            class="btn btn-outline-light btn-social"
+            target="_blank"
+            ><i class="bi bi-twitter text-primary"></i
+          ></a>
+        </div>
+      </div>
+      <div class="col-span-1">
+        <h4 class="mb-3 text-cyan-300">Newsletter</h4>
+        <p>Stay alert for new course.</p>
+        <div class="relative mx-auto mt-2" style="max-width: 400px">
+          <input
+            class="form-control border-0 w-full py-3 px-4"
+            type="text"
+            placeholder="Your email"
+          />
+          <button
+            type="button"
+            class="py-2 absolute top-0 right-0 my-2 mr-2 inline-block rounded-full bg-warning px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#e4a11b] transition duration-150 ease-in-out hover:bg-warning-600 hover:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] focus:bg-warning-600 focus:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] focus:outline-none focus:ring-0 active:bg-warning-700 active:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(228,161,27,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)]"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
+  <div class="container items-center text-center py-3">
+    <div class="text-center font-sans">
+      &copy; <a class="border-b border-white">TUTORIAX</a>, All Right Reserved.
+      Designed By <a class="border-b border-white">Salman</a><br />
+      Distributed By
+      <a class="border-b border-white">OWN CREATION</a>
+    </div>
+  </div>
+</div>
+<!-- Footer End -->

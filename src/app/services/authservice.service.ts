@@ -53,15 +53,15 @@ export class AuthserviceService {
   }
 
   istutorLoggedIn() {
-    return !!this.cookieService.get('instructorjwt')
+    return !!this.cookieService.get('tutorjwt')
   }
 
   //JWT Token taken from browser cokkiestorage
   getToken(token: string) {
     if (token == "admin") {
       return this.cookieService.get('adminjwt')
-    } else if ("intructor") {
-      return this.cookieService.get('instructorjwt')
+    } else if ("tutor") {
+      return this.cookieService.get('tutorjwt')
     } else {
       return this.cookieService.get('studentjwt')
     }
