@@ -8,13 +8,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HomeComponent } from './home/home.component';
+import { TutorGuardGuard } from 'src/app/guard/tutor-guard.guard';
 
 const tutorRoute: Routes = [
   { path: 'register', component: TutorRegisterComponent },
   { path: 'login', component: TutorLoginComponent },
   {
     path: '',
-    component: TutorComponent,
+    component: TutorComponent,canActivate:[TutorGuardGuard],
     children: [
       { path: '', component: HomeComponent }
     ]
