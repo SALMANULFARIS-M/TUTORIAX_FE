@@ -9,6 +9,8 @@ import { RegisterComponent } from './register/register.component';
 import { StudentCoursesComponent } from './student-courses/student-courses.component';
 import { CoursesviewComponent } from './coursesview/coursesview.component';
 import { NotfoundComponent } from '../errors/notfound/notfound.component';
+import { ChatComponent } from './chat/chat.component';
+import { TutorListComponent } from './tutor-list/tutor-list.component';
 
 
 const studentRoute: Routes = [
@@ -20,12 +22,16 @@ const studentRoute: Routes = [
       { path: 'register', component: RegisterComponent },
       { path: 'courses', component: StudentCoursesComponent },
       { path: 'courses/:id', component: CoursesviewComponent },
+      { path: 'chat', component: ChatComponent },
+      { path: 'tutor', component: TutorListComponent },
     ]
   }]
 @NgModule({
   declarations: [
     StudentCoursesComponent,
-    CoursesviewComponent
+    CoursesviewComponent,
+    ChatComponent,
+    TutorListComponent
   ],
   imports: [
     RouterModule.forChild(studentRoute),

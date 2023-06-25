@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HomeComponent } from './home/home.component';
 import { TutorGuardGuard } from 'src/app/guard/tutor-guard.guard';
+import { ChatComponent } from './chat/chat.component';
 
 const tutorRoute: Routes = [
   { path: 'register', component: TutorRegisterComponent },
@@ -17,7 +18,8 @@ const tutorRoute: Routes = [
     path: '',
     component: TutorComponent,canActivate:[TutorGuardGuard],
     children: [
-      { path: '', component: HomeComponent }
+      { path: '', component: HomeComponent },
+      { path: 'chat', component: ChatComponent },
     ]
   }
 ];
@@ -26,6 +28,7 @@ const tutorRoute: Routes = [
   declarations: [
     TutorRegisterComponent,
     TutorLoginComponent,
+    ChatComponent,
   ],
   imports: [
     RouterModule.forChild(tutorRoute),
