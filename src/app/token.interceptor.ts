@@ -21,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
     if (isAdminRequest) {
       this.token = "admin";
     } else if (isTeacherRequest) {
-      this.token = "teacher";
+      this.token = "tutor";
     } else {
       this.token = "student";
     }

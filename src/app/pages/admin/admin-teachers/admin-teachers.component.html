@@ -1,1 +1,127 @@
-<p>admin-teachers works!</p>
+<div class="container-fluid">
+  <div>
+    <div class="bg-white mt-3 p-3 rounded-md">
+      <h3 class="text-3xl font-medium text-gray-700">Tutuors</h3>
+    </div>
+    <div class="mt-8"></div>
+
+    <div class="flex flex-col mt-8">
+      <div class="py-2 -my-2 overflow-x-auto sm:px-6 lg:px-8">
+        <div
+          class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg"
+        >
+          <table class="min-w-full">
+            <thead>
+              <tr>
+                <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                >
+                  Image
+                </th>
+                <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                >
+                  Full Name
+                </th>
+                <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                >
+                  E-mail
+                </th>
+                <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                >
+                  Phone Number
+                </th>
+                <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                >
+                  status
+                </th>
+                <th
+                  class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50"
+                >
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              <tr *ngFor="let s of tutors">
+                <td
+                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <div class="flex items-center" >
+                    <span   *ngIf="s.approval == false"  class="bg-red-800 text-red-800 text-xs font-medium mr-2 px-1.5 py-0.5 rounded-full">R</span>
+                    <div class="flex-shrink-0 w-10 h-10">
+                      <img
+                        class="w-10 h-10 rounded-full"
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <div class="flex items-center">
+                    <div class="text-sm font-medium leading-5 text-gray-900">
+                      {{ s.fullName }}
+                    </div>
+                  </div>
+                </td>
+
+                <td
+                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <div class="text-sm leading-5 text-gray-900">
+                    {{ s.email }}
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <div class="text-sm leading-5 text-gray-900">
+                    {{ s.mobile }}
+                  </div>
+                </td>
+                <td
+                  class="px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <span
+                    *ngIf="s.approval == false"
+                    class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full"
+                  >
+                    Pending
+                  </span>
+                  <span
+                    *ngIf="s.access == false && s.approval"
+                    class="inline-flex px-2 text-xs font-semibold leading-5 text-orange-600 bg-red-100 rounded-full"
+                    >inactive</span
+                  >
+                  <span
+                    *ngIf="s.access && s.approval"
+                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
+                    >active</span
+                  >
+                </td>
+
+                <td
+                  class="px-6 py-4 text-sm leading-5 text-gray-500 border-b border-gray-200 whitespace-nowrap"
+                >
+                  <button
+                    (click)="view(s._id)"
+                    type="button"
+                    class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
+                  >
+                    View
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

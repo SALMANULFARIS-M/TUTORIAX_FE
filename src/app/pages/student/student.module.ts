@@ -23,7 +23,7 @@ const studentRoute: Routes = [
       { path: 'courses', component: StudentCoursesComponent },
       { path: 'courses/:id', component: CoursesviewComponent },
       { path: 'chat', component: ChatComponent },
-      { path: 'tutor', component: TutorListComponent },
+      { path: 'instructor', component: TutorListComponent },
     ]
   }]
 @NgModule({

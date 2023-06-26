@@ -40,4 +40,17 @@ export class AdminServicesService {
   block(id:string,data:any): Observable<any> {
     return this.http.patch(`admin/blockstudent/${id}`,data,httpOptions)
   }
+  getAlltutors(): Observable<any> {
+    return this.http.get('admin/getalltutors')
+  }
+  getTutor(id:string): Observable<any> {
+    return this.http.get(`admin/gettutor/${id}`)
+  }
+  tutorApproval(id:string): Observable<any> {
+    return this.http.patch(`admin/approvetutor/${id}`,httpOptions)
+  }
+  tuorBlock(id:string,data:any): Observable<any> {
+    return this.http.patch(`admin/blocktutor/${id}`,data,httpOptions)
+  }
+
 }

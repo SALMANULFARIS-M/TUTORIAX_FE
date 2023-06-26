@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="bg-white mt-3 p-3 rounded-md">
+    <h3 class="text-3xl font-medium text-gray-700">View Teacher</h3>
+  </div>
+  <section class="py-1 bg-blueGray-50">
+    <div class="w-full lg:w-11/12 px-4 mx-auto mt-6">
+      <div
+        class="relative flex flex-col min-w-full break-words bg-blue-500 bg-opacity-10 w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0"
+      >
+        <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+          <h6 class="text-white text-sm mt-3 mb-6 font-bold uppercase">
+            Teacher Information
+          </h6>
+          <div class="flex flex-wrap">
+            <div class="bg-white p-3 shadow-sm rounded-md">
+
+              <div class="text-gray-700">
+                <div class="grid md:grid-cols-2 text-sm">
+                  <div class="grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold">Full Name</div>
+                    <div class="px-4 py-2">{{ tutor.fullName }}</div>
+                  </div>
+                  <div class="grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold">E-mail</div>
+                    <div class="px-4 py-2">{{ tutor.email }}</div>
+                  </div>
+                  <div class="grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold">Contact No.</div>
+                    <div class="px-4 py-2">+91 {{ tutor.mobile }}</div>
+                  </div>
+                  <div class="grid grid-cols-2">
+                    <div class="px-4 py-2 font-semibold">status</div>
+                    <div class="px-4 py-2">
+                      <span
+                        *ngIf="tutor.access == false"
+                        class="inline-flex px-2 text-xs font-semibold leading-5 text-orange-600 bg-red-100 rounded-full"
+                        >inactive</span
+                      >
+                      <span
+                        *ngIf="tutor.access"
+                        class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
+                        >active</span
+                      >
+                    </div>
+                  </div>
+                  <div class="flex flex-row">
+                    <div class="px-4 py-2 font-semibold ">Certificate</div>
+                    <div class="px-4 py-2 border-2">
+                      <img [src]="tutor.certificate" alt="" srcset="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="mt-6 border-b-1 border-blueGray-300" />
+
+          <div class="flex justify-between mt-4 px-4">
+            <button
+              *ngIf="tutor.approval == false"
+              (click)="approve(tutor._id)"
+              type="button"
+              class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
+            >
+              Approve
+            </button>
+            <button
+              *ngIf="tutor.approval && tutor.access == false"
+              (click)="block(tutor._id, tutor.access)"
+              type="button"
+              class="text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800"
+            >
+              Un block
+            </button>
+            <button
+              *ngIf="tutor.approval && tutor.access"
+              (click)="block(tutor._id, tutor.access)"
+              type="button"
+              class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+            >
+              Block
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
