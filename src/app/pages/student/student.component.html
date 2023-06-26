@@ -1,5 +1,5 @@
 <nav
-  class="fixed-top"
+  class="fixed-top "
   id="top-nav"
   [ngClass]="navbg ? 'bg-black' : 'bg-transparent'"
 >
@@ -100,7 +100,8 @@
             class="z-10 absolute hidden border border-gray-500 font-normal bg-black divide-y divide-gray-100 rounded-lg shadow w-32"
           >
             <ul
-              class="py-2 text-sm text-gray-400"
+            *ngIf="isLoggedIn()==false"
+            class="py-2 text-sm text-gray-400"
               aria-labelledby="dropdownLargeButton"
             >
               <li class="border-b border-gray-500">

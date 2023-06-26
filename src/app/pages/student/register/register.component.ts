@@ -51,6 +51,11 @@ export class RegisterComponent implements OnInit {
   formData: any;
 
   ngOnInit(): void {
+    const currentRoute = this.router.url;
+    if (currentRoute == '/register' || currentRoute == '/login') {
+      const topNav = document.getElementById('top-nav') as HTMLElement;
+      topNav.classList.add('hidden');
+    }
     // @ts-ignore
     window.onGoogleLibraryLoad = () => {
       google.accounts.id.initialize({
@@ -66,6 +71,7 @@ export class RegisterComponent implements OnInit {
       );
       google.accounts.id.prompt((notification: CredentialResponse) => { });
     };
+
   }
 
 
@@ -188,6 +194,8 @@ export class RegisterComponent implements OnInit {
             this.formData = "";
             this.toastr.success('Successfully registered', '');
             this.cookieService.set('studentjwt', result.token, 1);
+            const topNav = document.getElementById('top-nav') as HTMLElement;
+            topNav.classList.remove('hidden');
             this.router.navigate(['/']);
           } else {
             this.Toast.fire({

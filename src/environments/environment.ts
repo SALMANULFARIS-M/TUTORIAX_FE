@@ -2,6 +2,7 @@
 
 export const environment = {
   production: true,
+  socketIO_Endpoint: 'http://localhost:3001',
   backendApiUrl: "http://localhost:3001/",
   firebase: {
     apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",

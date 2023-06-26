@@ -45,5 +45,14 @@ export class StudentServicesService {
     getTutors(): Observable<any> {
     return this.http.get('gettutors',httpOptions)
   }
+  chatConnection(data:any): Observable<any> {
+    return this.http.post('connection',data,httpOptions)
+  }
+  getAllChats(id:any): Observable<any> {
+    return this.http.get(`getallchats/${id}`,httpOptions)
+  }
+  getAllMessages(id:any): Observable<any> {
+    return this.http.get(`getallmessages/${id}`,httpOptions)
+  }
 
 }

@@ -16,7 +16,8 @@ export class StudentComponent implements OnInit {
 
   activeClass: string = "text-cyan-400  hover:text-cyan-500 dark:hover:text-cyan-500";
   inactiveClass: string = "text-white  hover:text-cyan-500 dark:hover:text-cyan-500";
-  constructor(private router: Router, private authService: AuthserviceService, private cookieService: CookieService) { }
+  constructor(private router: Router, private authService: AuthserviceService, private cookieService: CookieService) {
+   }
 
   //declarations
   navbg!: boolean;
@@ -45,10 +46,6 @@ export class StudentComponent implements OnInit {
   //navbar showing
   shouldShowNavbar(): boolean {
     const currentRoute = this.router.url;
-    if (currentRoute == '/register' || currentRoute == '/login') {
-      const topNav = document.getElementById('top-nav') as HTMLElement;
-      topNav.classList.add('hidden');
-    }
     return currentRoute !== '/register' && currentRoute !== '/login';
   }
 

@@ -55,6 +55,11 @@ export class LoginComponent implements OnInit {
   password: boolean = false;
   otp: string[] = ['', '', '', '', '', ''];
   ngOnInit(): void {
+    const currentRoute = this.router.url;
+    if (currentRoute == '/register' || currentRoute == '/login') {
+      const topNav = document.getElementById('top-nav') as HTMLElement;
+      topNav.classList.add('hidden');
+    }
     // @ts-ignore
     window.onGoogleLibraryLoad = () => {
       google.accounts.id.initialize({
@@ -237,6 +242,8 @@ export class LoginComponent implements OnInit {
         if (result.status) {
           this.cookieService.set('studentjwt', result.token, 1); // 1 days expiration
           this.toastr.success('successfully logged', '');
+          const topNav = document.getElementById('top-nav') as HTMLElement;
+          topNav.classList.remove('hidden');
           this.router.navigate(['/']);
         } else {
           this.toastr.error(result.message, '');

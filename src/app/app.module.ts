@@ -34,7 +34,8 @@ import { NotfoundComponent } from './pages/errors/notfound/notfound.component';
 import { InternalserverComponent } from './pages/errors/internalserver/internalserver.component';
 import { BadgatewayComponent } from './pages/errors/badgateway/badgateway.component';
 import { TutorComponent } from './pages/tutor/tutor.component';
-
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: environment.socketIO_Endpoint, options: {} };
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { TutorComponent } from './pages/tutor/tutor.component';
     AngularFireAuthModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    SocketIoModule.forRoot(config),
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
     FormsModule,
     ToastrModule.forRoot({

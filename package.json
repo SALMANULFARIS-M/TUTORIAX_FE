@@ -25,6 +25,7 @@
     "firebase": "^9.22.1",
     "ng-particles": "^3.10.1",
     "ngx-cookie-service": "^16.0.0",
+    "ngx-socket-io": "^4.5.1",
     "ngx-spinner": "^15.0.1",
     "ngx-toastr": "^17.0.2",
     "particles.js": "^2.0.0",
