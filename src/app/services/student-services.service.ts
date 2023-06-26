@@ -42,4 +42,8 @@ export class StudentServicesService {
     return this.http.post('checkcourse',data,httpOptions)
   }
 
+    getTutors(): Observable<any> {
+    return this.http.get('gettutors',httpOptions)
+  }
+
 }

@@ -12,6 +12,7 @@ import { StudentServicesService } from 'src/app/services/student-services.servic
 })
 
 export class StudentComponent implements OnInit {
+[x: string]: any;
 
   activeClass: string = "text-cyan-400  hover:text-cyan-500 dark:hover:text-cyan-500";
   inactiveClass: string = "text-white  hover:text-cyan-500 dark:hover:text-cyan-500";
