@@ -34,25 +34,28 @@ export class StudentServicesService {
     return this.http.post('login', userData, httpOptions)
   }
 
-  pay(id:string,userData: any): Observable<any> {
+  pay(id: string, userData: any): Observable<any> {
     return this.http.post(`payment/${id}`, userData, httpOptions)
   }
 
-  checkPurchasedCourse(data:any): Observable<any> {
-    return this.http.post('checkcourse',data,httpOptions)
+  checkPurchasedCourse(data: any): Observable<any> {
+    return this.http.post('checkcourse', data, httpOptions)
   }
 
-    getTutors(): Observable<any> {
-    return this.http.get('gettutors',httpOptions)
+  getTutors(): Observable<any> {
+    return this.http.get('gettutors', httpOptions)
   }
-  chatConnection(data:any): Observable<any> {
-    return this.http.post('connection',data,httpOptions)
+  chatConnection(data: any): Observable<any> {
+    return this.http.post('connection', data, httpOptions)
   }
-  getAllChats(id:any): Observable<any> {
-    return this.http.get(`getallchats/${id}`,httpOptions)
+  getAllChats(id: any): Observable<any> {
+    return this.http.get(`getallchats/${id}`, httpOptions)
   }
-  getAllMessages(id:any): Observable<any> {
-    return this.http.get(`getallmessages/${id}`,httpOptions)
+  getAllMessages(id: any): Observable<any> {
+    return this.http.get(`getallmessages/${id}`, httpOptions)
+  }
+  sendMessage(data: any): Observable<any> {
+    return this.http.post('sendmessage',data, httpOptions)
   }
 
 }

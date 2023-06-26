@@ -10,6 +10,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { HomeComponent } from './home/home.component';
 import { TutorGuardGuard } from 'src/app/guard/tutor-guard.guard';
 import { ChatComponent } from './chat/chat.component';
+import { FormsModule } from '@angular/forms';
+
 
 const tutorRoute: Routes = [
   { path: 'register', component: TutorRegisterComponent },
@@ -35,6 +37,7 @@ const tutorRoute: Routes = [
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule,
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })
   ],
   exports: [

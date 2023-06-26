@@ -26,5 +26,8 @@ export class TutorserviceService {
   login(userData: any): Observable<any> {
     return this.http.post('tutor/login', userData, httpOptions)
   }
+  getAllChats(id: any): Observable<any> {
+    return this.http.get(`tutor/getallchats/${id}`, httpOptions)
+  }
 
 }

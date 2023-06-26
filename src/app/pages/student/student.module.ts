@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { StudentCoursesComponent } from './student-courses/student-courses.component';
 import { CoursesviewComponent } from './coursesview/coursesview.component';
-import { NotfoundComponent } from '../errors/notfound/notfound.component';
+import { FormsModule } from '@angular/forms';
 import { ChatComponent } from './chat/chat.component';
 import { TutorListComponent } from './tutor-list/tutor-list.component';
 
@@ -31,12 +31,13 @@ const studentRoute: Routes = [
     StudentCoursesComponent,
     CoursesviewComponent,
     ChatComponent,
-    TutorListComponent
+    TutorListComponent,
   ],
   imports: [
     RouterModule.forChild(studentRoute),
     CommonModule,
     HttpClientModule,
+    FormsModule
   ],
   exports: [
     RouterModule
