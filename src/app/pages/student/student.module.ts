@@ -41,6 +41,6 @@ const studentRoute: Routes = [
   ],
   exports: [
     RouterModule
-  ]
+  ],
 })
 export class StudentModule { }

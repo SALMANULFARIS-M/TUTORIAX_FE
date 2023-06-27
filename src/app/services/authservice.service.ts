@@ -4,6 +4,9 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 import { CookieService } from 'ngx-cookie-service';
+import { Observable, Observer } from 'rxjs';
+import { io } from 'socket.io-client';
+import { environment } from 'src/environments/environment.development';
 import Swal from 'sweetalert2';
 
 
@@ -84,6 +87,14 @@ export class AuthserviceService {
     }
   }
 
+  getMessage() {
+    const socket = io(environment.socketIO_Endpoint);
+    return new Observable((observer: Observer<any>) => {
+      socket.on('message recieved', (message: any) => {
+        observer.next(message)
+      })
+    })
+  }
 
 
 }

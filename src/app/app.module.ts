@@ -84,7 +84,7 @@ const config: SocketIoConfig = { url: environment.socketIO_Endpoint, options: {}
           },
         ],
       } as SocialAuthServiceConfig,
-    },
+    }
   ],
   schemas: [NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

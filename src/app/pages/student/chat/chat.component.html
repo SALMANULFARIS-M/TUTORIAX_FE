@@ -64,11 +64,12 @@
           </p>
         </div>
         <div
-          class="flex flex-col h-full overflow-x-auto mb-4 scrollbar-hidden rounded-r-lg"
+        id="chat-scroll"
+          class="flex flex-col h-full overflow-x-auto mb-4  rounded-r-lg"
           *ngIf="chatShow"
         >
           <div
-            class="flex flex-row justify-center items-center bg-cyan-800 px-5"
+            class="flex flex-row justify-center items-center bg-cyan-950 px-5"
           >
             <div class="">
               <img
@@ -91,7 +92,7 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-col h-full">
+          <div class="flex flex-col h-full ">
             <div class="grid grid-cols-12 gap-y-2" *ngFor="let m of messages">
               <div class="col-start-1 col-end-8 p-3 rounded-lg">
                 <div
@@ -148,26 +149,6 @@
           class="flex flex-row items-center shadow-xl h-16 rounded-xl bg-white w-auto px-4 m-3"
           *ngIf="chatShow"
         >
-          <div>
-            <button
-              class="flex items-center justify-center text-gray-400 hover:text-gray-600"
-            >
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
-                ></path>
-              </svg>
-            </button>
-          </div>
           <form
             (ngSubmit)="sendMessage()"
             class="w-full flex flex-row items-center"
