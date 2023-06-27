@@ -25,8 +25,6 @@ export class ChatComponent implements OnInit {
     this.studentService.getAllChats(token).subscribe((result: any) => {
       if (result.status) {
         this.contacts = result.connections
-console.log(this.contacts,"dad");
-
       }
     }, (error: any) => {
       this.authService.handleError(error.status)
@@ -34,7 +32,6 @@ console.log(this.contacts,"dad");
   }
 
   fullChat(id: string) {
-
     this.studentService.getAllMessages(id).subscribe((result: any) => {
       if (result.status) {
         this.chatShow = true
@@ -50,14 +47,14 @@ console.log(this.contacts,"dad");
     if (this.message) {
       const data = {
         connection: this.room._id,
-        sender: this.room.connection.student,
-        receiver: this.room.connection.teacher,
+        sender: this.room.connection.student._id,
+        receiver: this.room.connection.teacher._id,
         text: this.message
       }
       this.studentService.sendMessage(data).subscribe((result: any) => {
         if (result.status) {
           this.message = ''
-          console.log(result.data);
+          this.fullChat(result.id);
 
         }
       }, (error: any) => {
@@ -71,5 +68,4 @@ console.log(this.contacts,"dad");
 
     }
   }
-
 }

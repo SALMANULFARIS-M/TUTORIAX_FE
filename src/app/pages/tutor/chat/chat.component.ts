@@ -16,8 +16,8 @@ export class ChatComponent implements OnInit {
   message: string = '';
   Toast: any;
   room: any;
-  constructor(private authService:AuthserviceService,private cookieService:CookieService,private tutorService:TutorserviceService,
-    private studentService:StudentServicesService) {
+  constructor(private authService: AuthserviceService, private cookieService: CookieService, private tutorService: TutorserviceService,
+    private studentService: StudentServicesService) {
     this.Toast = this.authService.Toast
   }
   ngOnInit(): void {
@@ -47,15 +47,14 @@ export class ChatComponent implements OnInit {
     if (this.message) {
       const data = {
         connection: this.room._id,
-        sender: this.room.connection.teacher,
-        receiver: this.room.connection.student,
+        sender: this.room.connection.teacher._id,
+        receiver: this.room.connection.student._id,
         text: this.message
       }
       this.studentService.sendMessage(data).subscribe((result: any) => {
         if (result.status) {
           this.message = ''
-          console.log(result.data);
-
+          this.fullChat(result.id);
         }
       }, (error: any) => {
         this.authService.handleError(error.status)

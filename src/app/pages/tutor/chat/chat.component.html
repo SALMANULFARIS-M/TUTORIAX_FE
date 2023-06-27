@@ -34,13 +34,17 @@
             <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
               <div class="flex items-bottom justify-between">
                 <p class="text-grey-darkest text-base font-semibold">
-                  {{ c.connection.student.firstName }} {{ c.connection.student.lastName }}
+                  {{ c.connection.student.firstName }}
+                  {{ c.connection.student.lastName }}
                 </p>
                 <p class="text-xs text-grey-darkest">
                   {{ c.updatedAt | date : "shortTime" }}
                 </p>
               </div>
-              <p *ngIf="c.last_message.text" class="text-grey-500 mt-1 ps-2 font-medium text-sm">
+              <p
+                *ngIf="c.last_message.text"
+                class="text-grey-500 mt-1 ps-2 font-medium text-sm"
+              >
                 {{ c.last_message.text }}
               </p>
             </div>
@@ -67,141 +71,74 @@
           class="flex flex-col h-full overflow-x-auto mb-4 scrollbar-hidden rounded-r-lg"
           *ngIf="chatShow"
         >
-          <div class="flex flex-row bg-cyan-500">
+          <div class="flex flex-row justify-center items-center bg-cyan-800 px-5">
             <div class="">
               <img
+              *ngIf="!room.connection?.student?.image"
                 class="h-12 w-12 rounded-full"
-                src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg"
+                src="../../../../assets/images/red-profile.jpg"
+              />
+              <img
+              *ngIf="room.connection?.student?.image"
+                class="h-12 w-12 rounded-full"
+                [src]="room.connection?.student?.image"
               />
             </div>
             <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
-              <div class="flex items-bottom justify-between">
-                <p class="text-grey-darkest">New Movie! Expendables 4</p>
+              <div class="flex flex-col items-start text-white">
+                <p class="text-grey-darkest">{{room.connection.student.firstName}} {{room.connection.student.lastName}}</p>
                 <p class="text-xs text-grey-darkest">12:45 pm</p>
               </div>
-              <p class="text-grey-dark mt-1 text-sm">
-                Get Andrés on this movie ASAP!
-              </p>
             </div>
           </div>
           <div class="flex flex-col h-full">
-            <div class="grid grid-cols-12 gap-y-2">
+            <div class="grid grid-cols-12 gap-y-2" *ngFor="let m of messages">
               <div class="col-start-1 col-end-8 p-3 rounded-lg">
-                <div class="flex flex-row items-center">
+                <div
+                  class="flex flex-row items-center"
+                  *ngIf="m.from == m?.connection_id?.connection?.student._id"
+                >
                   <div
-                    class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
+                    class="flex items-center justify-center h-10 w-10 text-white rounded-full bg-indigo-600 flex-shrink-0"
                   >
-                    A
+                    S
                   </div>
                   <div
                     class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
                   >
-                    <div>Hey How are you today?</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-start-1 col-end-8 p-3 rounded-lg">
-                <div class="flex flex-row items-center">
-                  <div
-                    class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
-                  >
-                    A
-                  </div>
-                  <div
-                    class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
-                  >
-                    <div>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Vel ipsa commodi illum saepe numquam maxime asperiores
-                      voluptate sit, minima perspiciatis.
+                    <div class="font-sans">
+                      <span class="text-base font-semibold">{{ m.text }}</span
+                      ><span
+                        class="font-black ms-1 mt-3 text-gray-600"
+                        style="font-size: xx-small"
+                        >{{ m.updatedAt | date : "shortTime" }}</span
+                      >
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                <div class="flex items-center justify-start flex-row-reverse">
+              <div class="col-start-6 col-end-13 p-3 rounded-lg"   *ngIf="m.from == m.connection_id?.connection?.teacher?._id">
+                <div
+                  class="flex items-center justify-start flex-row-reverse"
+                >
                   <div
-                    class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
+                    class="flex items-center justify-center text-white h-10 w-10 rounded-full bg-cyan-700 flex-shrink-0"
                   >
-                    A
+                    T
                   </div>
                   <div
                     class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl"
                   >
-                    <div>I'm ok what about you?</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                <div class="flex items-center justify-start flex-row-reverse">
-                  <div
-                    class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
-                  >
-                    A
-                  </div>
-                  <div
-                    class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl"
-                  >
-                    <div>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing. ?
+                    <div class="font-sans">
+                      <span class="text-base font-semibold">{{ m.text }}</span
+                      ><span
+                        class="font-black ms-1 mt-3 text-gray-600"
+                        style="font-size: xx-small"
+                        >{{ m.updatedAt | date : "shortTime" }}</span
+                      >
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-start-1 col-end-8 p-3 rounded-lg">
-                <div class="flex flex-row items-center">
-                  <div
-                    class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
-                  >
-                    A
-                  </div>
-                  <div
-                    class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
-                  >
-                    <div>Lorem ipsum dolor sit amet !</div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-start-6 col-end-13 p-3 rounded-lg">
-                <div class="flex items-center justify-start flex-row-reverse">
-                  <div
-                    class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
-                  >
-                    A
-                  </div>
-                  <div
-                    class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl"
-                  >
-                    <div>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing. ?
-                    </div>
-                    <div
-                      class="absolute text-xs bottom-0 right-0 -mb-5 mr-2 text-gray-500"
-                    >
-                      Seen
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-start-1 col-end-8 p-3 rounded-lg">
-                <div class="flex flex-row items-center">
-                  <div
-                    class="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0"
-                  >
-                    A
-                  </div>
-                  <div
-                    class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
-                  >
-                    <div>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Perspiciatis, in.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-start-1 col-end-8 p-3 rounded-lg">
-                <div class="flex flex-row items-center"></div>
               </div>
             </div>
           </div>
@@ -230,13 +167,16 @@
               </svg>
             </button>
           </div>
-          <form (ngSubmit)="sendMessage()" class="w-full flex flex-row items-center">
+          <form
+            (ngSubmit)="sendMessage()"
+            class="w-full flex flex-row items-center"
+          >
             <div class="flex-grow ml-4">
               <div class="relative w-full">
                 <input
                   type="text"
                   name="message"
-                 [(ngModel)]="message"
+                  [(ngModel)]="message"
                   class="flex w-full border-1 border-gray-700 rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
                 />
                 <button
