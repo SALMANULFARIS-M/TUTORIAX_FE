@@ -57,5 +57,9 @@ export class StudentServicesService {
   sendMessage(data: any): Observable<any> {
     return this.http.post('sendmessage',data, httpOptions)
   }
+  applyCoupon(data: any): Observable<any> {
+    return this.http.post('applycoupon',data, httpOptions)
+  }
+
 
 }

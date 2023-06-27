@@ -3,14 +3,11 @@ import { MoveDirection, ClickMode, HoverMode, OutMode, Container, Engine } from 
 import { loadFull } from "tsparticles";
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { StudentServicesService } from 'src/app/services/student-services.service';
-import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
-import { takeUntil } from 'rxjs';
-import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
+import { PromptMomentNotification } from 'google-one-tap';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { AuthserviceService } from 'src/app/services/authservice.service';
 
 //typescript cant obtain window directly

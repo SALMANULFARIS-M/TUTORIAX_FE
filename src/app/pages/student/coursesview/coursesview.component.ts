@@ -17,11 +17,13 @@ export class CoursesviewComponent implements OnInit {
   courseId: any;
   course: any;
   courseView: boolean = false;
+  coupon: string = '';
+  couponId: string = '';
   paymentHandler: any = null;
   constructor(private studentService: StudentServicesService, private authService: AuthserviceService, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router,
     private route: ActivatedRoute, private cookieService: CookieService) {
-      this.Toast = this.authService.Toast;
-     }
+    this.Toast = this.authService.Toast;
+  }
   ngOnInit(): void {
     this.invokeStripe();
     this.courseId = this.route.snapshot.paramMap.get('id');
@@ -44,6 +46,42 @@ export class CoursesviewComponent implements OnInit {
     })
   }
 
+  apply(price: number) {
+    const token = this.cookieService.get('studentjwt')
+    if (this.coupon.length > 0) {
+      const data = {
+        coupon: this.coupon,
+        price: price,
+        token: token
+      }
+
+      this.studentService.applyCoupon(data).subscribe((res) => {
+        if (res.status) {
+          this.course.price = res.price;
+          this.couponId = res.coupon
+
+          this.Toast.fire({
+            icon: 'success',
+            title: "succesfully applied"
+          })
+          this.coupon = '';
+        } else {
+          this.Toast.fire({
+            icon: 'error',
+            title: res.message
+          })
+        }
+      }, (error: any) => {
+        this.authService.handleError(error.status)
+      })
+    } else {
+      this.Toast.fire({
+        icon: 'warning',
+        title: "Enter any code for apply"
+      })
+    }
+  }
+
   payNow(data: any) {
     if (this.authService.isStudentLoggedIn()) {
       const paymentHandler = (<any>window).StripeCheckout.configure({
@@ -53,12 +91,12 @@ export class CoursesviewComponent implements OnInit {
           paymentStripe(stripeToken.id, data.price);
         },
       });
-
       const paymentStripe = (stripeToken: any, amount: any) => {
         const payload = {
           courseId: data._id,
           stripeToken: stripeToken,
-          amount: amount,
+          amount: this.course.price,
+          coupon: this.couponId
         };
         const usertoken = this.cookieService.get('studentjwt');
         this.studentService.pay(usertoken, payload).subscribe(
@@ -71,7 +109,7 @@ export class CoursesviewComponent implements OnInit {
           }
         );
       }
-      const amountFormatted = data.price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
+      const amountFormatted = this.course.price.toLocaleString('en-IN', { style: 'currency', currency: 'INR' });
       paymentHandler.open({
         name: 'Positronx',
         amount: '',

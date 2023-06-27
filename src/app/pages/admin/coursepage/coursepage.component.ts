@@ -68,7 +68,7 @@ export class CoursepageComponent implements OnInit {
     title: ['', Validators.required],
     author: ['', Validators.required],
     date: ['', Validators.required],
-    price: ['', Validators.required],
+    price: ['', [Validators.required,Validators.pattern(/^[1-9]\d*$/)]],
     video: [''],
     thumbnail: [''],
     description: ['', Validators.required]

@@ -99,12 +99,15 @@
                       'form-control is-invalid': submit && f.price.errors
                     }"
                   />
+                  <div *ngIf="submit && f.price.errors" class="invalid-feedback">
+                    <div *ngIf="submit && f.price.errors['pattern']">
+                     Price should be greather than zero
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
             <hr class="mt-6 border-b-1 border-blueGray-300" />
-
             <h6 class="text-white text-sm mt-3 mb-6 font-bold uppercase">
               Media
             </h6>

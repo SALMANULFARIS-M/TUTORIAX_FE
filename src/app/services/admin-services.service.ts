@@ -52,5 +52,14 @@ export class AdminServicesService {
   tuorBlock(id:string,data:any): Observable<any> {
     return this.http.patch(`admin/blocktutor/${id}`,data,httpOptions)
   }
+  getCoupons(): Observable<any> {
+    return this.http.get('admin/getcoupons')
+  }
+  addCoupon(data:any): Observable<any> {
+    return this.http.post('admin/addcoupon',data,httpOptions)
+  }
+  deleteCoupon(id:string): Observable<any> {
+    return this.http.delete(`admin/deletecoupon/${id}`)
+  }
 
 }

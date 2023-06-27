@@ -113,6 +113,22 @@
             </router-link>
           </li>
           <li
+          class="flex w-full justify-between text-gray-400 hover:text-gray-300 cursor-pointer items-center mb-0"
+        >
+          <router-link
+            class="flex items-center px-6 py-1 mt-4 duration-200 border-l-4"
+            routerLink="./coupons"
+            [class]="
+              currentRoute() === '/admin/coupons'
+                ? activeClass
+                : inactiveClass
+            "
+          >
+          <i class="bi bi-tags text-2xl"></i>
+            <span class="mx-4">Coupons</span>
+          </router-link>
+        </li>
+          <li
             class="flex w-full justify-between text-gray-400 hover:text-gray-300 cursor-pointer items-center mb-0"
           >
             <button

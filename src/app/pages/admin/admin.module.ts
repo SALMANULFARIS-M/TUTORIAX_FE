@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AdminGuardGuard } from 'src/app/guard/admin-guard.guard';
 import { ViewtutorComponent } from './viewtutor/viewtutor.component';
+import { CouponsComponent } from './coupons/coupons.component';
 
 
 const adminRoute: Routes = [
@@ -29,6 +30,8 @@ const adminRoute: Routes = [
       { path: 'teachers', component: AdminTeachersComponent },
       { path: 'students', component: AdminStudentsComponent },
       { path: 'viewtutor/:id', component: ViewtutorComponent },
+      { path: 'coupons', component: CouponsComponent },
+      { path: 'addcoupon', component: CouponsComponent },
     ]
   }]
 
@@ -41,6 +44,7 @@ const adminRoute: Routes = [
     AdminStudentsComponent,
     CoursepageComponent,
     ViewtutorComponent,
+    CouponsComponent,
   ],
   imports: [
     RouterModule.forChild(adminRoute),

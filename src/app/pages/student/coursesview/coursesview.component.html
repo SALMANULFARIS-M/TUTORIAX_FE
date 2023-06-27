@@ -136,10 +136,16 @@
           <div class="px-8 mt-4 border-t pt-4">
             <div class="flex items-end justify-between">
               <span class="text-sm font-semibold">Total</span>
-              <span class="text-sm text-red-700 mb-px font-bold"
+              <span id="price" class="text-sm text-red-700 mb-px font-bold"
                 >{{ course.price }}.00 Rs</span
               >
             </div>
+            <div class="flex items-center justify-end pt-3">
+              <input type="text" placeholder="Coupon Code" id="coupon" [(ngModel)]="coupon"
+                 class="rounded-l-lg border-1 border-gray-700 h-8 ps-2">
+              <a class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-r-lg hover:bg-blue-800  "(click)="apply(course.price)"
+                  id="applyButton">Apply</a>
+          </div>
           </div>
           <div class="flex items-center px-8 mt-8">
             <input id="termsConditions" type="checkbox" />
@@ -147,6 +153,7 @@
               >I agree to the terms and conditions.</label
             >
           </div>
+
           <div class="flex flex-col px-8 pt-4">
             <button
               (click)="payNow(course)"
