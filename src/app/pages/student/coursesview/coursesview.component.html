@@ -102,11 +102,99 @@
                 <h5 class="text-gray-500 text-base font-bold">About</h5>
                 <p class="text-black font-medium">{{ course.description }}</p>
               </div>
+              <div class="flex items-end justify-end pt-5">
+                <button
+                  (click)="modalShow('show')"
+                  class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800"
+                >
+                  <span
+                    class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-transparent dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"
+                  >
+                    Report
+                  </span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div *ngIf="courseView==false" class="my-10">
+
+      <div
+        id="report-modal"
+        *ngIf="modal"
+        tabindex="-1"
+        aria-hidden="true"
+        class="flex fixed items-center z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+      >
+        <div class="relative w-full max-w-md max-h-full">
+          <!-- Modal content -->
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button
+              (click)="modalShow('hide')"
+              type="button"
+              class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
+              data-modal-hide="authentication-modal"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+            <div class="px-6 py-6 lg:px-8">
+              <form
+                class="space-y-6"
+                [formGroup]="reportForm"
+                (ngSubmit)="onSubmit(course._id)"
+              >
+                <div>
+                  <label
+                    for="email"
+                    class="block mb-2 text-sm font-medium text-gray-900"
+                    >Please enter the reason</label
+                  >
+                  <input
+                    [ngClass]="{
+                      'form-control is-invalid': submit && f.text.errors
+                    }"
+                    type="text"
+                    formControlName="text"
+                    name="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Enter your issue"
+                    required
+                  />
+                  <div *ngIf="submit && f.text.errors" class="invalid-feedback">
+                    <div *ngIf="submit && f.text.errors['required']">
+                      Content is required
+                    </div>
+                    <div *ngIf="submit && f.text.errors['pattern']">
+                      Enter proper reason
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="courseView == false" class="my-10">
         <div class="bg-white rounded mt-4 shadow-lg py-6">
           <div class="px-8">
             <h5
@@ -141,11 +229,20 @@
               >
             </div>
             <div class="flex items-center justify-end pt-3">
-              <input type="text" placeholder="Coupon Code" id="coupon" [(ngModel)]="coupon"
-                 class="rounded-l-lg border-1 border-gray-700 h-8 ps-2">
-              <a class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-r-lg hover:bg-blue-800  "(click)="apply(course.price)"
-                  id="applyButton">Apply</a>
-          </div>
+              <input
+                type="text"
+                placeholder="Coupon Code"
+                id="coupon"
+                [(ngModel)]="coupon"
+                class="rounded-l-lg border-1 border-gray-700 h-8 ps-2"
+              />
+              <a
+                class="px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-r-lg hover:bg-blue-800"
+                (click)="apply(course.price)"
+                id="applyButton"
+                >Apply</a
+              >
+            </div>
           </div>
           <div class="flex items-center px-8 mt-8">
             <input id="termsConditions" type="checkbox" />

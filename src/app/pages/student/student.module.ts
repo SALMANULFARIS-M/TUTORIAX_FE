@@ -11,7 +11,7 @@ import { CoursesviewComponent } from './coursesview/coursesview.component';
 import { FormsModule } from '@angular/forms';
 import { ChatComponent } from './chat/chat.component';
 import { TutorListComponent } from './tutor-list/tutor-list.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 const studentRoute: Routes = [
   {
@@ -37,7 +37,8 @@ const studentRoute: Routes = [
     RouterModule.forChild(studentRoute),
     CommonModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     RouterModule

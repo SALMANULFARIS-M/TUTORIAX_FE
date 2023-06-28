@@ -55,11 +55,13 @@ export class StudentServicesService {
     return this.http.get(`getallmessages/${id}`, httpOptions)
   }
   sendMessage(data: any): Observable<any> {
-    return this.http.post('sendmessage',data, httpOptions)
+    return this.http.post('sendmessage', data, httpOptions)
   }
   applyCoupon(data: any): Observable<any> {
-    return this.http.post('applycoupon',data, httpOptions)
+    return this.http.post('applycoupon', data, httpOptions)
   }
-
+  reportVideo(data: any): Observable<any> {
+    return this.http.post('reportvideo', data, httpOptions)
+  }
 
 }

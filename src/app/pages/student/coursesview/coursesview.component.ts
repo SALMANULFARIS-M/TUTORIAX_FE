@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { StudentServicesService } from 'src/app/services/student-services.service';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthserviceService } from 'src/app/services/authservice.service';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-coursesview',
@@ -20,7 +21,9 @@ export class CoursesviewComponent implements OnInit {
   coupon: string = '';
   couponId: string = '';
   paymentHandler: any = null;
-  constructor(private studentService: StudentServicesService, private authService: AuthserviceService, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router,
+  modal: boolean = false;
+  submit: boolean = false;
+  constructor(private studentService: StudentServicesService, private authService: AuthserviceService, private fb: FormBuilder, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router,
     private route: ActivatedRoute, private cookieService: CookieService) {
     this.Toast = this.authService.Toast;
   }
@@ -46,6 +49,22 @@ export class CoursesviewComponent implements OnInit {
     })
   }
 
+  //interface of formdata
+  reportForm = this.fb.group({
+    text: ['', [Validators.required, Validators.pattern(/^(?=.*[a-zA-Z].*[a-zA-Z].*[a-zA-Z].*[a-zA-Z])[a-zA-Z0-9\s]{4,}$/)]],
+  });
+
+  get f() {
+    return this.reportForm.controls;
+  }
+
+  modalShow(a: string) {
+    if (a == 'show') {
+      this.modal = true
+    } else {
+      this.modal = false
+    }
+  }
   apply(price: number) {
     const token = this.cookieService.get('studentjwt')
     if (this.coupon.length > 0) {
@@ -54,12 +73,10 @@ export class CoursesviewComponent implements OnInit {
         price: price,
         token: token
       }
-
       this.studentService.applyCoupon(data).subscribe((res) => {
         if (res.status) {
           this.course.price = res.price;
           this.couponId = res.coupon
-
           this.Toast.fire({
             icon: 'success',
             title: "succesfully applied"
@@ -121,8 +138,8 @@ export class CoursesviewComponent implements OnInit {
         title: "Please login to continue"
       })
     }
-
   }
+
 
   invokeStripe() {
     if (!window.document.getElementById('stripe-script')) {
@@ -141,4 +158,44 @@ export class CoursesviewComponent implements OnInit {
       window.document.body.appendChild(script);
     }
   }
+
+
+
+
+  onSubmit(id: string) {
+    this.submit = true;
+
+    const token = this.cookieService.get('studentjwt')
+    if (this.reportForm.valid) {
+      const content = this.reportForm.get('text')
+      let formData = {
+        text: content?.value,
+        token: token,
+        courseId: id
+      };
+      this.studentService.reportVideo(formData).subscribe((res) => {
+        if (res.status) {
+          this.Toast.fire({
+            icon: 'success',
+            title: "Thank you for your feedback"
+          })
+          this.modalShow('hide')
+          this.ngOnInit();
+        } else {
+          this.Toast.fire({
+            icon: 'error',
+            title: res.message
+          })
+          this.modalShow('hide')
+        }
+      }, (error: any) => {
+        this.authService.handleError(error.status)
+      })
+    }
+  }
+
+
+
+
+
 }
