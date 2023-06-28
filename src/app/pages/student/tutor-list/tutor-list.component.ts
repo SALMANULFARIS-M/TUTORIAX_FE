@@ -11,6 +11,8 @@ import { StudentServicesService } from 'src/app/services/student-services.servic
 })
 export class TutorListComponent implements OnInit {
 
+  searchQuery: string = '';
+  filteredCourses: any;
   tutors: any
   constructor(private studentService: StudentServicesService, private authService: AuthserviceService, private router: Router,
     private cookieService:CookieService) { }
@@ -42,6 +44,18 @@ export class TutorListComponent implements OnInit {
     } else {
       this.router.navigate(['/login'])
     }
+  }
+
+  searchCourses() {
+    // Filter the courses array based on the search query
+    this.filteredCourses = this.tutors.filter((tutor:any) => {
+      // Convert both the course title and description to lowercase for case-insensitive search
+      const title = tutor.fullName.toLowerCase();
+      const searchQuery = this.searchQuery.toLowerCase();
+
+      // Return true if the course title or description contains the search query
+      return title.includes(searchQuery);
+    });
   }
 
 }

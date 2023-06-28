@@ -33,6 +33,8 @@
             placeholder="Search"
             aria-label="Search"
             aria-describedby="button-addon1"
+            [(ngModel)]="searchQuery"
+            (keyup)="searchCourses()"
           />
           <button
             class="relative z-[2] flex items-center border-1 rounded-r bg-violet-900 px-6 py-2.5 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-gray-700 hover:shadow-lg focus:bg-gray-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg"
@@ -61,7 +63,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <div
         class="max-w-sm w-full bg-white rounded overflow-hidden shadow-lg m-4"
-        *ngFor="let c of tutors"
+        *ngFor="let c of searchQuery ? filteredCourses :tutors"
       >
         <div class="flex justify-center">
           <img

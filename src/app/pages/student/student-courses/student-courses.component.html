@@ -32,6 +32,8 @@
             class="relative m-0 -mr-0.5 block w-[1px] min-w-0 flex-auto rounded-l border border-solid border-neutral-950 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:focus:border-primary"
             placeholder="Search"
             aria-label="Search"
+            [(ngModel)]="searchQuery"
+            (keyup)="searchCourses()"
             aria-describedby="button-addon1"
           />
           <button
@@ -61,7 +63,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <div
         class="max-w-sm w-full bg-white rounded overflow-hidden shadow-lg m-4"
-        *ngFor="let c of courses"
+        *ngFor="let c of searchQuery ? filteredCourses : courses"
       >
         <img class="w-full h-48" [src]="c.image_id" alt="Thumbnail" />
         <div class="px-6 py-5 text-center">
