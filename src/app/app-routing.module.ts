@@ -9,12 +9,11 @@ import { BadgatewayComponent } from './pages/errors/badgateway/badgateway.compon
 const routes: Routes = [
   { path: '', loadChildren: () => import('./pages/student/student.module').then(m => m.StudentModule) },
   { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule), canLoad: [StudentLoadGuard] },
-  { path: 'tutor', loadChildren: () => import('./pages/tutor/tutor.module').then(m => m.TutorModule) },
+  { path: 'tutor', loadChildren: () => import('./pages/tutor/tutor.module').then(m => m.TutorModule), canLoad: [StudentLoadGuard]  },
   { path: '404', component: NotfoundComponent },
   { path: '502', component: BadgatewayComponent },
   { path: '500', component: InternalserverComponent },
   { path: '**', redirectTo: '/404', pathMatch: 'full' }
-
 ];
 
 @NgModule({
