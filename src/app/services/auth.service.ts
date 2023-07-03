@@ -73,6 +73,9 @@ export class AuthService {
   // Inside your response handling logic
   handleError(status: number) {
     switch (status) {
+      case 400:
+        this.router.navigate(['/400']);
+        break;
       case 404:
         this.router.navigate(['/404']);
         break;
@@ -83,7 +86,7 @@ export class AuthService {
         this.router.navigate(['/502']);
         break;
       default:
-      // Handle other error statuses or display a generic error message
+        this.router.navigate(['/error']);
     }
   }
 

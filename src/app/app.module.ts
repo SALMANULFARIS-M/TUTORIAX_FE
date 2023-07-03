@@ -6,7 +6,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { TokenInterceptor } from './token.interceptor';
+import { TokenInterceptor } from './core/token.interceptor';
 
 
 //import firebase and environment
@@ -35,6 +35,8 @@ import { InternalserverComponent } from './pages/errors/internalserver/internals
 import { BadgatewayComponent } from './pages/errors/badgateway/badgateway.component';
 import { TutorComponent } from './pages/tutor/tutor.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { BadrequestComponent } from './pages/errors/badrequest/badrequest.component';
+import { CommonerrorComponent } from './pages/errors/commonerror/commonerror.component';
 const config: SocketIoConfig = { url: environment.socketIO_Endpoint, options: {} };
 
 @NgModule({
@@ -49,7 +51,9 @@ const config: SocketIoConfig = { url: environment.socketIO_Endpoint, options: {}
     NotfoundComponent,
     InternalserverComponent,
     BadgatewayComponent,
-    TutorComponent
+    TutorComponent,
+    BadrequestComponent,
+    CommonerrorComponent
   ],
   imports: [
     BrowserModule,

@@ -2,11 +2,14 @@ import { Injectable } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpHeaders,
+  HttpErrorResponse
 } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment.development';
-import { AuthService } from './services/auth.service';
+import { AuthService } from '../services/auth.service';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -27,20 +30,17 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
     const authService = this.authService.getToken(this.token);
-    if (authService) {
-      const headers = {
-        Authorization: 'Bearer' + authService
-      };
-      const newRequest = request.clone({
-        url: environment.backendApiUrl + request.url,
-        setHeaders: headers
+    const headers: HttpHeaders = authService ? new HttpHeaders({ Authorization: 'Bearer ' + authService }) : new HttpHeaders();
+    const newRequest = request.clone({
+      url: environment.backendApiUrl + request.url,
+      headers: headers
+    });
+    return next.handle(newRequest).pipe(
+      catchError((error: HttpErrorResponse) => {
+        const statusCode = error.status;
+        this.authService.handleError(statusCode);
+        return throwError(error); // Return an ObservableInput value
       })
-      return next.handle(newRequest);
-    } else {
-      const newRequest = request.clone({
-        url: environment.backendApiUrl + request.url
-      })
-      return next.handle(newRequest);
-    }
+    );
   }
 }
