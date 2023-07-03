@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { passwordPattern } from "../../../../validation/constants/patterns";
 
 @Component({
   selector: 'app-admin-login',
@@ -31,7 +32,7 @@ export class AdminLoginComponent implements OnInit {
   //interface of formdata
   registrationForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]]
+    password: ['', [Validators.required, Validators.pattern(passwordPattern)]]
   });
   get f() {
     return this.registrationForm.controls;

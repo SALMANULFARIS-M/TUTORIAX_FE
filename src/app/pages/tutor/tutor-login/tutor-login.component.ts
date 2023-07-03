@@ -5,6 +5,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { TutorService } from 'src/app/services/tutor.service';
+import { mobilePattern,passwordPattern } from "../../../../validation/constants/patterns";
+
 
 @Component({
   selector: 'app-tutor-login',
@@ -25,8 +27,8 @@ export class TutorLoginComponent implements OnInit {
 
   //registration form  interface
   registrationForm = this.fb.group({
-    mobile: ['', [Validators.required, Validators.pattern(/^[0-9]\d{9}$/)]],
-    password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]],
+    mobile: ['', [Validators.required, Validators.pattern(mobilePattern)]],
+    password: ['', [Validators.required, Validators.pattern(passwordPattern)]],
   });
 
   //is used to conveniently access the controls of the registrationForm FormGroup.

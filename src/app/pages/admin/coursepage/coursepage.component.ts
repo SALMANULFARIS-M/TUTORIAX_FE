@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { initializeApp } from 'firebase/app';
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
-import Swal from 'sweetalert2';
+import { number } from "../../../../validation/constants/patterns";
 
 
 @Component({
@@ -68,7 +67,7 @@ export class CoursepageComponent implements OnInit {
     title: ['', Validators.required],
     author: ['', Validators.required],
     date: ['', Validators.required],
-    price: ['', [Validators.required,Validators.pattern(/^[1-9]\d*$/)]],
+    price: ['', [Validators.required,Validators.pattern(number)]],
     video: [''],
     thumbnail: [''],
     description: ['', Validators.required]

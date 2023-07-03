@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { data } from 'autoprefixer';
+import { number } from "../../../../validation/constants/patterns";
 import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
@@ -41,9 +41,9 @@ export class CouponsComponent implements OnInit {
   //interface of formdata
   couponForm = this.fb.group({
     code: ['', Validators.required],
-    discountPercentage: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
-    maxDiscount: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
-    minAmount: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
+    discountPercentage: ['', [Validators.required, Validators.pattern(number)]],
+    maxDiscount: ['', [Validators.required, Validators.pattern(number)]],
+    minAmount: ['', [Validators.required, Validators.pattern(number)]],
     expDate: ['', Validators.required]
   });
   get f() {

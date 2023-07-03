@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { TutorService } from 'src/app/services/tutor.service';
+import { mobilePattern,passwordPattern,name } from "../../../../validation/constants/patterns";
 
 
 //typescript cant obtain window directly
@@ -64,10 +65,10 @@ export class TutorRegisterComponent implements OnInit {
 
   //registration form  interface
   registrationForm = this.fb.group({
-    fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*[a-zA-Z][a-zA-Z ]*$/)]],
+    fullName: ['', [Validators.required, Validators.pattern(name)]],
     email: ['', [Validators.required, Validators.email]],
-    mobile: ['', [Validators.required, Validators.pattern(/^[0-9]\d{9}$/)]],
-    password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]],
+    mobile: ['', [Validators.required, Validators.pattern(mobilePattern)]],
+    password: ['', [Validators.required, Validators.pattern(passwordPattern)]],
     certificate: ['', Validators.required],
   });
 

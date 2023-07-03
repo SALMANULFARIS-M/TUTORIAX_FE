@@ -5,7 +5,6 @@ import { MoveDirection, ClickMode, HoverMode, OutMode, Container, Engine } from 
 import { loadFull } from 'tsparticles';
 //toast  and sweet  alert
 import { ToastrService } from 'ngx-toastr';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { StudentService } from '../../../services/student.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,6 +13,7 @@ import { environment } from 'src/environments/environment.development';
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { CredentialResponse } from 'google-one-tap';
 import { AuthService } from 'src/app/services/auth.service';
+import { mobilePattern,passwordPattern,name } from "../../../../validation/constants/patterns";
 
 
 //typescript cant obtain window directly
@@ -77,11 +77,11 @@ export class RegisterComponent implements OnInit {
 
   //registration form  interface
   registrationForm = this.fb.group({
-    firstName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*[a-zA-Z][a-zA-Z ]*$/)]],
-    lastName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*[a-zA-Z][a-zA-Z ]*$/)]],
+    firstName: ['', [Validators.required, Validators.pattern(name)]],
+    lastName: ['', [Validators.required, Validators.pattern(name)]],
     email: ['', [Validators.required, Validators.email]],
-    mobile: ['', [Validators.required, Validators.pattern(/^[0-9]\d{9}$/)]],
-    password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]],
+    mobile: ['', [Validators.required, Validators.pattern(mobilePattern)]],
+    password: ['', [Validators.required, Validators.pattern(passwordPattern)]],
     cpassword: ['', [Validators.required, this.confirmPasswordValidator()]]
   });
 

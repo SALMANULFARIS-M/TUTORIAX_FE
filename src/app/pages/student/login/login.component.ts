@@ -9,6 +9,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { PromptMomentNotification } from 'google-one-tap';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { AuthService } from 'src/app/services/auth.service';
+import { mobilePattern,passwordPattern,name } from "../../../../validation/constants/patterns";
 
 //typescript cant obtain window directly
 interface CustomWindow extends Window {
@@ -83,8 +84,8 @@ export class LoginComponent implements OnInit {
 
   //interface of formdata
   registrationForm = this.fb.group({
-    mobile: ['', [Validators.required, Validators.pattern(/^[0-9]\d{9}$/)]],
-    password: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/)]]
+    mobile: ['', [Validators.required, Validators.pattern(mobilePattern)]],
+    password: ['', [Validators.required, Validators.pattern(passwordPattern)]]
   });
   get f() {
     return this.registrationForm.controls;
@@ -92,7 +93,7 @@ export class LoginComponent implements OnInit {
 
   //interface of formdata
   forgotPassword = this.fb.group({
-    mobile: ['', [Validators.required, Validators.pattern(/^[0-9]\d{9}$/)]],
+    mobile: ['', [Validators.required, Validators.pattern(mobilePattern)]],
     password: ['', Validators.required]
   });
 
