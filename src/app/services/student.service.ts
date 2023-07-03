@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-}
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,51 +13,51 @@ export class StudentService {
 
   //check user
   checkUserExist(userData: any): Observable<any> {
-    return this.http.post('checkstudent', userData, httpOptions)
+    return this.http.post('checkstudent', userData)
   }
 
   //check user
   savePassword(userData: any): Observable<any> {
-    return this.http.post('savepassword', userData, httpOptions)
+    return this.http.post('savepassword', userData)
   }
 
   //insert user
   insertUser(userData: any): Observable<any> {
-    return this.http.post('register', userData, httpOptions)
+    return this.http.post('register', userData)
   }
 
   login(userData: any): Observable<any> {
-    return this.http.post('login', userData, httpOptions)
+    return this.http.post('login', userData)
   }
 
   pay(id: string, userData: any): Observable<any> {
-    return this.http.post(`payment/${id}`, userData, httpOptions)
+    return this.http.post(`payment/${id}`, userData)
   }
 
   checkPurchasedCourse(data: any): Observable<any> {
-    return this.http.post('checkcourse', data, httpOptions)
+    return this.http.post('checkcourse', data)
   }
 
   getTutors(): Observable<any> {
-    return this.http.get('gettutors', httpOptions)
+    return this.http.get('gettutors',)
   }
   chatConnection(data: any): Observable<any> {
-    return this.http.post('connection', data, httpOptions)
+    return this.http.post('connection', data)
   }
-  getAllChats(id: any): Observable<any> {
-    return this.http.get(`getallchats/${id}`, httpOptions)
+  getAllChats(id: string): Observable<any> {
+    return this.http.get(`getallchats/${id}`)
   }
-  getAllMessages(id: any): Observable<any> {
-    return this.http.get(`getallmessages/${id}`, httpOptions)
+  getAllMessages(id: string): Observable<any> {
+    return this.http.get(`getallmessages/${id}`)
   }
   sendMessage(data: any): Observable<any> {
-    return this.http.post('sendmessage', data, httpOptions)
+    return this.http.post('sendmessage', data)
   }
   applyCoupon(data: any): Observable<any> {
-    return this.http.post('applycoupon', data, httpOptions)
+    return this.http.post('applycoupon', data)
   }
   reportVideo(data: any): Observable<any> {
-    return this.http.post('reportvideo', data, httpOptions)
+    return this.http.post('reportvideo', data)
   }
 
 }

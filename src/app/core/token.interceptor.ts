@@ -33,7 +33,7 @@ export class TokenInterceptor implements HttpInterceptor {
     const headers: HttpHeaders = authService ? new HttpHeaders({ Authorization: 'Bearer ' + authService }) : new HttpHeaders();
     const newRequest = request.clone({
       url: environment.backendApiUrl + request.url,
-      headers: headers
+      headers: headers.set('Content-Type', 'application/json')
     });
     return next.handle(newRequest).pipe(
       catchError((error: HttpErrorResponse) => {
