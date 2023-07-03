@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { passwordPattern } from "../../../../validation/constants/patterns";
+import { passwordPattern } from "../../../constants/patterns";
 
 @Component({
   selector: 'app-admin-login',

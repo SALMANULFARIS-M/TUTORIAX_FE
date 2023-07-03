@@ -5,7 +5,7 @@ import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from "fire
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { number } from "../../../../validation/constants/patterns";
+import { number } from "../../../constants/patterns";
 
 
 @Component({

@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment.development';
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { CredentialResponse } from 'google-one-tap';
 import { AuthService } from 'src/app/services/auth.service';
-import { mobilePattern,passwordPattern,name } from "../../../../validation/constants/patterns";
+import { mobilePattern,passwordPattern,name } from "../../../constants/patterns";
 
 
 //typescript cant obtain window directly

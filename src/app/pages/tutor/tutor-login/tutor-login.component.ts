@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { TutorService } from 'src/app/services/tutor.service';
-import { mobilePattern,passwordPattern } from "../../../../validation/constants/patterns";
+import { mobilePattern,passwordPattern } from "../../../constants/patterns";
 
 
 @Component({

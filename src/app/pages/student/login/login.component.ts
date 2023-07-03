@@ -9,7 +9,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { PromptMomentNotification } from 'google-one-tap';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { AuthService } from 'src/app/services/auth.service';
-import { mobilePattern,passwordPattern,name } from "../../../../validation/constants/patterns";
+import { mobilePattern,passwordPattern,name } from "../../../constants/patterns";
 
 //typescript cant obtain window directly
 interface CustomWindow extends Window {

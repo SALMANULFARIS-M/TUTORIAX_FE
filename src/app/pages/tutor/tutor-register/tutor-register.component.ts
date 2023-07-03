@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { TutorService } from 'src/app/services/tutor.service';
-import { mobilePattern,passwordPattern,name } from "../../../../validation/constants/patterns";
+import { mobilePattern,passwordPattern,name } from "../../../constants/patterns";
 
 
 //typescript cant obtain window directly
@@ -174,6 +174,7 @@ export class TutorRegisterComponent implements OnInit {
             // Get the download URL of the thumbnail file
             getDownloadURL(imageRef).then((thumbnailURL) => {
               this.formData.certificate = thumbnailURL
+
               this.tutorService.insertTutor(this.formData).subscribe((result: any) => {
                 if (result.status) {
                   this.formData = "";
