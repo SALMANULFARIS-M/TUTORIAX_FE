@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { ToastrService } from 'ngx-toastr';
-import { AdminServicesService } from 'src/app/services/admin-services.service';
-import { AuthserviceService } from 'src/app/services/authservice.service';
+import { AdminService } from 'src/app/services/admin.service';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 
@@ -18,8 +18,8 @@ export class CoursepageComponent implements OnInit {
 
   storage: any
   Toast: any
-  constructor(private fb: FormBuilder, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router,
-    private route: ActivatedRoute, private authService: AuthserviceService) {
+  constructor(private fb: FormBuilder, private adminService: AdminService, private toastr: ToastrService, private router: Router,
+    private route: ActivatedRoute, private authService: AuthService) {
     this.storage = this.authService.storage;
     this.Toast = this.authService.Toast;
   }

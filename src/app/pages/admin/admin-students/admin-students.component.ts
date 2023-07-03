@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminServicesService } from 'src/app/services/admin-services.service';
-import { AuthserviceService } from 'src/app/services/authservice.service';
+import { AdminService } from 'src/app/services/admin.service';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class AdminStudentsComponent implements OnInit {
 
   students: any
-  constructor(private adminService: AdminServicesService,private authService:AuthserviceService) { }
+  constructor(private adminService: AdminService,private authService:AuthService) { }
   ngOnInit(): void {
     this.adminService.getAllstudents().subscribe((res) => {
       this.students = res.data

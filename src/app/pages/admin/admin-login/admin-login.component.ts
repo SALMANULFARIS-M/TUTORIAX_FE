@@ -3,8 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AdminServicesService } from 'src/app/services/admin-services.service';
-import { AuthserviceService } from 'src/app/services/authservice.service';
+import { AdminService } from 'src/app/services/admin.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-admin-login',
@@ -14,7 +14,7 @@ import { AuthserviceService } from 'src/app/services/authservice.service';
 export class AdminLoginComponent implements OnInit {
 
   Toast: any;
-  constructor(private fb: FormBuilder, private authService: AuthserviceService, private router: Router, private adminService: AdminServicesService, private cookieService: CookieService,
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private adminService: AdminService, private cookieService: CookieService,
     private toastr: ToastrService) {
     this.Toast = this.authService.Toast;
   }

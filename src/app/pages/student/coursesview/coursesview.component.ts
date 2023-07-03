@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AdminServicesService } from 'src/app/services/admin-services.service';
+import { AdminService } from 'src/app/services/admin.service';
 import Swal from 'sweetalert2';
-import { StudentServicesService } from 'src/app/services/student-services.service';
+import { StudentService } from 'src/app/services/student.service';
 import { CookieService } from 'ngx-cookie-service';
-import { AuthserviceService } from 'src/app/services/authservice.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -23,7 +23,7 @@ export class CoursesviewComponent implements OnInit {
   paymentHandler: any = null;
   modal: boolean = false;
   submit: boolean = false;
-  constructor(private studentService: StudentServicesService, private authService: AuthserviceService, private fb: FormBuilder, private adminService: AdminServicesService, private toastr: ToastrService, private router: Router,
+  constructor(private studentService: StudentService, private authService: AuthService, private fb: FormBuilder, private adminService: AdminService, private toastr: ToastrService, private router: Router,
     private route: ActivatedRoute, private cookieService: CookieService) {
     this.Toast = this.authService.Toast;
   }

@@ -5,8 +5,8 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AuthserviceService } from 'src/app/services/authservice.service';
-import { TutorserviceService } from 'src/app/services/tutorservice.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { TutorService } from 'src/app/services/tutor.service';
 
 
 //typescript cant obtain window directly
@@ -37,7 +37,7 @@ export class TutorRegisterComponent implements OnInit {
   formData: any;
   storage: any;
 
-  constructor(private authService: AuthserviceService, private fb: FormBuilder, private router: Router, private tutorService: TutorserviceService,
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private tutorService: TutorService,
     private cookieService: CookieService, private toastr: ToastrService) {
     this.auth = this.authService.auth;
     this.storage = this.authService.storage;

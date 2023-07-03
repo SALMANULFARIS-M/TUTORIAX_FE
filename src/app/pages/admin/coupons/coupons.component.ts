@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { data } from 'autoprefixer';
-import { AdminServicesService } from 'src/app/services/admin-services.service';
-import { AuthserviceService } from 'src/app/services/authservice.service';
+import { AdminService } from 'src/app/services/admin.service';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +19,7 @@ export class CouponsComponent implements OnInit {
   addPage: boolean = false;
   submit: boolean = false;
   isLoading: boolean = false;
-  constructor(private authService: AuthserviceService, private adminService: AdminServicesService, private router: Router, private route: ActivatedRoute,
+  constructor(private authService: AuthService, private adminService: AdminService, private router: Router, private route: ActivatedRoute,
     private fb: FormBuilder) { this.Toast = this.authService.Toast; }
   ngOnInit(): void {
 

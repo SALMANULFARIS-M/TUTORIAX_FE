@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ChatComponent } from './chat/chat.component';
 import { TutorListComponent } from './tutor-list/tutor-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { StudentGuardGuard } from 'src/app/guard/student-guard.guard';
+import { StudentGuard } from 'src/app/guard/student.guard';
 
 const studentRoute: Routes = [
   {
@@ -23,7 +23,7 @@ const studentRoute: Routes = [
       { path: 'register', component: RegisterComponent },
       { path: 'courses', component: StudentCoursesComponent },
       { path: 'courses/:id', component: CoursesviewComponent },
-      { path: 'chat', component: ChatComponent,canActivate:[StudentGuardGuard] },
+      { path: 'chat', component: ChatComponent,canActivate:[StudentGuard] },
       { path: 'instructor', component: TutorListComponent },
     ]
   }]

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieOptions, CookieService } from 'ngx-cookie-service';
-import { AuthserviceService } from 'src/app/services/authservice.service';
-import { StudentServicesService } from 'src/app/services/student-services.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-tutor-list',
@@ -14,7 +14,7 @@ export class TutorListComponent implements OnInit {
   searchQuery: string = '';
   filteredCourses: any;
   tutors: any
-  constructor(private studentService: StudentServicesService, private authService: AuthserviceService, private router: Router,
+  constructor(private studentService: StudentService, private authService: AuthService, private router: Router,
     private cookieService:CookieService) { }
   ngOnInit(): void {
     this.studentService.getTutors().subscribe((result: any) => {

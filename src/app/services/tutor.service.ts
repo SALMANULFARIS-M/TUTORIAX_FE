@@ -10,7 +10,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class TutorserviceService {
+export class TutorService {
 
   constructor(private http: HttpClient) { }
   //check user

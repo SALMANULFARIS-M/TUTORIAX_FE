@@ -2,8 +2,8 @@ import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@ang
 import { CookieService } from 'ngx-cookie-service';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { AuthserviceService } from 'src/app/services/authservice.service';
-import { StudentServicesService } from 'src/app/services/student-services.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { StudentService } from 'src/app/services/student.service';
 import { io } from 'socket.io-client';
 import { environment } from 'src/environments/environment.development';
 
@@ -22,7 +22,7 @@ export class ChatComponent implements OnInit {
   Toast: any;
   room: any;
   socket: any;
-  constructor(private studentService: StudentServicesService, private cookieService: CookieService, private authService: AuthserviceService) {
+  constructor(private studentService: StudentService, private cookieService: CookieService, private authService: AuthService) {
     this.Toast = this.authService.Toast
   }
   ngOnInit(): void {

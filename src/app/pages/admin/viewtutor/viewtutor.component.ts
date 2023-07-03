@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AdminServicesService } from 'src/app/services/admin-services.service';
-import { AuthserviceService } from 'src/app/services/authservice.service';
+import { AdminService } from 'src/app/services/admin.service';
+import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,7 +14,7 @@ export class ViewtutorComponent implements OnInit {
   id: any;
   tutor: any;
   Toast: any;
-  constructor(private adminService: AdminServicesService, private authService: AuthserviceService, private route: ActivatedRoute) {
+  constructor(private adminService: AdminService, private authService: AuthService, private route: ActivatedRoute) {
     this.Toast = this.authService.Toast;
   }
   ngOnInit(): void {

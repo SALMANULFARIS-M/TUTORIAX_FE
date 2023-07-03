@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HomeComponent } from './home/home.component';
-import { TutorGuardGuard } from 'src/app/guard/tutor-guard.guard';
+import { TutorGuard } from 'src/app/guard/tutor.guard';
 import { ChatComponent } from './chat/chat.component';
 import { FormsModule } from '@angular/forms';
 
@@ -18,7 +18,7 @@ const tutorRoute: Routes = [
   { path: 'login', component: TutorLoginComponent },
   {
     path: '',
-    component: TutorComponent,canActivate:[TutorGuardGuard],
+    component: TutorComponent,canActivate:[TutorGuard],
     children: [
       { path: '', component: HomeComponent },
       { path: 'chat', component: ChatComponent },

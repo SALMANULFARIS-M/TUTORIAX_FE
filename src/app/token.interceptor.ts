@@ -6,12 +6,12 @@ import {
 } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment.development';
-import { AuthserviceService } from './services/authservice.service';
+import { AuthService } from './services/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private authService: AuthserviceService) { }
+  constructor(private authService: AuthService) { }
   token!: string;
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler) {
@@ -26,18 +26,18 @@ export class TokenInterceptor implements HttpInterceptor {
       this.token = "student";
     }
 
-    let authService = this.authService.getToken(this.token);
+    const authService = this.authService.getToken(this.token);
     if (authService) {
       const headers = {
         Authorization: 'Bearer' + authService
       };
-      let newRequest = request.clone({
+      const newRequest = request.clone({
         url: environment.backendApiUrl + request.url,
         setHeaders: headers
       })
       return next.handle(newRequest);
     } else {
-      let newRequest = request.clone({
+      const newRequest = request.clone({
         url: environment.backendApiUrl + request.url
       })
       return next.handle(newRequest);

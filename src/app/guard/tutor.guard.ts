@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthserviceService } from '../services/authservice.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentGuardGuard implements CanActivate {
-  constructor(private authService: AuthserviceService, private router: Router) { }
+export class TutorGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) { }
   canActivate() {
-    const isLoggedIn = this.authService.isStudentLoggedIn();
+    const isLoggedIn = this.authService.istutorLoggedIn();
     if (isLoggedIn) {
       return true;
     } else {
-      return this.router.navigate(['/']);
+      return this.router.navigate(['/tutor/login']);
     }
   }
 

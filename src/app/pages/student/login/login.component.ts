@@ -5,10 +5,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { StudentServicesService } from 'src/app/services/student-services.service';
+import { StudentService } from 'src/app/services/student.service';
 import { PromptMomentNotification } from 'google-one-tap';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { AuthserviceService } from 'src/app/services/authservice.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 //typescript cant obtain window directly
 interface CustomWindow extends Window {
@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
 
   auth: any;
   Toast: any;
-  constructor(private fb: FormBuilder, private router: Router, private studentService: StudentServicesService, private cookieService: CookieService,
-    private toastr: ToastrService, private authService: AuthserviceService) {
+  constructor(private fb: FormBuilder, private router: Router, private studentService: StudentService, private cookieService: CookieService,
+    private toastr: ToastrService, private authService: AuthService) {
     this.auth = this.authService.auth;
     this.Toast = this.authService.Toast;
   }

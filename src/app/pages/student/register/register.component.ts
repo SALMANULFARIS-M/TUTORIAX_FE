@@ -7,13 +7,13 @@ import { loadFull } from 'tsparticles';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { StudentServicesService } from '../../../services/student-services.service';
+import { StudentService } from '../../../services/student.service';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment.development';
 //firebase
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { CredentialResponse } from 'google-one-tap';
-import { AuthserviceService } from 'src/app/services/authservice.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 //typescript cant obtain window directly
@@ -36,8 +36,8 @@ declare const google: any;
 export class RegisterComponent implements OnInit {
   auth: any
   Toast: any
-  constructor(private fb: FormBuilder, private studentService: StudentServicesService, private router: Router, private toastr: ToastrService,
-    private cookieService: CookieService, private authService: AuthserviceService) {
+  constructor(private fb: FormBuilder, private studentService: StudentService, private router: Router, private toastr: ToastrService,
+    private cookieService: CookieService, private authService: AuthService) {
     this.auth = this.authService.auth;
     this.Toast = this.authService.Toast;
   }

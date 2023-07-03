@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthserviceService {
+export class AuthService {
   [x: string]: any;
   app: any;
   auth: any;

@@ -3,9 +3,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { io } from 'socket.io-client';
-import { AuthserviceService } from 'src/app/services/authservice.service';
-import { StudentServicesService } from 'src/app/services/student-services.service';
-import { TutorserviceService } from 'src/app/services/tutorservice.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { StudentService } from 'src/app/services/student.service';
+import { TutorService } from 'src/app/services/tutor.service';
 import { environment } from 'src/environments/environment.development';
 
 @Component({
@@ -21,8 +21,8 @@ export class ChatComponent implements OnInit {
   Toast: any;
   room: any; socket: any;
 
-  constructor(private authService: AuthserviceService, private cookieService: CookieService, private tutorService: TutorserviceService,
-    private studentService: StudentServicesService) {
+  constructor(private authService: AuthService, private cookieService: CookieService, private tutorService: TutorService,
+    private studentService: StudentService) {
     this.Toast = this.authService.Toast
   }
   ngOnInit(): void {

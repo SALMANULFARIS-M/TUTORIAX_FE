@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdminServicesService } from 'src/app/services/admin-services.service';
-import { AuthserviceService } from 'src/app/services/authservice.service';
+import { AdminService } from 'src/app/services/admin.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-admin-teachers',
@@ -11,7 +11,7 @@ import { AuthserviceService } from 'src/app/services/authservice.service';
 export class AdminTeachersComponent implements OnInit {
 
   tutors: any
-  constructor(private adminService: AdminServicesService, private authService: AuthserviceService, private router: Router) { }
+  constructor(private adminService: AdminService, private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
     this.adminService.getAlltutors().subscribe((res) => {
       this.tutors = res.data

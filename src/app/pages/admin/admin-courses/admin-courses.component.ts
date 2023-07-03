@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { deleteObject, ref } from 'firebase/storage';
-import { AdminServicesService } from 'src/app/services/admin-services.service';
+import { AdminService } from 'src/app/services/admin.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
-import { AuthserviceService } from 'src/app/services/authservice.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -16,8 +16,8 @@ export class AdminCoursesComponent implements OnInit {
 
   courses: any;
   storage: any;
-  constructor(private adminService: AdminServicesService, private spinner: NgxSpinnerService,
-    private router: Router, private authService: AuthserviceService) {
+  constructor(private adminService: AdminService, private spinner: NgxSpinnerService,
+    private router: Router, private authService: AuthService) {
     this.storage = this.authService.storage
   }
 

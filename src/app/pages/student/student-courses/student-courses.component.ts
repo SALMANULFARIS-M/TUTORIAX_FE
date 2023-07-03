@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdminServicesService } from 'src/app/services/admin-services.service';
-import { AuthserviceService } from 'src/app/services/authservice.service';
+import { AdminService } from 'src/app/services/admin.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 
@@ -14,7 +14,7 @@ export class StudentCoursesComponent implements OnInit {
   searchQuery: string = '';
   filteredCourses: any;
   courses: any
-  constructor(private adminService: AdminServicesService, private router: Router, private authService: AuthserviceService) { }
+  constructor(private adminService: AdminService, private router: Router, private authService: AuthService) { }
   ngOnInit(): void {
     this.adminService.getAllCourses().subscribe((result: any) => {
       if (result.status) {

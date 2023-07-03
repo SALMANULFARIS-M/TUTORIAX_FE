@@ -3,8 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
-import { AuthserviceService } from 'src/app/services/authservice.service';
-import { TutorserviceService } from 'src/app/services/tutorservice.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { TutorService } from 'src/app/services/tutor.service';
 
 @Component({
   selector: 'app-tutor-login',
@@ -14,7 +14,7 @@ import { TutorserviceService } from 'src/app/services/tutorservice.service';
 export class TutorLoginComponent implements OnInit {
 
   submit: boolean = false;
-  constructor(private authService: AuthserviceService, private tutorService: TutorserviceService, private router: Router, private fb: FormBuilder,
+  constructor(private authService: AuthService, private tutorService: TutorService, private router: Router, private fb: FormBuilder,
     private cookieService:CookieService,private toastr:ToastrService) { }
   ngOnInit(): void {
     if (this.authService.istutorLoggedIn()) {

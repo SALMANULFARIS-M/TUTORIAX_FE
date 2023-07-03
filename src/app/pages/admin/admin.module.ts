@@ -11,7 +11,7 @@ import { AdminStudentsComponent } from './admin-students/admin-students.componen
 import { CoursepageComponent } from './coursepage/coursepage.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { AdminGuardGuard } from 'src/app/guard/admin-guard.guard';
+import { AdminGuard } from 'src/app/guard/admin.guard';
 import { ViewtutorComponent } from './viewtutor/viewtutor.component';
 import { CouponsComponent } from './coupons/coupons.component';
 
@@ -20,7 +20,7 @@ const adminRoute: Routes = [
   { path: 'login', component: AdminLoginComponent },
   {
     path: '',
-    component: AdminComponent,canActivate:[AdminGuardGuard],
+    component: AdminComponent, canActivate: [AdminGuard],
     children: [
       { path: '', component: AdminDashboardComponent },
       { path: 'courses', component: AdminCoursesComponent },
