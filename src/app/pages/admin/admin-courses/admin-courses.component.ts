@@ -12,8 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './admin-courses.component.html',
   styleUrls: ['./admin-courses.component.scss']
 })
-export class AdminCoursesComponent implements OnInit {
 
+export class AdminCoursesComponent implements OnInit {
   courses: any;
   storage: any;
   constructor(private adminService: AdminService, private spinner: NgxSpinnerService,

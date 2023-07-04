@@ -1,8 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { student } from "../models/student.interface";
+import { Course } from "../models/course.interface";
+import { newCoupon } from "../models/coupon.interface";
 
-
+interface block {
+  access: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +16,10 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-  login(userData: any): Observable<any> {
+  login(userData: student): Observable<any> {
     return this.http.post('admin/login', userData)
   }
-  addCourse(courseData: any): Observable<any> {
+  addCourse(courseData: Course): Observable<any> {
     return this.http.post('admin/addcourse', courseData)
   }
   getAllCourses(): Observable<any> {
@@ -23,7 +28,7 @@ export class AdminService {
   getCourse(id: string): Observable<any> {
     return this.http.get(`admin/getcourse/${id}`)
   }
-  editCourse(id: string, data: any): Observable<any> {
+  editCourse(id: string, data: Course): Observable<any> {
     return this.http.patch(`admin/editcourse/${id}`, data)
   }
   deleteCourses(id: string): Observable<any> {
@@ -32,7 +37,7 @@ export class AdminService {
   getAllstudents(): Observable<any> {
     return this.http.get('admin/getallstudents')
   }
-  block(id: string, data: any): Observable<any> {
+  block(id: string, data: block): Observable<any> {
     return this.http.patch(`admin/blockstudent/${id}`, data)
   }
   getAlltutors(): Observable<any> {
@@ -44,17 +49,16 @@ export class AdminService {
   tutorApproval(id: string): Observable<any> {
     return this.http.patch(`admin/approvetutor/${id}`, {})
   }
-  tuorBlock(id: string, data: any): Observable<any> {
+  tutorBlock(id: string, data: block): Observable<any> {
     return this.http.patch(`admin/blocktutor/${id}`, data)
   }
   getCoupons(): Observable<any> {
     return this.http.get('admin/getcoupons')
   }
-  addCoupon(data: any): Observable<any> {
+  addCoupon(data: newCoupon): Observable<any> {
     return this.http.post('admin/addcoupon', data)
   }
   deleteCoupon(id: string): Observable<any> {
     return this.http.delete(`admin/deletecoupon/${id}`)
   }
-
 }

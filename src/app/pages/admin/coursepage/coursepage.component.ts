@@ -67,7 +67,7 @@ export class CoursepageComponent implements OnInit {
     title: ['', Validators.required],
     author: ['', Validators.required],
     date: ['', Validators.required],
-    price: ['', [Validators.required,Validators.pattern(number)]],
+    price: ['', [Validators.required, Validators.pattern(number)]],
     video: [''],
     thumbnail: [''],
     description: ['', Validators.required]
@@ -159,11 +159,13 @@ export class CoursepageComponent implements OnInit {
                 // Get the download URL of the video file
                 getDownloadURL(videoRef).then((videoURL) => {
                   // Prepare the form data to send to the backend
+                  const priceValue = this.courseForm.get('price')?.value
+                  const price: number | null = priceValue ? parseInt(priceValue) : null;
                   const data = {
                     title: this.courseForm.get('title')?.value,
                     author: this.courseForm.get('author')?.value,
                     date: this.courseForm.get('date')?.value,
-                    price: this.courseForm.get('price')?.value,
+                    price: price,
                     video: videoURL,
                     thumbnail: thumbnailURL,
                     description: this.courseForm.get('description')?.value

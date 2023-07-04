@@ -62,7 +62,7 @@ export class ViewtutorComponent implements OnInit {
         const data = {
           access: flag
         }
-        this.adminService.tuorBlock(id, data).subscribe((res) => {
+        this.adminService.tutorBlock(id, data).subscribe((res) => {
           this.ngOnInit()
           Swal.fire(
             'Done!',
