@@ -5,6 +5,7 @@ import { NotfoundComponent } from './pages/errors/notfound/notfound.component';
 import { InternalserverComponent } from './pages/errors/internalserver/internalserver.component';
 import { BadgatewayComponent } from './pages/errors/badgateway/badgateway.component';
 import { BadrequestComponent } from './pages/errors/badrequest/badrequest.component';
+import { CommonerrorComponent } from './pages/errors/commonerror/commonerror.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: '404', component: NotfoundComponent },
   { path: '502', component: BadgatewayComponent },
   { path: '500', component: InternalserverComponent },
-  { path: 'error', component: BadrequestComponent },
+  { path: 'error', component: CommonerrorComponent },
   { path: '**', redirectTo: '/404', pathMatch: 'full' },
 ];
 

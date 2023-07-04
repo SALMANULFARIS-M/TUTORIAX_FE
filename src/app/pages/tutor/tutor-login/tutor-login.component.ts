@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { TutorService } from 'src/app/services/tutor.service';
-import { mobilePattern,passwordPattern } from "../../../constants/patterns";
+import { mobilePattern, passwordPattern } from "../../../constants/patterns";
 
 
 @Component({
@@ -17,7 +17,7 @@ export class TutorLoginComponent implements OnInit {
 
   submit: boolean = false;
   constructor(private authService: AuthService, private tutorService: TutorService, private router: Router, private fb: FormBuilder,
-    private cookieService:CookieService,private toastr:ToastrService) { }
+    private cookieService: CookieService, private toastr: ToastrService) { }
   ngOnInit(): void {
     if (this.authService.istutorLoggedIn()) {
       this.router.navigate(['/tutor']);
@@ -41,7 +41,7 @@ export class TutorLoginComponent implements OnInit {
     this.submit = true;
 
     if (this.registrationForm.valid) {
-            const formData = this.registrationForm.value;
+      const formData = this.registrationForm.value;
       // Send the form data to the server
       this.tutorService.login(formData).subscribe((result: any) => {
         if (result.status) {

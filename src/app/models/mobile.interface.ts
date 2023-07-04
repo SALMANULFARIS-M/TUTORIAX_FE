@@ -1,3 +1,3 @@
 export type mobile = {
-  mobile: number
+  mobile: number | null | undefined;
 }

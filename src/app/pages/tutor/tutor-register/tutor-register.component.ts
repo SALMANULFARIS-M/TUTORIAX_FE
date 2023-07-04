@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { TutorService } from 'src/app/services/tutor.service';
-import { mobilePattern,passwordPattern,name } from "../../../constants/patterns";
+import { mobilePattern, passwordPattern, name } from "../../../constants/patterns";
 
 
 //typescript cant obtain window directly
@@ -208,8 +208,9 @@ export class TutorRegisterComponent implements OnInit {
 
     if (this.registrationForm.valid) {
       this.formData = this.registrationForm.value;
-      const mobile = this.registrationForm.get('mobile')?.value;
-      this.tutorService.checkTutorExist({mobile:mobile}).subscribe((result: any) => {
+      const mobileValue: string | null | undefined = this.registrationForm.get('mobile')?.value;
+      const mobile: number | null = mobileValue ? parseInt(mobileValue) : null;
+      this.tutorService.checkTutorExist({ mobile: mobile }).subscribe((result: any) => {
         if (result.status) {
           this.otpSend(result.number)
         } else {

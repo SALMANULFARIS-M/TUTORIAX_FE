@@ -1,7 +1,7 @@
 export type tutor = {
-  fullName?: string
-  email?: string
-  mobile: number
-  password: string
-  certificate?: string
+  fullName?: string| null|undefined
+  email?: string| null|undefined
+  mobile?: string| null|undefined
+  password?: string| null|undefined
+  certificate?: string| null|undefined
 }
