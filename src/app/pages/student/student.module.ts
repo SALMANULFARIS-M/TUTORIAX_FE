@@ -13,6 +13,7 @@ import { ChatComponent } from './chat/chat.component';
 import { TutorListComponent } from './tutor-list/tutor-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StudentGuard } from 'src/app/guard/student.guard';
+import { ContactsComponent } from './chat/contacts/contacts.component';
 
 const studentRoute: Routes = [
   {
@@ -33,6 +34,7 @@ const studentRoute: Routes = [
     CoursesviewComponent,
     ChatComponent,
     TutorListComponent,
+    ContactsComponent,
   ],
   imports: [
     RouterModule.forChild(studentRoute),

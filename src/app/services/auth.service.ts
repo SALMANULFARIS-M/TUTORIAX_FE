@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getStorage } from 'firebase/storage';
+import { initializeApp,FirebaseApp } from 'firebase/app';
+import { Auth, getAuth } from 'firebase/auth';
+import { getStorage,FirebaseStorage } from 'firebase/storage';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, Observer } from 'rxjs';
 import { io } from 'socket.io-client';
@@ -15,9 +15,9 @@ import Swal from 'sweetalert2';
 })
 export class AuthService {
   [x: string]: any;
-  app: any;
-  auth: any;
-  storage: any;
+  app: FirebaseApp;;
+  auth: Auth;
+  storage: FirebaseStorage;
   Toast: any;
   constructor(private cookieService: CookieService, private router: Router) {
     //firebase config
@@ -44,7 +44,6 @@ export class AuthService {
         toast.addEventListener('mouseleave', Swal.resumeTimer)
       }
     })
-
   }
 
   isAdminLoggedIn() {

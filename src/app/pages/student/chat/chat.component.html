@@ -16,19 +16,26 @@
         <!-- Contacts -->
         <div class="bg-grey-lighter overflow-auto" *ngFor="let c of contacts">
           <div
+            class="px-3 "
+            (click)="fullChat(c._id)"
+          >
+            <app-contacts [c]="c"> </app-contacts>
+          </div>
+          <!--
+          <div
             class="px-3 flex items-center bg-grey-light cursor-pointer"
             (click)="fullChat(c._id)"
           >
             <div>
               <img
-                *ngIf="!c.connection.teacher.image"
+                *ngIf="!c.connection?.teacher?.image"
                 class="h-12 w-12 rounded-full"
                 src="../../../../assets/images/red-profile.jpg"
               />
               <img
-                *ngIf="c.connection.teacher.image"
+                *ngIf="c.connection?.teacher?.image"
                 class="h-12 w-12 rounded-full"
-                [src]="c.connection.teacher.image"
+                [src]="c.connection?.teacher?.image"
               />
             </div>
             <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
@@ -36,15 +43,21 @@
                 <p class="text-grey-darkest text-base font-semibold">
                   {{ c.connection.teacher.fullName }}
                 </p>
-                <p class="text-xs text-grey-darkest">
+                <p class="flex flex-col text-xs text-grey-darkest">
                   {{ c.updatedAt | date : "shortTime" }}
                 </p>
               </div>
-              <p class="text-grey-500 mt-1 ps-2 font-medium text-sm">
-                {{ c?.last_message?.text }}
-              </p>
+              <div class="flex items-bottom justify-between">
+                <p class="text-grey-500 mt-1 ps-2 font-medium text-sm">
+                  {{ c?.last_message?.text }}
+                </p>
+                <span
+                  class="bg-green-700 text-white text-xs mr-2 font-medium px-2.5 py-0.5 rounded-full"
+                  >10</span
+                >
+              </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -64,8 +77,8 @@
           </p>
         </div>
         <div
-        id="chat-scroll"
-          class="flex flex-col h-full overflow-x-auto mb-4  rounded-r-lg"
+          id="chat-scroll"
+          class="flex flex-col h-full overflow-x-auto mb-4 rounded-r-lg"
           *ngIf="chatShow"
         >
           <div
@@ -73,14 +86,14 @@
           >
             <div class="">
               <img
-                *ngIf="!room.connection.teacher.image"
+                *ngIf="!room.connection?.teacher?.image"
                 class="h-12 w-12 rounded-full"
                 src="../../../../assets/images/red-profile.jpg"
               />
               <img
-                *ngIf="room.connection.teacher.image"
+                *ngIf="room.connection?.teacher?.image"
                 class="h-12 w-12 rounded-full"
-                [src]="room.connection.teacher.image"
+                [src]="room.connection?.teacher?.image"
               />
             </div>
             <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
@@ -92,7 +105,7 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-col h-full ">
+          <div class="flex flex-col h-full">
             <div class="grid grid-cols-12 gap-y-2" *ngFor="let m of messages">
               <div class="col-start-1 col-end-8 p-3 rounded-lg">
                 <div
@@ -162,6 +175,7 @@
                   class="flex w-full border-1 border-gray-700 rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
                 />
                 <button
+                  type="button"
                   class="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600"
                 >
                   <svg

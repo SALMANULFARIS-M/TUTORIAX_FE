@@ -49,7 +49,7 @@ export class AdminComponent implements OnInit {
 
   logout() {
     this.cookieService.delete('adminjwt');
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/admin/login']);
   }
 
 }

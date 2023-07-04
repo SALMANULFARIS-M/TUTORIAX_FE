@@ -1,7 +1,6 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { interval } from 'rxjs';
-import { take } from 'rxjs/operators';
+
 import { AuthService } from 'src/app/services/auth.service';
 import { StudentService } from 'src/app/services/student.service';
 import { io } from 'socket.io-client';
@@ -13,7 +12,6 @@ import { environment } from 'src/environments/environment.development';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-
 
   chatShow: boolean = false;
   contacts: any;

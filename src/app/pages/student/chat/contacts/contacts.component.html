@@ -1,0 +1,33 @@
+<div class="flex items-center bg-grey-light cursor-pointer">
+  <div>
+    <img
+      *ngIf="!c.connection?.teacher?.image"
+      class="h-12 w-12 rounded-full"
+      src="../../../../assets/images/red-profile.jpg"
+    />
+    <img
+      *ngIf="c.connection?.teacher?.image"
+      class="h-12 w-12 rounded-full"
+      [src]="c.connection?.teacher?.image"
+    />
+  </div>
+  <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
+    <div class="flex items-bottom justify-between">
+      <p class="text-grey-darkest text-base font-semibold">
+        {{ c.connection.teacher.fullName }}
+      </p>
+      <p class="flex flex-col text-xs text-grey-darkest">
+        {{ c.updatedAt | date : "shortTime" }}
+      </p>
+    </div>
+    <div class="flex items-bottom justify-between">
+      <p class="text-grey-500 mt-1 ps-2 font-medium text-sm">
+        {{ c?.last_message?.text }}
+      </p>
+      <span
+        class="bg-green-700 text-white text-xs mr-2 font-medium px-2.5 py-0.5 rounded-full"
+        >10</span
+      >
+    </div>
+  </div>
+</div>
