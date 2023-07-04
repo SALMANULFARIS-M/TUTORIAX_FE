@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { student } from "../models/student.interface";
+import {PaymentData,paymentCheck} from "../models/payment.interface";
+import {connection,message} from "../models/chat.interface";
+import { coupon,reportVideo } from "../models/coupon.interface";
 
 
 
@@ -12,36 +16,36 @@ export class StudentService {
   constructor(private http: HttpClient) { }
 
   //check user
-  checkUserExist(userData: any): Observable<any> {
+  checkUserExist(userData: student): Observable<any> {
     return this.http.post('checkstudent', userData)
   }
 
   //check user
-  savePassword(userData: any): Observable<any> {
+  savePassword(userData: student): Observable<any> {
     return this.http.post('savepassword', userData)
   }
 
   //insert user
-  insertUser(userData: any): Observable<any> {
+  insertUser(userData: student): Observable<any> {
     return this.http.post('register', userData)
   }
 
-  login(userData: any): Observable<any> {
+  login(userData: student): Observable<any> {
     return this.http.post('login', userData)
   }
 
-  pay(id: string, userData: any): Observable<any> {
-    return this.http.post(`payment/${id}`, userData)
+  pay(id: string, payData: PaymentData): Observable<any> {
+    return this.http.post(`payment/${id}`, payData)
   }
 
-  checkPurchasedCourse(data: any): Observable<any> {
+  checkPurchasedCourse(data: paymentCheck): Observable<any> {
     return this.http.post('checkcourse', data)
   }
 
   getTutors(): Observable<any> {
     return this.http.get('gettutors',)
   }
-  chatConnection(data: any): Observable<any> {
+  chatConnection(data: connection): Observable<any> {
     return this.http.post('connection', data)
   }
   getAllChats(id: string): Observable<any> {
@@ -50,13 +54,13 @@ export class StudentService {
   getAllMessages(id: string): Observable<any> {
     return this.http.get(`getallmessages/${id}`)
   }
-  sendMessage(data: any): Observable<any> {
+  sendMessage(data: message): Observable<any> {
     return this.http.post('sendmessage', data)
   }
-  applyCoupon(data: any): Observable<any> {
+  applyCoupon(data: coupon): Observable<any> {
     return this.http.post('applycoupon', data)
   }
-  reportVideo(data: any): Observable<any> {
+  reportVideo(data: reportVideo): Observable<any> {
     return this.http.post('reportvideo', data)
   }
 

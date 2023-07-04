@@ -109,14 +109,14 @@ export class CoursesviewComponent implements OnInit {
         },
       });
       const paymentStripe = (stripeToken: any, amount: any) => {
-        const payload = {
+        const paymentData = {
           courseId: data._id,
           stripeToken: stripeToken,
-          amount: this.course.price,
+          amount: parseInt(this.course.price),
           coupon: this.couponId
         };
         const usertoken = this.cookieService.get('studentjwt');
-        this.studentService.pay(usertoken, payload).subscribe(
+        this.studentService.pay(usertoken, paymentData).subscribe(
           (response) => {
             this.ngOnInit();
             this.toastr.success('Payment has been successfull!', 'Success');
