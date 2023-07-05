@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { StudentService } from 'src/app/services/student.service';
 import { TutorService } from 'src/app/services/tutor.service';
 import { environment } from 'src/environments/environment.development';
+import { ContactsComponent } from './contacts/contacts.component';
 
 @Component({
   selector: 'app-chat',
@@ -14,19 +15,21 @@ import { environment } from 'src/environments/environment.development';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
+  @ViewChildren(ContactsComponent) contactsComponent!: QueryList<ContactsComponent>;
   chatShow: boolean = false;
+  searchQuery: string = ''
   contacts: any;
   messages: any[] = [];
   message: string = '';
   Toast: any;
   room: any; socket: any;
+  filteredContacts: any;
 
   constructor(private authService: AuthService, private cookieService: CookieService, private tutorService: TutorService,
     private studentService: StudentService) {
     this.Toast = this.authService.Toast
   }
   ngOnInit(): void {
-
     this.socket = io(environment.socketIO_Endpoint);
     const token = this.cookieService.get('tutorjwt');
     this.tutorService.getAllChats(token).subscribe((result: any) => {
@@ -41,9 +44,11 @@ export class ChatComponent implements OnInit {
 
     this.socket.on('message recieved', (newMessageReceived: any) => {
       this.messages.push(newMessageReceived);
+      this.contactsComponent.forEach((contactsComponent: ContactsComponent) => {
+        contactsComponent.notification(newMessageReceived)
+      });
       this.scrollToBottom()
     });
-
   }
 
   scrollToBottom() {
@@ -52,8 +57,13 @@ export class ChatComponent implements OnInit {
       chatScroll.scrollTop = chatScroll.scrollHeight;
     }, 100);
   }
-  fullChat(id: string) {
-    this.studentService.getAllMessages(id).subscribe((result: any) => {
+
+  fullChat(id: string, chat?: any) {
+    const data = {
+      connection: id,
+      to: chat ? chat.connection.student._id : undefined
+    }
+    this.studentService.getAllMessages(data).subscribe((result: any) => {
       if (result.status) {
         this.chatShow = true
         this.messages = result.messages
@@ -91,5 +101,15 @@ export class ChatComponent implements OnInit {
         title: "Please enter some messages"
       })
     }
+  }
+  searchContacts() {
+    // Filter the courses array based on the search query
+    this.filteredContacts = this.contacts.filter((contact: any) => {
+      // Convert both the course title and description to lowercase for case-insensitive search
+      const title = contact.connection.teacher.fullName.toLowerCase();
+      const searchQuery = this.searchQuery.toLowerCase();
+      // Return true if the course title or description contains the search query
+      return title.includes(searchQuery);
+    });
   }
 }

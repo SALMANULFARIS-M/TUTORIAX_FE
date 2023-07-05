@@ -11,53 +11,17 @@
             type="text"
             class="w-full px-2 py-2 text-sm rounded-md"
             placeholder="Search or start new chat"
+            [(ngModel)]="searchQuery"
+            (keyup)="searchContacts()"
           />
         </div>
         <!-- Contacts -->
-        <div class="bg-grey-lighter overflow-auto" *ngFor="let c of contacts">
+        <div class="bg-grey-lighter overflow-auto" *ngFor="let c of searchQuery ? filteredContacts :contacts">
           <div
             class="px-3 "
-            (click)="fullChat(c._id)"
           >
-            <app-contacts [c]="c"> </app-contacts>
+            <app-contacts   [c]="c"> </app-contacts>
           </div>
-          <!--
-          <div
-            class="px-3 flex items-center bg-grey-light cursor-pointer"
-            (click)="fullChat(c._id)"
-          >
-            <div>
-              <img
-                *ngIf="!c.connection?.teacher?.image"
-                class="h-12 w-12 rounded-full"
-                src="../../../../assets/images/red-profile.jpg"
-              />
-              <img
-                *ngIf="c.connection?.teacher?.image"
-                class="h-12 w-12 rounded-full"
-                [src]="c.connection?.teacher?.image"
-              />
-            </div>
-            <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
-              <div class="flex items-bottom justify-between">
-                <p class="text-grey-darkest text-base font-semibold">
-                  {{ c.connection.teacher.fullName }}
-                </p>
-                <p class="flex flex-col text-xs text-grey-darkest">
-                  {{ c.updatedAt | date : "shortTime" }}
-                </p>
-              </div>
-              <div class="flex items-bottom justify-between">
-                <p class="text-grey-500 mt-1 ps-2 font-medium text-sm">
-                  {{ c?.last_message?.text }}
-                </p>
-                <span
-                  class="bg-green-700 text-white text-xs mr-2 font-medium px-2.5 py-0.5 rounded-full"
-                  >10</span
-                >
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
 

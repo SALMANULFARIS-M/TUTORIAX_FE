@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { TutorGuard } from 'src/app/guard/tutor.guard';
 import { ChatComponent } from './chat/chat.component';
 import { FormsModule } from '@angular/forms';
+import { ContactsComponent } from './chat/contacts/contacts.component';
 
 
 const tutorRoute: Routes = [
@@ -31,6 +32,7 @@ const tutorRoute: Routes = [
     TutorRegisterComponent,
     TutorLoginComponent,
     ChatComponent,
+    ContactsComponent,
   ],
   imports: [
     RouterModule.forChild(tutorRoute),

@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { student } from "../models/student.interface";
-import {PaymentData,paymentCheck} from "../models/payment.interface";
-import {connection,message} from "../models/chat.interface";
-import { coupon,reportVideo } from "../models/coupon.interface";
+import { PaymentData, paymentCheck } from "../models/payment.interface";
+import { connection, message } from "../models/chat.interface";
+import { coupon, reportVideo } from "../models/coupon.interface";
 
 
+interface chat {
+  connection: string;
+  to?: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -51,8 +55,8 @@ export class StudentService {
   getAllChats(id: string): Observable<any> {
     return this.http.get(`getallchats/${id}`)
   }
-  getAllMessages(id: string): Observable<any> {
-    return this.http.get(`getallmessages/${id}`)
+  getAllMessages(data:chat): Observable<any> {
+    return this.http.post('getallmessages',data)
   }
   sendMessage(data: message): Observable<any> {
     return this.http.post('sendmessage', data)
@@ -62,6 +66,12 @@ export class StudentService {
   }
   reportVideo(data: reportVideo): Observable<any> {
     return this.http.post('reportvideo', data)
+  }
+  chatSeen(data: chat): Observable<any> {
+    return this.http.post('chatseen', data)
+  }
+  chatviewed(id: string): Observable<any> {
+    return this.http.patch(`chatview/${id}`,{})
   }
 
 }

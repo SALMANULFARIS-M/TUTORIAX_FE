@@ -11,43 +11,17 @@
             type="text"
             class="w-full px-2 py-2 text-sm rounded-md"
             placeholder="Search or start new chat"
+            [(ngModel)]="searchQuery"
+            (keyup)="searchContacts()"
           />
         </div>
         <!-- Contacts -->
-        <div class="bg-grey-lighter overflow-auto" *ngFor="let c of contacts">
-          <div
-            class="px-3 flex items-center bg-grey-light cursor-pointer"
-            (click)="fullChat(c._id)"
-          >
-            <div>
-              <img
-                *ngIf="!c.connection.teacher.image"
-                class="h-12 w-12 rounded-full"
-                src="../../../../assets/images/red-profile.jpg"
-              />
-              <img
-                *ngIf="c.connection.student.image"
-                class="h-12 w-12 rounded-full"
-                [src]="c.connection.student.image"
-              />
-            </div>
-            <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
-              <div class="flex items-bottom justify-between">
-                <p class="text-grey-darkest text-base font-semibold">
-                  {{ c.connection.student.firstName }}
-                  {{ c.connection.student.lastName }}
-                </p>
-                <p class="text-xs text-grey-darkest">
-                  {{ c.updatedAt | date : "shortTime" }}
-                </p>
-              </div>
-              <p
-                *ngIf="c.last_message.text"
-                class="text-grey-500 mt-1 ps-2 font-medium text-sm"
-              >
-                {{ c.last_message.text }}
-              </p>
-            </div>
+        <div
+          class="bg-grey-lighter overflow-auto"
+          *ngFor="let c of searchQuery ? filteredContacts : contacts"
+        >
+          <div class="px-3">
+            <app-contacts [c]="c"> </app-contacts>
           </div>
         </div>
       </div>
@@ -68,25 +42,31 @@
           </p>
         </div>
         <div
+          id="chat-scroll"
           class="flex flex-col h-full overflow-x-auto mb-4 scrollbar-hidden rounded-r-lg"
           *ngIf="chatShow"
         >
-          <div class="flex flex-row justify-center items-center bg-cyan-800 px-5">
+          <div
+            class="flex flex-row justify-center items-center bg-cyan-800 px-5"
+          >
             <div class="">
               <img
-              *ngIf="!room.connection?.student?.image"
+                *ngIf="!room.connection?.student?.image"
                 class="h-12 w-12 rounded-full"
                 src="../../../../assets/images/red-profile.jpg"
               />
               <img
-              *ngIf="room.connection?.student?.image"
+                *ngIf="room.connection?.student?.image"
                 class="h-12 w-12 rounded-full"
                 [src]="room.connection?.student?.image"
               />
             </div>
             <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
               <div class="flex flex-col items-start text-white">
-                <p class="text-grey-darkest">{{room.connection.student.firstName}} {{room.connection.student.lastName}}</p>
+                <p class="text-grey-darkest">
+                  {{ room.connection.student.firstName }}
+                  {{ room.connection.student.lastName }}
+                </p>
                 <p class="text-xs text-grey-darkest">12:45 pm</p>
               </div>
             </div>
@@ -117,10 +97,11 @@
                   </div>
                 </div>
               </div>
-              <div class="col-start-6 col-end-13 p-3 rounded-lg"   *ngIf="m.from == m.connection_id?.connection?.teacher?._id">
-                <div
-                  class="flex items-center justify-start flex-row-reverse"
-                >
+              <div
+                class="col-start-6 col-end-13 p-3 rounded-lg"
+                *ngIf="m.from == m.connection_id?.connection?.teacher?._id"
+              >
+                <div class="flex items-center justify-start flex-row-reverse">
                   <div
                     class="flex items-center justify-center text-white h-10 w-10 rounded-full bg-cyan-700 flex-shrink-0"
                   >
