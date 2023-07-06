@@ -29,4 +29,14 @@ export class TutorService {
     return this.http.get(`tutor/getallchats/${id}`)
   }
 
+  getTeacher(): Observable<any> {
+    return this.http.get('tutor/getteacher')
+  }
+  updateTeacher(data:tutor): Observable<any> {
+    return this.http.patch('tutor/editteacher',data)
+  }
+  updateimage(data:tutor): Observable<any> {
+    return this.http.patch('tutor/editimage',data)
+  }
+
 }

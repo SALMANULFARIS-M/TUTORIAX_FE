@@ -46,7 +46,10 @@
                       class="hidden"
                       (change)="onImageSelected($event)"
                     />
-                     <div class="loading-overlay w-80 h-80 rounded-full mt-2" *ngIf="isLoading">
+                    <div
+                      class="loading-overlay w-80 h-80 rounded-full mt-2"
+                      *ngIf="isLoading"
+                    >
                       <div class="spinner"></div>
                     </div>
                   </label>
@@ -80,7 +83,6 @@
                         id="email"
                       />
                     </div>
-
                     <div>
                       <label class="sr-only" for="phone">Last Name</label>
                       <input
@@ -140,12 +142,17 @@
                   class="space-y-4"
                   [formGroup]="teacherForm"
                   *ngIf="teacherProfile"
+                  (ngSubmit)="tchrSubmit()"
                 >
                   <div>
                     <label class="sr-only" for="name">Name</label>
                     <input
                       class="w-full rounded-lg border-2 border-gray-200 p-3 text-sm"
                       placeholder="Name"
+                      formControlName="fullName"
+                      [ngClass]="{
+                        'form-control is-invalid': submit && t.fullName.errors
+                      }"
                       type="text"
                       id="name"
                     />
@@ -157,22 +164,32 @@
                       <input
                         class="w-full rounded-lg border-2 border-gray-200 p-3 text-sm"
                         placeholder="Email address"
+                        formControlName="email"
+                        [ngClass]="{
+                          'form-control is-invalid': submit && t.email.errors
+                        }"
                         type="email"
                         id="email"
                       />
                     </div>
-
                     <div>
                       <label class="sr-only" for="phone">Phone</label>
                       <input
                         class="w-full rounded-lg border-2 border-gray-200 p-3 text-sm"
                         placeholder="Phone Number"
-                        type="tel"
+                        formControlName="mobile"
+                        [ngClass]="{
+                          'form-control is-invalid': submit && t.mobile.errors
+                        }"
+                        type="number"
                         id="phone"
                       />
                     </div>
                   </div>
-
+                  <div *ngIf="certificate" class="flex flex-col justify-center items-center pt-3">
+                    <h1 class="text-center text-gray-400 font-semibold font-serif" for="message">Your Certificate</h1>
+                    <img [src]="certificate" class="w-80 border-2 border-gray-500 rounded-sm" alt="" />
+                  </div>
                   <div class="mt-10 flex justify-end">
                     <button
                       type="submit"

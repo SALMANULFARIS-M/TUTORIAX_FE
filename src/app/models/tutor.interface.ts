@@ -4,4 +4,5 @@ export type tutor = {
   mobile?: string| null|undefined
   password?: string| null|undefined
   certificate?: string| null|undefined
+  image?: string| null|undefined
 }

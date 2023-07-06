@@ -1,7 +1,7 @@
 <div  (click)="fullChat(c._id,c)" class="flex items-center bg-grey-light cursor-pointer">
   <div>
     <img
-      *ngIf="!c.connection?.teacher?.image"
+      *ngIf="!c.connection.teacher.image"
       class="h-12 w-12 rounded-full"
       src="../../../../assets/images/red-profile.jpg"
     />

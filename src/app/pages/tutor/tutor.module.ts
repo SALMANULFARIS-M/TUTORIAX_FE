@@ -12,6 +12,7 @@ import { TutorGuard } from 'src/app/guard/tutor.guard';
 import { ChatComponent } from './chat/chat.component';
 import { FormsModule } from '@angular/forms';
 import { ContactsComponent } from './chat/contacts/contacts.component';
+import { ProfileComponent } from "../student/profile/profile.component";
 
 
 const tutorRoute: Routes = [
@@ -23,6 +24,7 @@ const tutorRoute: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'chat', component: ChatComponent },
+      { path: 'profile', component: ProfileComponent ,canActivate:[TutorGuard]},
     ]
   }
 ];
