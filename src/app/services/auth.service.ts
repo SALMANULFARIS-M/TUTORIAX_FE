@@ -9,13 +9,12 @@ import { io } from 'socket.io-client';
 import { environment } from 'src/environments/environment.development';
 import Swal from 'sweetalert2';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   [x: string]: any;
-  app: FirebaseApp;;
+  app: FirebaseApp;
   auth: Auth;
   storage: FirebaseStorage;
   Toast: any;

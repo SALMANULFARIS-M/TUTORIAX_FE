@@ -4,7 +4,7 @@
     <!-- Remove class [ hidden ] and replace [ sm:flex ] with [ flex ] -->
     <div
       style="min-height: 716px"
-      class="flex w-80 shadow md:min-h-screen flex-col justify-between "
+      class="flex w-80 shadow md:min-h-screen flex-col justify-between max-sm:hidden "
     >
       <div class="px-8 fixed bg-gray-950">
         <div class="h-20 w-full flex flex-col items-center border-1 mt-5 border-cyan-800 rounded-lg">
@@ -145,13 +145,14 @@
       </div>
     </div>
     <div
-      class="w-64 min-h-screen z-40 absolute bg-gray-800 shadow sm:h-full md:h-full flex-col justify-between sm:hidden transition duration-150 ease-in-out"
+      class="w-64 min-h-screen z-40 absolute bg-gray-950 shadow sm:h-full md:h-full flex-col justify-between sm:hidden transition duration-150 ease-in-out"
       id="mobile-nav"
+
     >
       <button
         aria-label="toggle sidebar"
         id="openSideBar"
-        class="h-10 w-10 bg-gray-800 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 rounded focus:ring-gray-800"
+        class="h-10 w-10 bg-gray-950 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 rounded focus:ring-gray-800"
         (click)="sidebarHandler(true)"
       >
         <svg
@@ -181,7 +182,7 @@
       <button
         aria-label="Close sidebar"
         id="closeSideBar"
-        class="hidden h-10 w-10 bg-gray-800 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer text-white"
+        class=" h-10 w-10 bg-gray-800 absolute right-0 mt-16 -mr-10 flex items-center shadow rounded-tr rounded-br justify-center cursor-pointer text-white"
         (click)="sidebarHandler(false)"
       >
         <svg

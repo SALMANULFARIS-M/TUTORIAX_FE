@@ -61,4 +61,10 @@ export class AdminService {
   deleteCoupon(id: string): Observable<any> {
     return this.http.delete(`admin/deletecoupon/${id}`)
   }
+  getDashboardCounts(): Observable<any> {
+    return this.http.get('admin/getcounts')
+  }
+  getOrders(): Observable<any> {
+    return this.http.get('admin/getorders')
+  }
 }
