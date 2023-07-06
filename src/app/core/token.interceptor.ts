@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment.development';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../services/auth.service'
 import { catchError, throwError } from 'rxjs';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler) {
     const isAdminRequest = request.url.includes("admin");
-    const isTeacherRequest = request.url.includes("teacher");
+    const isTeacherRequest = request.url.includes("tutor");
 
     if (isAdminRequest) {
       this.token = "admin";

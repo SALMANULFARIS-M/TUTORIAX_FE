@@ -142,12 +142,9 @@ export class CoursepageComponent implements OnInit {
         this.isLoading = true
         const thumbnailInput = document.getElementById('thumbnail-input') as HTMLInputElement;
         const videoInput = document.getElementById('video-input') as HTMLInputElement;
-
         if (thumbnailInput.files && videoInput.files) {
-
           const thumbnailFile: File = thumbnailInput.files?.[0];
           const videoFile: File = videoInput.files?.[0];
-
           // Upload thumbnail file
           const thumbnailRef = ref(this.storage, "Tutoriax/thumbnails/" + thumbnailFile.name);
           uploadBytes(thumbnailRef, thumbnailFile).then(() => {

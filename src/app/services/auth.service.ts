@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { initializeApp,FirebaseApp } from 'firebase/app';
+import { initializeApp, FirebaseApp } from 'firebase/app';
 import { Auth, getAuth } from 'firebase/auth';
-import { getStorage,FirebaseStorage } from 'firebase/storage';
+import { getStorage, FirebaseStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, Observer } from 'rxjs';
 import { io } from 'socket.io-client';
@@ -58,12 +58,12 @@ export class AuthService {
   }
 
   //JWT Token taken from browser cokkiestorage
-  getToken(token: string) {
+  getToken(token: string): any {
     if (token == "admin") {
       return this.cookieService.get('adminjwt')
-    } else if ("tutor") {
+    } else if (token == "tutor") {
       return this.cookieService.get('tutorjwt')
-    } else {
+    } else if (token == 'student') {
       return this.cookieService.get('studentjwt')
     }
   }
@@ -96,6 +96,28 @@ export class AuthService {
       })
     })
   }
+
+  uploadImage(file: File): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const thumbnailRef = ref(this.storage, "Tutoriax/thumbnails/" + file.name);
+      uploadBytes(thumbnailRef, file)
+        .then(() => {
+          getDownloadURL(thumbnailRef)
+            .then((thumbnailURL) => {
+              resolve(thumbnailURL);
+            })
+            .catch((error) => {
+              this.handleError(error.status);
+              reject(error);
+            });
+        })
+        .catch((error) => {
+          this.handleError(error.status);
+          reject(error);
+        });
+    });
+  }
+
 
 
 }

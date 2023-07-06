@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule,NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgParticlesModule } from "ng-particles";
@@ -69,7 +69,7 @@ const config: SocketIoConfig = { url: environment.socketIO_Endpoint, options: {}
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
     FormsModule,
     ToastrModule.forRoot({
-      timeOut: 4000,
+      timeOut: 3000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
@@ -77,20 +77,20 @@ const config: SocketIoConfig = { url: environment.socketIO_Endpoint, options: {}
     provideFirestore(() => getFirestore()),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-{
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(environment.clientId),
-          },
-        ],
-      } as SocialAuthServiceConfig,
-    }
+  {
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(environment.clientId),
+        },
+      ],
+    } as SocialAuthServiceConfig,
+  }
   ],
-  schemas: [NO_ERRORS_SCHEMA,CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

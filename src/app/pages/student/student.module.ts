@@ -14,6 +14,7 @@ import { TutorListComponent } from './tutor-list/tutor-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StudentGuard } from 'src/app/guard/student.guard';
 import { ContactsComponent } from './chat/contacts/contacts.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const studentRoute: Routes = [
   {
@@ -25,6 +26,7 @@ const studentRoute: Routes = [
       { path: 'courses', component: StudentCoursesComponent },
       { path: 'courses/:id', component: CoursesviewComponent },
       { path: 'chat', component: ChatComponent,canActivate:[StudentGuard] },
+      { path: 'profile', component: ProfileComponent,canActivate:[StudentGuard] },
       { path: 'instructor', component: TutorListComponent },
     ]
   }]
@@ -35,6 +37,7 @@ const studentRoute: Routes = [
     ChatComponent,
     TutorListComponent,
     ContactsComponent,
+    ProfileComponent,
   ],
   imports: [
     RouterModule.forChild(studentRoute),

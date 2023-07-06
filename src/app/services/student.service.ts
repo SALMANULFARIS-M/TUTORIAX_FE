@@ -73,5 +73,14 @@ export class StudentService {
   chatviewed(id: string): Observable<any> {
     return this.http.patch(`chatview/${id}`,{})
   }
+  getStudent(): Observable<any> {
+    return this.http.get('getstudent')
+  }
+  updateStudent(data:student): Observable<any> {
+    return this.http.patch('editstudent',data)
+  }
+  updateimage(data:student): Observable<any> {
+    return this.http.patch('editimage',data)
+  }
 
 }

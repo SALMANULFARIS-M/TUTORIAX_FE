@@ -1,0 +1,192 @@
+<div class="max-w-screen-2xl max-h-screen-sm relative">
+  <div class="relative">
+    <img
+      src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/aec9f853800183.594178e49fbbc.jpg"
+      class="w-full h-80"
+      alt=""
+      srcset=""
+    />
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+  </div>
+</div>
+<main class="profile-page mt-52">
+  <section class="relative py-16 bg-blueGray-200">
+    <div class="container mx-auto px-4">
+      <div
+        class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64"
+      >
+        <section class="bg-gray-100">
+          <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5">
+              <div class="lg:col-span-2 lg:py-12">
+                <h1
+                  class="flex text-center ps-20 font-extrabold text-2xl font-sans"
+                >
+                  Profile image
+                </h1>
+                <div class="label-container">
+                  <label for="image-upload" class="cursor-pointer mt-2">
+                    <img
+                      *ngIf="!image"
+                      src="../../../../assets/images/red-profile.jpg"
+                      class="w-80 h-80 rounded-full border-2 border-gray-200"
+                      alt=""
+                      srcset=""
+                    />
+                    <img
+                      *ngIf="image"
+                      [src]="image"
+                      class="w-80 h-80 rounded-full"
+                      alt=""
+                      srcset=""
+                    />
+                    <input
+                      type="file"
+                      id="image-upload"
+                      class="hidden"
+                      (change)="onImageSelected($event)"
+                    />
+                     <div class="loading-overlay w-80 h-80 rounded-full mt-2" *ngIf="isLoading">
+                      <div class="spinner"></div>
+                    </div>
+                  </label>
+                </div>
+                <p class="ps-10 font-mono text-gray-400">
+                  Click on the image to update
+                </p>
+              </div>
+              <div
+                class="rounded-lg bg-white p shadow-lg lg:col-span-3 lg:p-12"
+              >
+                <form
+                  action=""
+                  class="space-y-4"
+                  [formGroup]="studentForm"
+                  *ngIf="teacherProfile == false"
+                  (ngSubmit)="stdSubmit()"
+                >
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
+                      <label class="sr-only" for="email">First Name</label>
+                      <input
+                        class="w-full rounded-lg border-2 border-gray-200 p-3 text-sm"
+                        placeholder="First Name"
+                        formControlName="firstName"
+                        [ngClass]="{
+                          'form-control is-invalid':
+                            submit && s.firstName.errors
+                        }"
+                        type="text"
+                        id="email"
+                      />
+                    </div>
+
+                    <div>
+                      <label class="sr-only" for="phone">Last Name</label>
+                      <input
+                        class="w-full rounded-lg border-2 border-gray-200 p-3 text-sm"
+                        placeholder="Last Name"
+                        formControlName="lastName"
+                        [ngClass]="{
+                          'form-control is-invalid': submit && s.lastName.errors
+                        }"
+                        type="text"
+                        id="phone"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
+                      <label class="sr-only" for="email">Email</label>
+                      <input
+                        class="w-full rounded-lg border-2 border-gray-200 p-3 text-sm"
+                        placeholder="Email address"
+                        type="email"
+                        [ngClass]="{
+                          'form-control is-invalid': submit && s.email.errors
+                        }"
+                        formControlName="email"
+                        id="email"
+                      />
+                    </div>
+
+                    <div>
+                      <label class="sr-only" for="phone">Phone</label>
+                      <input
+                        class="w-full rounded-lg border-2 border-gray-200 p-3 text-sm"
+                        placeholder="Phone Number"
+                        type="number"
+                        [ngClass]="{
+                          'form-control is-invalid': submit && s.mobile.errors
+                        }"
+                        [disabled]="true"
+                        formControlName="mobile"
+                        id="phone"
+                      />
+                    </div>
+                  </div>
+                  <div class="mt-10 flex justify-end">
+                    <button
+                      type="submit"
+                      class="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </form>
+                <form
+                  action=""
+                  class="space-y-4"
+                  [formGroup]="teacherForm"
+                  *ngIf="teacherProfile"
+                >
+                  <div>
+                    <label class="sr-only" for="name">Name</label>
+                    <input
+                      class="w-full rounded-lg border-2 border-gray-200 p-3 text-sm"
+                      placeholder="Name"
+                      type="text"
+                      id="name"
+                    />
+                  </div>
+
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
+                      <label class="sr-only" for="email">Email</label>
+                      <input
+                        class="w-full rounded-lg border-2 border-gray-200 p-3 text-sm"
+                        placeholder="Email address"
+                        type="email"
+                        id="email"
+                      />
+                    </div>
+
+                    <div>
+                      <label class="sr-only" for="phone">Phone</label>
+                      <input
+                        class="w-full rounded-lg border-2 border-gray-200 p-3 text-sm"
+                        placeholder="Phone Number"
+                        type="tel"
+                        id="phone"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="mt-10 flex justify-end">
+                    <button
+                      type="submit"
+                      class="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>
