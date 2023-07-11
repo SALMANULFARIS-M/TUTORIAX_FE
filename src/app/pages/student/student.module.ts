@@ -44,7 +44,7 @@ const studentRoute: Routes = [
     CommonModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     RouterModule

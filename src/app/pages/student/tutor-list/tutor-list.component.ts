@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieOptions, CookieService } from 'ngx-cookie-service';
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 import { StudentService } from 'src/app/services/student.service';
+import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-tutor-list',
@@ -13,9 +14,9 @@ export class TutorListComponent implements OnInit {
 
   searchQuery: string = '';
   filteredCourses: any;
-  tutors: any
+  tutors: any;
   constructor(private studentService: StudentService, private authService: AuthService, private router: Router,
-    private cookieService:CookieService) { }
+    private cookieService: CookieService) { }
   ngOnInit(): void {
     this.studentService.getTutors().subscribe((result: any) => {
       if (result.status) {
@@ -36,7 +37,11 @@ export class TutorListComponent implements OnInit {
       }
       this.studentService.chatConnection(data).subscribe((result: any) => {
         if (result.status) {
-          this.router.navigate(['/chat'])
+          this.router.navigate(['/chat'], {
+            state:{
+              data: result.newConnection
+            }
+          });
         }
       }, (error: any) => {
         this.authService.handleError(error.status)
@@ -48,7 +53,7 @@ export class TutorListComponent implements OnInit {
 
   searchCourses() {
     // Filter the courses array based on the search query
-    this.filteredCourses = this.tutors.filter((tutor:any) => {
+    this.filteredCourses = this.tutors.filter((tutor: any) => {
       // Convert both the course title and description to lowercase for case-insensitive search
       const title = tutor.fullName.toLowerCase();
       const searchQuery = this.searchQuery.toLowerCase();

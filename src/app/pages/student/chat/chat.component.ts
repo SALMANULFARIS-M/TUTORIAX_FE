@@ -6,6 +6,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { io } from 'socket.io-client';
 import { environment } from 'src/environments/environment.development';
 import { ContactsComponent } from './contacts/contacts.component';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat',
@@ -24,11 +25,21 @@ export class ChatComponent implements OnInit {
   room: any;
   socket: any;
   filteredContacts: any;
-  constructor(private studentService: StudentService, private cookieService: CookieService, private authService: AuthService) {
+  viewerId: string = '';
+  state: any;
+
+  constructor(private studentService: StudentService, private cookieService: CookieService, private authService: AuthService, private route: ActivatedRoute,
+    private router: Router) {
+    if (this.router.getCurrentNavigation()!?.extras?.state) {
+      this.state = this.router.getCurrentNavigation()!?.extras?.state!['data'];
+    }
     this.Toast = this.authService.Toast
   }
 
   ngOnInit(): void {
+    if (this.state) {
+      this.fullChat(this.state._id, this.state)
+    }
     this.socket = io(environment.socketIO_Endpoint);
     const token = this.cookieService.get('studentjwt');
     this.studentService.getAllChats(token).subscribe((result: any) => {
@@ -40,15 +51,30 @@ export class ChatComponent implements OnInit {
       this.authService.handleError(error.status)
     });
     this.socket.on('message recieved', (newMessageReceived: any) => {
-      this.messages.push(newMessageReceived);
+      if (this.viewerId == newMessageReceived.connection_id._id) {
+        this.messages.push(newMessageReceived);
+      }
       this.contactsComponent.forEach((contactsComponent: ContactsComponent) => {
         contactsComponent.notification(newMessageReceived)
       });
+      this.fetchContacts();
       this.scrollToBottom()
     });
   }
 
+  fetchContacts() {
+    const token = this.cookieService.get('studentjwt');
+    this.studentService.getAllChats(token).subscribe((result: any) => {
+      if (result.status) {
+        this.contacts = result.connections
+      }
+    }, (error: any) => {
+      this.authService.handleError(error.status)
+    });
+  }
+
   fullChat(id: string, chat?: any) {
+    this.viewerId = id;
     const data = {
       connection: id,
       to: chat ? chat.connection.teacher._id : undefined
@@ -56,7 +82,6 @@ export class ChatComponent implements OnInit {
 
     this.studentService.getAllMessages(data).subscribe((result: any) => {
       if (result.status) {
-
         this.chatShow = true
         if (this.chatShow) {
           this.scrollToBottom()
@@ -64,6 +89,7 @@ export class ChatComponent implements OnInit {
         this.messages = result.messages
         this.room = result.room
         this.socket.emit("join chat", this.room._id)
+        // this.fetchContacts()
         this.scrollToBottom()
       }
     }, (error: any) => {
@@ -89,6 +115,7 @@ export class ChatComponent implements OnInit {
           this.message = ''
           this.socket.emit('new message', result.data)
           this.fullChat(result.id);
+          this.fetchContacts();
           this.scrollToBottom()
         }
       }, (error: any) => {
@@ -99,12 +126,11 @@ export class ChatComponent implements OnInit {
         icon: 'warning',
         title: "Please enter some messages"
       })
-
     }
   }
   searchContacts() {
     // Filter the courses array based on the search query
-    this.filteredContacts = this.contacts.filter((contact:any) => {
+    this.filteredContacts = this.contacts.filter((contact: any) => {
       // Convert both the course title and description to lowercase for case-insensitive search
       const title = contact.connection.teacher.fullName.toLowerCase();
       const searchQuery = this.searchQuery.toLowerCase();

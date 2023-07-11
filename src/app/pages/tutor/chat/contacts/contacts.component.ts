@@ -33,6 +33,7 @@ export class ContactsComponent implements OnInit {
       this.authService.handleError(error.status)
     });
   }
+
   fullChat(id: string, c: any) {
     this.viewed = true;
     this.count = 0;

@@ -8,6 +8,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { TutorService } from 'src/app/services/tutor.service';
 import { environment } from 'src/environments/environment.development';
 import { ContactsComponent } from './contacts/contacts.component';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -24,7 +25,7 @@ export class ChatComponent implements OnInit {
   Toast: any;
   room: any; socket: any;
   filteredContacts: any;
-
+  viewerId: string = '';
   constructor(private authService: AuthService, private cookieService: CookieService, private tutorService: TutorService,
     private studentService: StudentService) {
     this.Toast = this.authService.Toast
@@ -41,15 +42,30 @@ export class ChatComponent implements OnInit {
     }, (error: any) => {
       this.authService.handleError(error.status)
     });
-
     this.socket.on('message recieved', (newMessageReceived: any) => {
-      this.messages.push(newMessageReceived);
+      if (this.viewerId == newMessageReceived.connection_id._id) {
+        this.messages.push(newMessageReceived);
+      }
       this.contactsComponent.forEach((contactsComponent: ContactsComponent) => {
         contactsComponent.notification(newMessageReceived)
       });
+      this.fetchContacts();
       this.scrollToBottom()
     });
   }
+
+  fetchContacts() {
+    const token = this.cookieService.get('tutorjwt');
+    this.tutorService.getAllChats(token).subscribe((result: any) => {
+      if (result.status) {
+        this.contacts = result.connections
+        this.scrollToBottom()
+      }
+    }, (error: any) => {
+      this.authService.handleError(error.status)
+    });
+  };
+
 
   scrollToBottom() {
     const chatScroll = document.getElementById("chat-scroll") as HTMLElement;
@@ -59,6 +75,7 @@ export class ChatComponent implements OnInit {
   }
 
   fullChat(id: string, chat?: any) {
+    this.viewerId = id;
     const data = {
       connection: id,
       to: chat ? chat.connection.student._id : undefined
@@ -89,8 +106,8 @@ export class ChatComponent implements OnInit {
           this.message = ''
           this.socket.emit('new message', result.data)
           this.fullChat(result.id);
+          this.fetchContacts();
           this.scrollToBottom()
-
         }
       }, (error: any) => {
         this.authService.handleError(error.status)
