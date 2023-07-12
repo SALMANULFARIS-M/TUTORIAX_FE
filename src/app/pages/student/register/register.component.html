@@ -198,6 +198,14 @@
                   <!-- Display the spinner when loading -->
                 </button>
               </div>
+              <div class="flex justify-center"  *ngIf="otpFlag">
+                <p class="text-red-600" *ngIf="resend == false">
+                  {{ minutes }}:{{ seconds | number : "2.0" }}
+                </p>
+                <a type="button" (click)="resendOtp()" *ngIf="resend" class="text-blue-500 underline"
+                  >Resend Otp</a
+                >
+              </div>
               <div *ngIf="submit && f.mobile.errors" class="invalid-feedback">
                 <div *ngIf="f.mobile.errors['required']">
                   E-mail is required

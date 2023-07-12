@@ -23,8 +23,8 @@ declare const google: any;
   templateUrl: './tutor-register.component.html',
   styleUrls: ['./tutor-register.component.scss']
 })
-export class TutorRegisterComponent implements OnInit {
 
+export class TutorRegisterComponent implements OnInit {
   //declare a variable
   auth: any
   Toast: any

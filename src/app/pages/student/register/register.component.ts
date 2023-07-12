@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment.development';
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
 import { CredentialResponse } from 'google-one-tap';
 import { AuthService } from 'src/app/services/auth.service';
-import { mobilePattern,passwordPattern,name } from "../../../constants/patterns";
+import { mobilePattern, passwordPattern, name } from "../../../constants/patterns";
 
 
 //typescript cant obtain window directly
@@ -33,10 +33,9 @@ declare const google: any;
 })
 
 export class RegisterComponent implements OnInit {
-  auth: any
-  Toast: any
+
   constructor(private fb: FormBuilder, private studentService: StudentService, private router: Router, private toastr: ToastrService,
- private authService: AuthService) {
+    private authService: AuthService) {
     this.auth = this.authService.auth;
     this.Toast = this.authService.Toast;
   }
@@ -46,9 +45,14 @@ export class RegisterComponent implements OnInit {
   otpFlag: boolean = false;
   phoneNumber: string = "";
   isLoading: boolean = false;
+  minutes: number = 1;
+  seconds: number = 0;
+  resend: boolean = false;
+  auth: any
+  Toast: any
   otp: string[] = ['', '', '', '', '', ''];
   formData: any;
-
+  ph: string = '';
   ngOnInit(): void {
     const currentRoute = this.router.url;
     if (currentRoute == '/register' || currentRoute == '/login') {
@@ -70,7 +74,6 @@ export class RegisterComponent implements OnInit {
       );
       google.accounts.id.prompt((notification: CredentialResponse) => { });
     };
-
   }
 
 
@@ -143,39 +146,67 @@ export class RegisterComponent implements OnInit {
 
   //after validate from backend send otp
   otpSend(phoneNumber: string) {
+    this.resend = false;
     this.onCaptchaVerify(phoneNumber)
+
     const appVerifier = window.recaptchaVerifier
     const phoneFormat: string = '+91' + phoneNumber
+    this.ph = phoneNumber
+    if (appVerifier) {
+      signInWithPhoneNumber(this.auth, phoneFormat, appVerifier)
+        .then((confirmationResult) => {
+          this.Toast.fire({
+            icon: 'success',
+            title: 'An OTP send to your mobile number Please Verify'
+          })
+          // Hide the reCAPTCHA div
+          document.getElementById("recaptcha-container")!.style.display = "none";
+          this.otpFlag = true;
+          window.confirmationResult = confirmationResult;
+          const interval = setInterval(() => {
+            if (this.seconds > 0 || this.minutes > 0) {
+              if (this.seconds === 0) {
+                this.minutes--;
+                this.seconds = 59;
+              } else {
+                this.seconds--;
+              }
+            } else {
+              clearInterval(interval);
+              this.resend = true; // Change the boolean variable to true
+            }
+          }, 1000);
 
-    signInWithPhoneNumber(this.auth, phoneFormat, appVerifier)
-      .then((confirmationResult) => {
-        this.Toast.fire({
-          icon: 'success',
-          title: 'An OTP send to your mobile number Please Verify'
+        }).catch((error) => {
+          let errorMessage: string;
+          switch (error.code) {
+            case 'auth/invalid-phone-number':
+              errorMessage = 'Invalid phone number format.';
+              break;
+            case 'auth/too-short':
+              errorMessage = 'Phone number is too short.';
+              break;
+            default:
+              errorMessage = 'An error occurred during phone number verification.';
+              break;
+          }
+          this.Toast.fire({
+            icon: 'error',
+            title: errorMessage
+          });
         })
-        // Hide the reCAPTCHA div
-        document.getElementById("recaptcha-container")!.style.display = "none";
-        this.otpFlag = true;
-        window.confirmationResult = confirmationResult;
-      }).catch((error) => {
-        let errorMessage: string;
-        switch (error.code) {
-          case 'auth/invalid-phone-number':
-            errorMessage = 'Invalid phone number format.';
-            break;
-          case 'auth/too-short':
-            errorMessage = 'Phone number is too short.';
-            break;
-          default:
-            errorMessage = 'An error occurred during phone number verification.';
-            break;
-        }
-        this.Toast.fire({
-          icon: 'error',
-          title: errorMessage
-        });
-      })
+
+    }
   }
+
+  resendOtp() {
+    this.minutes = 0;
+    this.seconds = 30;
+    const ph = this.ph
+    this.otpSend(ph)
+  }
+
+
 
   //otpverification
   otpVerify() {
@@ -315,7 +346,7 @@ export class RegisterComponent implements OnInit {
   };
 
   particlesLoaded(container: Container): void {
-    console.log(container);
+    // console.log(container);
   }
 
   async particlesInit(engine: Engine): Promise<void> {
