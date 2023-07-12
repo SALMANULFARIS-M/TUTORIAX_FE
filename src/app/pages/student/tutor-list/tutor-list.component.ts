@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 import { StudentService } from 'src/app/services/student.service';
-import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-tutor-list',
@@ -15,8 +13,7 @@ export class TutorListComponent implements OnInit {
   searchQuery: string = '';
   filteredCourses: any;
   tutors: any;
-  constructor(private studentService: StudentService, private authService: AuthService, private router: Router,
-    private cookieService: CookieService) { }
+  constructor(private studentService: StudentService, private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
     this.studentService.getTutors().subscribe((result: any) => {
       if (result.status) {
@@ -30,7 +27,7 @@ export class TutorListComponent implements OnInit {
   chat(id: string) {
     if (this.authService.isStudentLoggedIn()
     ) {
-      const token = this.cookieService.get('studentjwt')
+      const token = localStorage.getItem('studentjwt')
       const data = {
         tutor: id,
         student: token

@@ -1,5 +1,4 @@
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { StudentService } from 'src/app/services/student.service';
@@ -28,7 +27,7 @@ export class ChatComponent implements OnInit {
   viewerId: string = '';
   state: any;
 
-  constructor(private studentService: StudentService, private cookieService: CookieService, private authService: AuthService, private route: ActivatedRoute,
+  constructor(private studentService: StudentService, private authService: AuthService, private route: ActivatedRoute,
     private router: Router) {
     if (this.router.getCurrentNavigation()!?.extras?.state) {
       this.state = this.router.getCurrentNavigation()!?.extras?.state!['data'];
@@ -41,7 +40,7 @@ export class ChatComponent implements OnInit {
       this.fullChat(this.state._id, this.state)
     }
     this.socket = io(environment.socketIO_Endpoint);
-    const token = this.cookieService.get('studentjwt');
+    const token = localStorage.getItem('studentjwt');
     this.studentService.getAllChats(token).subscribe((result: any) => {
       if (result.status) {
         this.contacts = result.connections
@@ -63,7 +62,7 @@ export class ChatComponent implements OnInit {
   }
 
   fetchContacts() {
-    const token = this.cookieService.get('studentjwt');
+    const token = localStorage.getItem('studentjwt');
     this.studentService.getAllChats(token).subscribe((result: any) => {
       if (result.status) {
         this.contacts = result.connections

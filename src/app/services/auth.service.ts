@@ -12,13 +12,14 @@ import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   [x: string]: any;
   app: FirebaseApp;
   auth: Auth;
   storage: FirebaseStorage;
   Toast: any;
-  constructor(private cookieService: CookieService, private router: Router) {
+  constructor( private router: Router) {
     //firebase config
     this.app = initializeApp({
       apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
@@ -46,25 +47,25 @@ export class AuthService {
   }
 
   isAdminLoggedIn() {
-    return !!this.cookieService.get('adminjwt')
+    return !!localStorage.getItem('adminjwt')
   }
 
   isStudentLoggedIn() {
-    return !!this.cookieService.get('studentjwt')
+    return !!localStorage.getItem('studentjwt')
   }
 
   istutorLoggedIn() {
-    return !!this.cookieService.get('tutorjwt')
+    return !!localStorage.getItem('tutorjwt')
   }
 
   //JWT Token taken from browser cokkiestorage
   getToken(token: string): any {
     if (token == "admin") {
-      return this.cookieService.get('adminjwt')
+      return localStorage.getItem('adminjwt')
     } else if (token == "tutor") {
-      return this.cookieService.get('tutorjwt')
+      return localStorage.getItem('tutorjwt')
     } else if (token == 'student') {
-      return this.cookieService.get('studentjwt')
+      return localStorage.getItem('studentjwt')
     }
   }
 
@@ -83,6 +84,9 @@ export class AuthService {
       case 502:
         this.router.navigate(['/502']);
         break;
+        case 401:
+          this.router.navigate(['/']);
+          break;
       default:
         this.router.navigate(['/error']);
     }

@@ -46,7 +46,7 @@ export class AdminLoginComponent implements OnInit {
       // Send the form data to the server
       this.adminService.login(formData).subscribe((result: any) => {
         if (result.status) {
-          this.cookieService.set('adminjwt', result.token, 1); // 1 days expiration
+          localStorage.setItem('adminjwt', result.token); // 1 days expiration
           this.toastr.success('successfully logged', '');
           this.router.navigate(['/admin']);
         }

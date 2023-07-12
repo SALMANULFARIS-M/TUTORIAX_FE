@@ -18,7 +18,6 @@ export class ProfileComponent implements OnInit {
   image: string = '';
   certificate: string = '';
   Toast: any;
-
   constructor(private fb: FormBuilder, private authService: AuthService, private studentService: StudentService,
     private tutorService: TutorService, private route: ActivatedRoute, private router: Router) {
     this.Toast = this.authService.Toast;
@@ -27,9 +26,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     const routeUrl = this.router.url;
     // Check if the user is a teacher based on the route URL
-
     if (routeUrl.includes('tutor')) {
-
       this.teacherProfile = true;
       this.tutorService.getTeacher().subscribe((res) => {
         this.teacherForm.patchValue({
@@ -45,7 +42,6 @@ export class ProfileComponent implements OnInit {
       }, (error) => {
         this.authService.handleError(error.status)
       })
-
     } else {
       this.studentService.getStudent().subscribe((res) => {
         this.studentForm.patchValue({
@@ -67,13 +63,13 @@ export class ProfileComponent implements OnInit {
   studentForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    mobile: ['', Validators.required],
+    mobile: ['',  [Validators.required,Validators.pattern(mobilePattern)]],
     email: ['', [Validators.required, Validators.email]],
   });
 
   teacherForm = this.fb.group({
     fullName: ['', Validators.required],
-    mobile: ['', Validators.required],
+    mobile: ['', [Validators.required,Validators.pattern(mobilePattern)]],
     email: ['', [Validators.required, Validators.email]],
   });
 

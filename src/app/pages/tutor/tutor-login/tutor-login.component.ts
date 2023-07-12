@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { TutorService } from 'src/app/services/tutor.service';
@@ -16,8 +15,7 @@ import { mobilePattern, passwordPattern } from "../../../constants/patterns";
 export class TutorLoginComponent implements OnInit {
 
   submit: boolean = false;
-  constructor(private authService: AuthService, private tutorService: TutorService, private router: Router, private fb: FormBuilder,
-    private cookieService: CookieService, private toastr: ToastrService) { }
+  constructor(private authService: AuthService, private tutorService: TutorService, private router: Router, private fb: FormBuilder, private toastr: ToastrService) { }
   ngOnInit(): void {
     if (this.authService.istutorLoggedIn()) {
       this.router.navigate(['/tutor']);
@@ -45,7 +43,7 @@ export class TutorLoginComponent implements OnInit {
       // Send the form data to the server
       this.tutorService.login(formData).subscribe((result: any) => {
         if (result.status) {
-          this.cookieService.set('tutorjwt', result.token, 1); // 1 days expiration
+          localStorage.setItem('tutorjwt', result.token); // 1 days expiration
           this.toastr.success('successfully logged', '');
           this.router.navigate(['/tutor']);
         } else {

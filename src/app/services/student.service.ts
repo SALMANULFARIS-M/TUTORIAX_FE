@@ -38,7 +38,7 @@ export class StudentService {
     return this.http.post('login', userData)
   }
 
-  pay(id: string, payData: PaymentData): Observable<any> {
+  pay(id: string|null, payData: PaymentData): Observable<any> {
     return this.http.post(`payment/${id}`, payData)
   }
 
@@ -52,7 +52,7 @@ export class StudentService {
   chatConnection(data: connection): Observable<any> {
     return this.http.post('connection', data)
   }
-  getAllChats(id: string): Observable<any> {
+  getAllChats(id: string|null): Observable<any> {
     return this.http.get(`getallchats/${id}`)
   }
   getAllMessages(data:chat): Observable<any> {

@@ -3,7 +3,6 @@ import { MoveDirection, ClickMode, HoverMode, OutMode, Container, Engine } from 
 import { loadFull } from "tsparticles";
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { StudentService } from 'src/app/services/student.service';
 import { PromptMomentNotification } from 'google-one-tap';
@@ -36,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   auth: any;
   Toast: any;
-  constructor(private fb: FormBuilder, private router: Router, private studentService: StudentService, private cookieService: CookieService,
+  constructor(private fb: FormBuilder, private router: Router, private studentService: StudentService,
     private toastr: ToastrService, private authService: AuthService) {
     this.auth = this.authService.auth;
     this.Toast = this.authService.Toast;
@@ -238,7 +237,7 @@ export class LoginComponent implements OnInit {
       // Send the form data to the server
       this.studentService.login(formData).subscribe((result: any) => {
         if (result.status) {
-          this.cookieService.set('studentjwt', result.token, 1); // 1 days expiration
+          localStorage.setItem('studentjwt', result.token); // 1 days expiration
           this.toastr.success('successfully logged', '');
           const topNav = document.getElementById('top-nav') as HTMLElement;
           topNav.classList.remove('hidden');

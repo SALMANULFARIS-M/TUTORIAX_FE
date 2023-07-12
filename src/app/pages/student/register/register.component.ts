@@ -7,7 +7,6 @@ import { loadFull } from 'tsparticles';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { StudentService } from '../../../services/student.service';
-import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environment.development';
 //firebase
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
@@ -37,7 +36,7 @@ export class RegisterComponent implements OnInit {
   auth: any
   Toast: any
   constructor(private fb: FormBuilder, private studentService: StudentService, private router: Router, private toastr: ToastrService,
-    private cookieService: CookieService, private authService: AuthService) {
+ private authService: AuthService) {
     this.auth = this.authService.auth;
     this.Toast = this.authService.Toast;
   }
@@ -193,7 +192,7 @@ export class RegisterComponent implements OnInit {
           if (result.status) {
             this.formData = "";
             this.toastr.success('Successfully registered', '');
-            this.cookieService.set('studentjwt', result.token, 1);
+            localStorage.setItem('studentjwt', result.token);
             const topNav = document.getElementById('top-nav') as HTMLElement;
             topNav.classList.remove('hidden');
             this.router.navigate(['/']);

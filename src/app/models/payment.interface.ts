@@ -4,7 +4,8 @@ export type PaymentData ={
   amount: number;
   coupon: string;
 }
+
 export type paymentCheck ={
   courseId: string;
-  token: string;
+  token?: string|null;
 }

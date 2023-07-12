@@ -25,7 +25,7 @@ export class TutorService {
   login(userData: tutor): Observable<any> {
     return this.http.post('tutor/login', userData)
   }
-  getAllChats(id: string): Observable<any> {
+  getAllChats(id: string|null): Observable<any> {
     return this.http.get(`tutor/getallchats/${id}`)
   }
 

@@ -1,6 +1,6 @@
 export type connection ={
-  tutor: string;
-  student: string;
+  tutor: string|null;
+  student: string|null;
 }
 
 export type message ={

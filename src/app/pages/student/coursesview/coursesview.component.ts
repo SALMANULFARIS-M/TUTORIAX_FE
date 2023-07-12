@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/services/admin.service';
 import Swal from 'sweetalert2';
 import { StudentService } from 'src/app/services/student.service';
-import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -24,7 +23,7 @@ export class CoursesviewComponent implements OnInit {
   modal: boolean = false;
   submit: boolean = false;
   constructor(private studentService: StudentService, private authService: AuthService, private fb: FormBuilder, private adminService: AdminService, private toastr: ToastrService, private router: Router,
-    private route: ActivatedRoute, private cookieService: CookieService) {
+    private route: ActivatedRoute) {
     this.Toast = this.authService.Toast;
   }
   ngOnInit(): void {
@@ -33,7 +32,7 @@ export class CoursesviewComponent implements OnInit {
     this.adminService.getCourse(this.courseId).subscribe((res) => {
       this.course = res.course
       if (this.authService.isStudentLoggedIn()) {
-        const token = this.cookieService.get('studentjwt')
+        const token = localStorage.getItem('studentjwt')
         const data = {
           courseId: this.courseId,
           token: token
@@ -66,7 +65,7 @@ export class CoursesviewComponent implements OnInit {
     }
   }
   apply(price: number) {
-    const token = this.cookieService.get('studentjwt')
+    const token = localStorage.getItem('studentjwt')
     if (this.coupon.length > 0) {
       const data = {
         coupon: this.coupon,
@@ -115,7 +114,7 @@ export class CoursesviewComponent implements OnInit {
           amount: parseInt(this.course.price),
           coupon: this.couponId
         };
-        const usertoken = this.cookieService.get('studentjwt');
+        const usertoken = localStorage.getItem('studentjwt');
         this.studentService.pay(usertoken, paymentData).subscribe(
           (response) => {
             this.ngOnInit();
@@ -165,7 +164,7 @@ export class CoursesviewComponent implements OnInit {
   onSubmit(id: string) {
     this.submit = true;
 
-    const token = this.cookieService.get('studentjwt')
+    const token = localStorage.getItem('studentjwt')
     if (this.reportForm.valid) {
       const content = this.reportForm.get('text')
       let formData = {

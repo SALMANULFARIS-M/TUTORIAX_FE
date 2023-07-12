@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 import { TutorService } from 'src/app/services/tutor.service';
@@ -39,7 +38,7 @@ export class TutorRegisterComponent implements OnInit {
   storage: any;
 
   constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private tutorService: TutorService,
-    private cookieService: CookieService, private toastr: ToastrService) {
+ private toastr: ToastrService) {
     this.auth = this.authService.auth;
     this.storage = this.authService.storage;
     this.Toast = this.authService.Toast;
@@ -179,7 +178,7 @@ export class TutorRegisterComponent implements OnInit {
                 if (result.status) {
                   this.formData = "";
                   this.toastr.success('Successfully registered', '');
-                  this.cookieService.set('tutorjwt', result.token, 1);
+                  localStorage.setItem('tutorjwt', result.token);
                   this.router.navigate(['/tutor']);
                 } else {
                   this.Toast.fire({

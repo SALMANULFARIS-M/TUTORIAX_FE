@@ -1,6 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 import { StudentService } from 'src/app/services/student.service';
 
@@ -16,7 +15,7 @@ export class StudentComponent implements OnInit {
 
   activeClass: string = "text-cyan-400  hover:text-cyan-500 dark:hover:text-cyan-500";
   inactiveClass: string = "text-white  hover:text-cyan-500 dark:hover:text-cyan-500";
-  constructor(private router: Router, private authService: AuthService, private cookieService: CookieService) {
+  constructor(private router: Router, private authService: AuthService) {
    }
 
   //declarations
@@ -56,7 +55,7 @@ export class StudentComponent implements OnInit {
 
   //logout
   logout() {
-    this.cookieService.delete('studentjwt');
+    localStorage.removeItem('studentjwt');
     this.router.navigate(['/login'])
   }
 

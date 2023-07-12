@@ -1,6 +1,5 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieOptions, CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -14,7 +13,7 @@ navbg:any;
 activeClass: string = "text-cyan-400  hover:text-cyan-500 dark:hover:text-cyan-500";
 inactiveClass: string = "text-white  hover:text-cyan-500 dark:hover:text-cyan-500";
 
-constructor(private router:Router,private authService:AuthService,private cookieService:CookieService){}
+constructor(private router:Router,private authService:AuthService){}
 
 currentRoute(): string {
   return this.router.url;
@@ -26,7 +25,7 @@ currentRoute(): string {
 
   //logout
   logout() {
-    this.cookieService.delete('tutorjwt');
+    localStorage.removeItem('tutorjwt');
     this.router.navigate(['/tutor/login'])
   }
 

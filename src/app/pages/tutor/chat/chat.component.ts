@@ -1,14 +1,10 @@
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
-import { interval } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { io } from 'socket.io-client';
 import { AuthService } from 'src/app/services/auth.service';
 import { StudentService } from 'src/app/services/student.service';
 import { TutorService } from 'src/app/services/tutor.service';
 import { environment } from 'src/environments/environment.development';
 import { ContactsComponent } from './contacts/contacts.component';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -26,13 +22,13 @@ export class ChatComponent implements OnInit {
   room: any; socket: any;
   filteredContacts: any;
   viewerId: string = '';
-  constructor(private authService: AuthService, private cookieService: CookieService, private tutorService: TutorService,
+  constructor(private authService: AuthService, private tutorService: TutorService,
     private studentService: StudentService) {
     this.Toast = this.authService.Toast
   }
   ngOnInit(): void {
     this.socket = io(environment.socketIO_Endpoint);
-    const token = this.cookieService.get('tutorjwt');
+    const token = localStorage.getItem('tutorjwt');
     this.tutorService.getAllChats(token).subscribe((result: any) => {
       if (result.status) {
         this.contacts = result.connections
@@ -55,7 +51,7 @@ export class ChatComponent implements OnInit {
   }
 
   fetchContacts() {
-    const token = this.cookieService.get('tutorjwt');
+    const token = localStorage.getItem('tutorjwt');
     this.tutorService.getAllChats(token).subscribe((result: any) => {
       if (result.status) {
         this.contacts = result.connections
