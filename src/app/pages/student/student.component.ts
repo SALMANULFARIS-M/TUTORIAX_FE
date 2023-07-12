@@ -1,7 +1,6 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { StudentService } from 'src/app/services/student.service';
 
 
 @Component({
@@ -11,24 +10,25 @@ import { StudentService } from 'src/app/services/student.service';
 })
 
 export class StudentComponent implements OnInit {
-[x: string]: any;
-
+  [x: string]: any;
   activeClass: string = "text-cyan-400  hover:text-cyan-500 dark:hover:text-cyan-500";
   inactiveClass: string = "text-white  hover:text-cyan-500 dark:hover:text-cyan-500";
-  constructor(private router: Router, private authService: AuthService) {
-   }
+  constructor(private router: Router, private authService: AuthService) { }
 
   //declarations
   navbg!: boolean;
 
   ngOnInit(): void {
-
     const dropdownToggleButton = document.getElementById('dropdownNavbarLink') as HTMLElement;
     const dropdownMenu = document.getElementById('dropdownNavbar') as HTMLElement;
     dropdownToggleButton.addEventListener('click', function () {
       dropdownMenu.classList.toggle('hidden');
     });
-
+    const currentRoute = this.router.url;
+    if (currentRoute == '/') {
+      const topNav = document.getElementById('top-nav') as HTMLElement;
+      topNav.classList.remove('hidden');
+    }
     const toggleButtonElement = document.getElementById('toggleButton') as HTMLElement;
     const navbarElement = document.getElementById('toggleNav') as HTMLElement;
     toggleButtonElement.addEventListener('click', () => {
@@ -46,6 +46,10 @@ export class StudentComponent implements OnInit {
   shouldShowNavbar(): boolean {
     const currentRoute = this.router.url;
     return currentRoute !== '/register' && currentRoute !== '/login';
+  }
+  //navbar showing
+  logNavigate() {
+    this.router.navigate(['/login'])
   }
 
   //check the user login or not

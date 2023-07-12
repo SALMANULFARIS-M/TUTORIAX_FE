@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { initializeApp, FirebaseApp } from 'firebase/app';
-import { Auth, getAuth } from 'firebase/auth';
+import { Auth, GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import { getStorage, FirebaseStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable, Observer } from 'rxjs';
 import { io } from 'socket.io-client';
 import { environment } from 'src/environments/environment.development';
 import Swal from 'sweetalert2';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class AuthService {
   auth: Auth;
   storage: FirebaseStorage;
   Toast: any;
-  constructor( private router: Router) {
+  constructor(private router: Router) {
     //firebase config
     this.app = initializeApp({
       apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
@@ -46,6 +46,27 @@ export class AuthService {
     })
   }
 
+  GoogleAuth() {
+    const provider = new GoogleAuthProvider(); // Create an instance of GoogleAuthProvider
+    return this.AuthLogin(provider)
+      .then((res: any) => {
+        return res.accessToken
+      });
+  }
+
+  // Auth logic to run auth providers
+  AuthLogin(provider: any) {
+    return signInWithPopup(this.auth, provider)
+      .then((result) => {
+        return result.user
+      })
+      .catch((error) => {
+        this.Toast.fire({
+          icon: 'error',
+          title: error
+        })
+      });
+  }
   isAdminLoggedIn() {
     return !!localStorage.getItem('adminjwt')
   }
@@ -84,9 +105,9 @@ export class AuthService {
       case 502:
         this.router.navigate(['/502']);
         break;
-        case 401:
-          this.router.navigate(['/']);
-          break;
+      case 401:
+        this.router.navigate(['/']);
+        break;
       default:
         this.router.navigate(['/error']);
     }

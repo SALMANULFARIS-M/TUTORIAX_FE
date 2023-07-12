@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { student } from "../models/student.interface";
+import { googleLog, student } from "../models/student.interface";
 import { PaymentData, paymentCheck } from "../models/payment.interface";
 import { connection, message } from "../models/chat.interface";
 import { coupon, reportVideo } from "../models/coupon.interface";
@@ -81,6 +81,9 @@ export class StudentService {
   }
   updateimage(data:student): Observable<any> {
     return this.http.patch('editimage',data)
+  }
+  googleSignIN(data:googleLog): Observable<any> {
+    return this.http.post('googlelog',data)
   }
 
 }

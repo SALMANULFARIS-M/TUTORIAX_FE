@@ -7,3 +7,10 @@ export type student = {
   cpassword?: string | null | undefined;
   image?: string | null | undefined;
 }
+
+export type googleLog = {
+  clientId?: string | null | undefined;
+  client_id?: string | null | undefined;
+  credential?: string | null | undefined;
+  btn?: string | null | undefined;
+}

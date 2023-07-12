@@ -13,6 +13,7 @@ import { TokenInterceptor } from './core/token.interceptor';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
 
 import {
   SocialLoginModule,
@@ -65,6 +66,7 @@ const config: SocketIoConfig = { url: environment.socketIO_Endpoint, options: {}
     AngularFireAuthModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
     SocketIoModule.forRoot(config),
     NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' }),
     FormsModule,

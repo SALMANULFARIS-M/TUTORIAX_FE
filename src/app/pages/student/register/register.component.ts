@@ -17,6 +17,7 @@ import { mobilePattern, passwordPattern, name } from "../../../constants/pattern
 
 //typescript cant obtain window directly
 interface CustomWindow extends Window {
+  onGoogleLibraryLoad: () => void;
   recaptchaVerifier: any;
   confirmationResult: any;
 }
@@ -59,23 +60,33 @@ export class RegisterComponent implements OnInit {
       const topNav = document.getElementById('top-nav') as HTMLElement;
       topNav.classList.add('hidden');
     }
-    // @ts-ignore
-    window.onGoogleLibraryLoad = () => {
-      google.accounts.id.initialize({
-        client_id: environment.clientId,
-        auto_select: false,
-        cancel_on_tap_outside: true
-      });
-
-      const buttonDiv = document.getElementById("buttonDiv");
-      google.accounts.id.renderButton(
-        buttonDiv,
-        { theme: "filled_blue", size: "large", width: "100%", text: "continue_with" }
-      );
-      google.accounts.id.prompt((notification: CredentialResponse) => { });
-    };
   }
 
+
+
+  handleresponse() {
+    this.authService.GoogleAuth().then((res) => {
+      const data = {
+        credential: res
+      }
+      this.studentService.googleSignIN(data).subscribe((result: any) => {
+        if (result.status) {
+          this.toastr.success('Successfully Entered', '');
+          localStorage.setItem('studentjwt', result.token);
+          const topNav = document.getElementById('top-nav') as HTMLElement;
+          topNav.classList.remove('hidden');
+          this.router.navigate(['/']);
+        } else {
+          this.Toast.fire({
+            icon: 'warning',
+            title: result.message
+          })
+        }
+      }, (error: any) => {
+        this.authService.handleError(error.status)
+      })
+    })
+  }
 
   //registration form  interface
   registrationForm = this.fb.group({
@@ -195,7 +206,6 @@ export class RegisterComponent implements OnInit {
             title: errorMessage
           });
         })
-
     }
   }
 
@@ -205,8 +215,6 @@ export class RegisterComponent implements OnInit {
     const ph = this.ph
     this.otpSend(ph)
   }
-
-
 
   //otpverification
   otpVerify() {

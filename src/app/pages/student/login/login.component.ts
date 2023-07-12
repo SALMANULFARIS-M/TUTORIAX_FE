@@ -5,13 +5,14 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { StudentService } from 'src/app/services/student.service';
-import { PromptMomentNotification } from 'google-one-tap';
+import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { AuthService } from 'src/app/services/auth.service';
-import { mobilePattern,passwordPattern,name } from "../../../constants/patterns";
+import { mobilePattern, passwordPattern, name } from "../../../constants/patterns";
 
 //typescript cant obtain window directly
 interface CustomWindow extends Window {
+  onGoogleLibraryLoad: () => void;
   recaptchaVerifier: any;
   confirmationResult: any;
 }
@@ -57,21 +58,32 @@ export class LoginComponent implements OnInit {
       const topNav = document.getElementById('top-nav') as HTMLElement;
       topNav.classList.add('hidden');
     }
-    // @ts-ignore
-    window.onGoogleLibraryLoad = () => {
-      google.accounts.id.initialize({
-        client_id: '360144361205-jcp24rraul11rocvispiq9u23sgg7n1e.apps.googleusercontent.com',
-        auto_select: false,
-        cancel_on_tap_outside: true
-      });
-      const buttonDiv = document.getElementById("buttonDiv");
-      google.accounts.id.renderButton(
-        buttonDiv,
-        { theme: "filled_blue", size: "large", width: "100%", text: "continue_with" }
-      );
-      google.accounts.id.prompt((notification: PromptMomentNotification) => { });
-    };
   }
+
+  handleresponse() {
+    this.authService.GoogleAuth().then((res) => {
+      const data = {
+        credential: res
+      }
+      this.studentService.googleSignIN(data).subscribe((result: any) => {
+        if (result.status) {
+          this.toastr.success('Successfully Entered', '');
+          localStorage.setItem('studentjwt', result.token);
+          const topNav = document.getElementById('top-nav') as HTMLElement;
+          topNav.classList.remove('hidden');
+          this.router.navigate(['/']);
+        } else {
+          this.Toast.fire({
+            icon: 'warning',
+            title: result.message
+          })
+        }
+      }, (error: any) => {
+        this.authService.handleError(error.status)
+      })
+    })
+  }
+
 
   modalShow(a: string) {
     if (a == 'show') {
