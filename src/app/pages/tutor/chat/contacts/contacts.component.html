@@ -1,4 +1,4 @@
-<div (click)="fullChat(c._id,c)" class="flex items-center bg-grey-light cursor-pointer">
+<div (click)="fullChat(c._id,c)" class="flex items-center border-b-2 border-grey-400 bg-grey-light cursor-pointer">
   <div>
     <img
       *ngIf="!c.connection.student.image"
@@ -11,7 +11,7 @@
       [src]="c.connection.student.image"
     />
   </div>
-  <div class="ml-4 flex-1 border-b border-grey-lighter py-4">
+  <div class="ml-4 flex-1 py-3">
     <div class="flex items-bottom justify-between">
       <p class="text-grey-darkest text-base font-semibold">
         {{ c.connection.student.firstName }}

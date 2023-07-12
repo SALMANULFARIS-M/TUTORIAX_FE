@@ -1,12 +1,21 @@
 <!-- component -->
-<div class="flex h-screen antialiased bg-sky-800 text-gray-800">
-  <div class="flex flex-row h-full w-full overflow-x-hidden p-5 mt-9">
+<div class="flex h-screen antialiased bg-sky-800  relative text-gray-800">
+  <div class="relative w-full">
+    <img
+      src="https://fjwp.s3.amazonaws.com/blog/wp-content/uploads/2018/02/06060257/Over-50-5-Reasons-to-Consider-Online-Tutoring.jpg"
+      class="w-full h-screen"
+      alt=""
+      srcset=""
+    />
+    <div class="absolute inset-0 bg-black opacity-80"></div>
+  </div>
+  <div class="flex absolute flex-row h-[95vh] w-full overflow-x-hidden pt-5 mt-14">
     <!-- Left -->
-    <div class="flex flex-row flex-auto h-full p-6 rounded-lg">
-      <div class="w-1/3 border flex flex-col bg-slate-50 rounded-l-lg">
+    <div class="flex flex-row flex-auto h-full pb-2">
+      <div class="w-1/3 border flex flex-col bg-slate-50">
         <!-- Header -->
         <!-- Search -->
-        <div class="py-2 px-2 bg-grey-lightest bg-slate-300">
+        <div class="py-2 px-2 bg-grey-lightest bg-slate-400">
           <input
             type="text"
             class="w-full px-2 py-2 text-sm rounded-md"
@@ -20,7 +29,7 @@
           class="bg-grey-lighter overflow-auto"
           *ngFor="let c of searchQuery ? filteredContacts : contacts"
         >
-          <div class="px-3">
+          <div class="px-3 ps-4 bg-slate-100">
             <app-contacts [c]="c"> </app-contacts>
           </div>
         </div>
@@ -47,7 +56,7 @@
           *ngIf="chatShow"
         >
           <div
-            class="flex flex-row justify-center items-center bg-cyan-800 px-5"
+            class="flex absolute w-full z-10 flex-row justify-center items-center bg-cyan-800 px-5"
           >
             <div class="">
               <img
@@ -67,7 +76,7 @@
                   {{ room.connection.student.firstName }}
                   {{ room.connection.student.lastName }}
                 </p>
-                <p class="text-xs text-grey-darkest">12:45 pm</p>
+                <p class="text-xs text-grey-darkest">{{room.updatedAt | date : "shortTime"}}</p>
               </div>
             </div>
           </div>
@@ -129,24 +138,6 @@
           *ngIf="chatShow"
         >
           <div>
-            <button
-              class="flex items-center justify-center text-gray-400 hover:text-gray-600"
-            >
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
-                ></path>
-              </svg>
-            </button>
           </div>
           <form
             (ngSubmit)="sendMessage()"
