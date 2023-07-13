@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
-  socketIO_Endpoint: 'http://localhost:3001',
-  backendApiUrl: "http://localhost:3001/",
+  socketIO_Endpoint: 'https://tutoriax-backend-pg23.onrender.com',
+  backendApiUrl: "https://tutoriax-backend-pg23.onrender.com/",
   firebase: {
     apiKey: "AIzaSyBuDl_nSTpKOc6a_FzabCvQW2UtqnLuffE",
     authDomain: "e-mail-otp-verification.firebaseapp.com",
