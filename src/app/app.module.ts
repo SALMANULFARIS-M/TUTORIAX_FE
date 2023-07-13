@@ -15,11 +15,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 
-import {
-  SocialLoginModule,
-  SocialAuthServiceConfig,
-} from 'angularx-social-login';
-import { GoogleLoginProvider } from 'angularx-social-login';
+
 
 import { environment } from "../environments/environment.development";
 import { AppRoutingModule } from './app-routing.module';
@@ -62,7 +58,6 @@ const config: SocketIoConfig = { url: environment.socketIO_Endpoint, options: {}
     CommonModule,
     HttpClientModule,
     NgParticlesModule,
-    SocialLoginModule,
     AngularFireAuthModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
@@ -79,18 +74,7 @@ const config: SocketIoConfig = { url: environment.socketIO_Endpoint, options: {}
     provideFirestore(() => getFirestore()),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-  {
-    provide: 'SocialAuthServiceConfig',
-    useValue: {
-      autoLogin: false,
-      providers: [
-        {
-          id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider(environment.clientId),
-        },
-      ],
-    } as SocialAuthServiceConfig,
-  }
+
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

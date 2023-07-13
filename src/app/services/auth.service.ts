@@ -7,7 +7,6 @@ import { Observable, Observer } from 'rxjs';
 import { io } from 'socket.io-client';
 import { environment } from 'src/environments/environment.development';
 import Swal from 'sweetalert2';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Injectable({
   providedIn: 'root'

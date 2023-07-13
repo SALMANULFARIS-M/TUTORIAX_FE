@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,7 +14,7 @@ import { passwordPattern } from "../../../constants/patterns";
 export class AdminLoginComponent implements OnInit {
 
   Toast: any;
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private adminService: AdminService, private cookieService: CookieService,
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private adminService: AdminService,
     private toastr: ToastrService) {
     this.Toast = this.authService.Toast;
   }

@@ -10,7 +10,6 @@ import { StudentService } from '../../../services/student.service';
 import { environment } from 'src/environments/environment.development';
 //firebase
 import { signInWithPhoneNumber, RecaptchaVerifier } from "firebase/auth";
-import { CredentialResponse } from 'google-one-tap';
 import { AuthService } from 'src/app/services/auth.service';
 import { mobilePattern, passwordPattern, name } from "../../../constants/patterns";
 

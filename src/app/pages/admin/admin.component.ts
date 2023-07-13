@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-admin',
@@ -8,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-  constructor(private router: Router, private cookieService: CookieService) {
+  constructor(private router: Router) {
   }
 
   activeClass: string = "bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100";

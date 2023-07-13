@@ -5,7 +5,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { StudentService } from 'src/app/services/student.service';
-import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { AuthService } from 'src/app/services/auth.service';
 import { mobilePattern, passwordPattern, name } from "../../../constants/patterns";
