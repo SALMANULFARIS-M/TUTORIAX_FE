@@ -34,11 +34,12 @@ const tutorRoute: Routes = [
     TutorRegisterComponent,
     TutorLoginComponent,
     ChatComponent,
+    HomeComponent,
     ContactsComponent,
   ],
   imports: [
-    RouterModule.forChild(tutorRoute),
     CommonModule,
+    RouterModule.forChild(tutorRoute),
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,

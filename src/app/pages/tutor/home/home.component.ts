@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminService } from 'src/app/services/admin.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,8 +9,16 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) { }
-  ngOnInit(): void {
 
+  students: any
+  constructor(private adminService: AdminService, private authService: AuthService, private router: Router) { }
+  ngOnInit(): void {
+    this.adminService.getAllstudents().subscribe((res) => {
+console.log(res.data,"dsdfs");
+
+      this.students = res.data
+    }, (error: any) => {
+      this.authService.handleError(error.status)
+    })
   }
 }
