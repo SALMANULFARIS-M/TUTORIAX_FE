@@ -115,14 +115,16 @@ export class ChatComponent implements OnInit {
       })
     }
   }
-  searchContacts() {
+    searchContacts() {
     // Filter the courses array based on the search query
     this.filteredContacts = this.contacts.filter((contact: any) => {
       // Convert both the course title and description to lowercase for case-insensitive search
-      const title = contact.connection.teacher.fullName.toLowerCase();
+      const firstName = contact.connection.student.firstName.toLowerCase();
+      const lastName = contact.connection.student.lastName.toLowerCase();
+
       const searchQuery = this.searchQuery.toLowerCase();
       // Return true if the course title or description contains the search query
-      return title.includes(searchQuery);
+      return firstName.includes(searchQuery) || lastName.includes(searchQuery);
     });
   }
 }
