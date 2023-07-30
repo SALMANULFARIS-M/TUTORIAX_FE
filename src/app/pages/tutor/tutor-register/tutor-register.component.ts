@@ -26,8 +26,7 @@ declare const google: any;
 
 export class TutorRegisterComponent implements OnInit {
   //declare a variable
-  auth: any
-  Toast: any
+
   file: File | undefined;
   submit: boolean = false;
   otpFlag: boolean = false;
@@ -36,9 +35,11 @@ export class TutorRegisterComponent implements OnInit {
   otp: string[] = ['', '', '', '', '', ''];
   formData: any;
   storage: any;
+  auth: any
+  Toast: any
 
   constructor(private authService: AuthService, private fb: FormBuilder, private router: Router, private tutorService: TutorService,
- private toastr: ToastrService) {
+    private toastr: ToastrService) {
     this.auth = this.authService.auth;
     this.storage = this.authService.storage;
     this.Toast = this.authService.Toast;
@@ -119,7 +120,6 @@ export class TutorRegisterComponent implements OnInit {
 
   //after validate from backend send otp
   otpSend(phoneNumber: string) {
-
     this.onCaptchaVerify(phoneNumber)
     const appVerifier = window.recaptchaVerifier
     const phoneFormat: string = '+91' + phoneNumber
@@ -190,12 +190,25 @@ export class TutorRegisterComponent implements OnInit {
                 this.authService.handleError(error.status)
               })
               this.isLoading = false;
+            }).catch((error: any) => {
+              this.isLoading = false;
+              this.Toast.fire({
+                icon: 'error',
+                title: error,
+              })
+            });
+          }).catch((error: any) => {
+            this.isLoading = false;
+            this.Toast.fire({
+              icon: 'error',
+              title: error,
             })
-          })
+          });
         }
       }).catch((error: any) => {
+        this.isLoading = false;
         this.Toast.fire({
-          icon: 'success',
+          icon: 'error',
           title: 'Error verifying OTP. Please try again.',
         })
       });
