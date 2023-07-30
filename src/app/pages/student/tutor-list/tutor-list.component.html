@@ -106,6 +106,12 @@
           </a>
         </div>
       </div>
+      <div
+      class="text-center text-black text-lg"
+      *ngIf="searchQuery && filteredCourses.length === 0"
+    >
+      <p>No matching instructors found.</p>
+    </div>
     </div>
   </div>
 </div>

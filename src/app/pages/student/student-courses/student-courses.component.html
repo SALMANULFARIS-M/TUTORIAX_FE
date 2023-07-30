@@ -96,6 +96,13 @@
           </a>
         </div>
       </div>
+      <!-- Show message when no search results are found -->
+      <div
+        class="text-center text-black text-lg"
+        *ngIf="searchQuery && filteredCourses.length === 0"
+      >
+        <p>No matching courses found.</p>
+      </div>
     </div>
   </div>
 </div>
