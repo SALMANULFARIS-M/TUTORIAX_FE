@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { StudentService } from 'src/app/services/student.service';
 
 
 @Component({
@@ -10,10 +11,15 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 
 export class StudentComponent implements OnInit {
-  [x: string]: any;
+  mail: string = '';
+  submit: boolean = false;
+  err: boolean = false;
+  success: boolean = false;
+
+
   activeClass: string = "text-cyan-400  hover:text-cyan-500 dark:hover:text-cyan-500";
   inactiveClass: string = "text-white  hover:text-cyan-500 dark:hover:text-cyan-500";
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private studentService: StudentService) { }
 
   //declarations
   navbg!: boolean;
@@ -73,4 +79,30 @@ export class StudentComponent implements OnInit {
       this.navbg = false;
     }
   }
+
+  newsletter() {
+    this.submit = true
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailPattern.test(this.mail)) {
+      const mail = {
+        mail: this.mail
+      }
+      this.studentService.newsLetter(mail).subscribe((result: any) => {
+        if (result.status) {
+          this.success = true
+        }
+        setTimeout(() => {
+          this.success = false;
+        }, 15000);
+      }, (error) => {
+        this.authService.handleError(error.status)
+      })
+    } else {
+      this.err = true
+      setTimeout(() => {
+        this.err = false;
+      }, 15000); // 15000 milliseconds = 15 seconds
+    }
+  }
+
 }

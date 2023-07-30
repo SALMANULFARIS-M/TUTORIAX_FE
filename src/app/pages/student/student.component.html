@@ -197,23 +197,27 @@
           Useful links
         </h6>
         <p class="mb-4">
-          <a href="#!" class="text-neutral-600 dark:text-neutral-200">
+          <a routerLink="/" class="text-neutral-600 dark:text-neutral-200">
             <i class="bi bi-arrow-right-short"></i>HOME</a
           >
         </p>
         <p class="mb-4">
-          <a href="#!" class="text-neutral-600 dark:text-neutral-200"
+          <a
+            routerLink="/courses"
+            class="text-neutral-600 dark:text-neutral-200"
             ><i class="bi bi-arrow-right-short"></i>COURSES</a
           >
         </p>
         <p class="mb-4">
-          <a href="#!" class="text-neutral-600 dark:text-neutral-200"
+          <a
+            routerLink="/instructor"
+            class="text-neutral-600 dark:text-neutral-200"
             ><i class="bi bi-arrow-right-short"></i>INSTRUCTORS</a
           >
         </p>
         <p>
-          <a href="#!" class="text-neutral-600 dark:text-neutral-200"
-            ><i class="bi bi-arrow-right-short"></i>ABOUT</a
+          <a routerLink="/chat" class="text-neutral-600 dark:text-neutral-200"
+            ><i class="bi bi-arrow-right-short"></i>Chat</a
           >
         </p>
       </div>
@@ -261,17 +265,30 @@
         <h4 class="mb-3 text-cyan-300">Newsletter</h4>
         <p>Stay alert for new course.</p>
         <div class="relative mx-auto mt-2" style="max-width: 400px">
-          <input
-            class="form-control border-0 w-full py-3 px-4"
-            type="text"
-            placeholder="Your email"
-          />
-          <button
-            type="button"
-            class="py-2 absolute top-0 right-0 my-2 mr-2 inline-block rounded-full bg-warning px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#e4a11b] transition duration-150 ease-in-out hover:bg-warning-600 hover:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] focus:bg-warning-600 focus:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] focus:outline-none focus:ring-0 active:bg-warning-700 active:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(228,161,27,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)]"
-          >
-            Send
-          </button>
+          <form (ngSubmit)="newsletter()">
+            <input
+              class="form-control border-0 w-full py-3 px-4"
+              type="text"
+              name="mail"
+              [(ngModel)]="mail"
+              placeholder="Your email"
+              [ngClass]="{
+                'form-control is-invalid': err&&submit
+              }"
+            />
+            <div *ngIf="submit && err" class="invalid-feedback">
+              <div>Enter a valid E-mail</div>
+            </div>
+            <div *ngIf="submit && success" class="valid-feedback">
+              <div>Email is submitted successfully</div>
+            </div>
+            <button
+              type="submit"
+              class="py-2 absolute top-0 right-0 my-2 mr-2 inline-block rounded-full bg-warning px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#e4a11b] transition duration-150 ease-in-out hover:bg-warning-600 hover:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] focus:bg-warning-600 focus:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] focus:outline-none focus:ring-0 active:bg-warning-700 active:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.3),0_4px_18px_0_rgba(228,161,27,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(228,161,27,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(228,161,27,0.2),0_4px_18px_0_rgba(228,161,27,0.1)]"
+            >
+              Send
+            </button>
+          </form>
         </div>
       </div>
     </div>

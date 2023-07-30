@@ -11,6 +11,9 @@ interface chat {
   connection: string;
   to?: string
 }
+interface mail {
+  mail: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -85,5 +88,9 @@ export class StudentService {
   googleSignIN(data:googleLog): Observable<any> {
     return this.http.post('googlelog',data)
   }
+  newsLetter(mail:mail): Observable<any> {
+    return this.http.post('newsletter',mail)
+  }
+
 
 }
