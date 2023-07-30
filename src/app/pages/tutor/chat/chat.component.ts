@@ -115,7 +115,7 @@ export class ChatComponent implements OnInit {
       })
     }
   }
-  searchContacts() {
+    searchContacts() {
     // Filter the courses array based on the search query
     this.filteredContacts = this.contacts.filter((contact: any) => {
       // Convert both the course title and description to lowercase for case-insensitive search
