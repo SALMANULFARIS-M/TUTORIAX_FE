@@ -56,6 +56,8 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     const currentRoute = this.router.url;
     if (this.authService.isStudentLoggedIn()) {
+      const topNav = document.getElementById('top-nav') as HTMLElement;
+      topNav.classList.remove('hidden');
       this.router.navigate(['/'])
     }
     if (currentRoute == '/register' || currentRoute == '/login') {

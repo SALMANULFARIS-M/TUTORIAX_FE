@@ -92,5 +92,4 @@ export class StudentService {
     return this.http.post('newsletter',mail)
   }
 
-
 }
