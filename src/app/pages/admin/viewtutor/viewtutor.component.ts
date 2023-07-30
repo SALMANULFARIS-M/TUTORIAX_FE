@@ -27,7 +27,7 @@ export class ViewtutorComponent implements OnInit {
   }
 
 
-
+//aprove the teacher
   approve(id: string) {
     this.adminService.tutorApproval(id).subscribe((res) => {
       if (res.status) {

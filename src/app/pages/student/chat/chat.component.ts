@@ -61,6 +61,7 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  //fetch contacts
   fetchContacts() {
     const token = localStorage.getItem('studentjwt');
     this.studentService.getAllChats(token).subscribe((result: any) => {
@@ -72,6 +73,7 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  //  //fetching chat from according to contact
   fullChat(id: string, chat?: any) {
     this.viewerId = id;
     const data = {
@@ -95,12 +97,16 @@ export class ChatComponent implements OnInit {
       this.authService.handleError(error.status)
     });
   }
+
+  //Scroll to bottom of chat
   scrollToBottom() {
     const chatScroll = document!.getElementById!("chat-scroll") as HTMLElement;
     setTimeout(function () {
       chatScroll!.scrollTop = chatScroll!.scrollHeight;
     }, 100);
   }
+
+  //send a message to teacher
   sendMessage() {
     if (this.message) {
       const data = {
@@ -127,6 +133,8 @@ export class ChatComponent implements OnInit {
       })
     }
   }
+
+  //search contacts
   searchContacts() {
     // Filter the courses array based on the search query
     this.filteredContacts = this.contacts.filter((contact: any) => {

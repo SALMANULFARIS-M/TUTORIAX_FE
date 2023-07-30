@@ -24,6 +24,7 @@ export class TutorListComponent implements OnInit {
     });
   }
 
+  //chat connection creation or navigate to chat with data
   chat(id: string) {
     if (this.authService.isStudentLoggedIn()
     ) {
@@ -35,7 +36,7 @@ export class TutorListComponent implements OnInit {
       this.studentService.chatConnection(data).subscribe((result: any) => {
         if (result.status) {
           this.router.navigate(['/chat'], {
-            state:{
+            state: {
               data: result.newConnection
             }
           });
@@ -48,6 +49,7 @@ export class TutorListComponent implements OnInit {
     }
   }
 
+  //search  datas
   searchCourses() {
     // Filter the courses array based on the search query
     this.filteredCourses = this.tutors.filter((tutor: any) => {

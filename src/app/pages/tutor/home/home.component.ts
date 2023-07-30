@@ -14,8 +14,6 @@ export class HomeComponent implements OnInit {
   constructor(private adminService: AdminService, private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
     this.adminService.getAllstudents().subscribe((res) => {
-console.log(res.data,"dsdfs");
-
       this.students = res.data
     }, (error: any) => {
       this.authService.handleError(error.status)

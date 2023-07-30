@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
   }
 
 
-
+//Google singing
   handleresponse() {
     this.authService.GoogleAuth().then((res) => {
       const data = {

@@ -34,11 +34,14 @@ export class ContactsComponent implements OnInit {
     });
   }
 
+//calling  function from parent component
   fullChat(id: string, c: any) {
     this.viewed = true;
     this.count = 0;
     this.chatComponent.fullChat(id, c)
   }
+
+//when a new message sending the notification   work
   notification(newMessageReceived: any) {
     if (this.viewed == false) {
       if (this.c._id == newMessageReceived.connection_id._id) {

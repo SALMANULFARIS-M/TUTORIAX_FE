@@ -25,12 +25,15 @@ export class StudentCoursesComponent implements OnInit {
     });
   }
 
+  //course detail navigate
   goToDetails(courseId: string): void {
     this.router.navigate(['courses', courseId]);
   }
+
+  //search  datas
   searchCourses() {
     // Filter the courses array based on the search query
-    this.filteredCourses = this.courses.filter((course:any) => {
+    this.filteredCourses = this.courses.filter((course: any) => {
       // Convert both the course title and description to lowercase for case-insensitive search
       const title = course.title.toLowerCase();
       const description = course.description.toLowerCase();

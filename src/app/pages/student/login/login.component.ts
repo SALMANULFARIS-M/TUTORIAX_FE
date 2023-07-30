@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+//Google signing
   handleresponse() {
     this.authService.GoogleAuth().then((res) => {
       const data = {
@@ -191,6 +192,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+//submit according  to condition
   submitForm() {
     if (this.password) {
       this.savePassword();
@@ -199,7 +201,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
+//save password
   savePassword() {
     if (this.forgotPassword.valid) {
       this.isLoading = true;

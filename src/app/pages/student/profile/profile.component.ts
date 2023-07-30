@@ -63,16 +63,17 @@ export class ProfileComponent implements OnInit {
   studentForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    mobile: ['',  [Validators.required,Validators.pattern(mobilePattern)]],
+    mobile: ['', [Validators.required, Validators.pattern(mobilePattern)]],
     email: ['', [Validators.required, Validators.email]],
   });
 
   teacherForm = this.fb.group({
     fullName: ['', Validators.required],
-    mobile: ['', [Validators.required,Validators.pattern(mobilePattern)]],
+    mobile: ['', [Validators.required, Validators.pattern(mobilePattern)]],
     email: ['', [Validators.required, Validators.email]],
   });
 
+  //image editing
   onImageSelected(event: any) {
     this.isLoading = true;
     const file: File = event.target.files[0];
@@ -134,6 +135,7 @@ export class ProfileComponent implements OnInit {
     return this.teacherForm.controls;
   }
 
+  //student form submit according to conditon
   stdSubmit() {
     this.submit = true;
     if (this.studentForm.valid) {
@@ -152,6 +154,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  //teacher form submit according to conditon
   tchrSubmit() {
     this.submit = true;
     if (this.studentForm.valid) {

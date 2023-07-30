@@ -64,6 +64,8 @@ export class CoursesviewComponent implements OnInit {
       this.modal = false
     }
   }
+
+  //coupon apply
   apply(price: number) {
     const token = localStorage.getItem('studentjwt')
     if (this.coupon.length > 0) {
@@ -98,6 +100,7 @@ export class CoursesviewComponent implements OnInit {
     }
   }
 
+  //pay for course
   payNow(data: any) {
     if (this.authService.isStudentLoggedIn()) {
       const paymentHandler = (<any>window).StripeCheckout.configure({
@@ -192,9 +195,4 @@ export class CoursesviewComponent implements OnInit {
       })
     }
   }
-
-
-
-
-
 }

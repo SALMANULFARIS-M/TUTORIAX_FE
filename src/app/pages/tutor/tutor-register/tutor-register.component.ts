@@ -49,6 +49,8 @@ export class TutorRegisterComponent implements OnInit {
       this.router.navigate(['/tutor']);
     }
   }
+
+  //image inserting to firebase
   imageInput(event: Event) {
     const fileInput = event.target as HTMLInputElement;
     this.file = fileInput.files?.[0];
@@ -91,6 +93,7 @@ export class TutorRegisterComponent implements OnInit {
     }
   }
 
+  //otp box moving
   onKeyDown(event: KeyboardEvent, index: number) {
     if (event.key === 'Backspace' && !this.otp[index + 1] && index > 0) {
       event.preventDefault(); // Prevent the default Backspace behavior
@@ -215,6 +218,7 @@ export class TutorRegisterComponent implements OnInit {
     }
   }
 
+  //submit form
   onSubmit() {
     this.submit = true;
 
