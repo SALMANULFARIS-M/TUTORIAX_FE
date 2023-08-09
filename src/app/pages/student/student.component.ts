@@ -16,7 +16,6 @@ export class StudentComponent implements OnInit {
   err: boolean = false;
   success: boolean = false;
 
-
   activeClass: string = "text-cyan-400  hover:text-cyan-500 dark:hover:text-cyan-500";
   inactiveClass: string = "text-white  hover:text-cyan-500 dark:hover:text-cyan-500";
   constructor(private router: Router, private authService: AuthService, private studentService: StudentService) { }
@@ -31,7 +30,7 @@ export class StudentComponent implements OnInit {
       dropdownMenu.classList.toggle('hidden');
     });
     const currentRoute = this.router.url;
-    if (currentRoute == '/') {
+    if (currentRoute !== '/register' && currentRoute !== '/login') {
       const topNav = document.getElementById('top-nav') as HTMLElement;
       topNav.classList.remove('hidden');
     }
